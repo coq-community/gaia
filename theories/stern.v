@@ -156,10 +156,10 @@ Fixpoint pos_of_list l :=
 end.
 
 Definition num_of_list l :=
-  if l is a :: b then Npos (pos_of_list l) else 0%num.
+  if l is a :: b then Npos (pos_of_list l) else N0.
 
 Lemma list_of_posK: cancel list_of_pos pos_of_list.
-Proof. by elim => // p /= -> ;case: p. Qed. 
+Proof. by elim => // p /= -> ;case: p. Qed.
 
 Lemma list_of_numK: cancel list_of_num num_of_list.
 Proof. by case => // p /=; rewrite -{2} (list_of_posK p);case: p. Qed.
@@ -4982,8 +4982,3 @@ Abort.
 
 (* ----- *)
 End Stern.
-
-
-
-
-
