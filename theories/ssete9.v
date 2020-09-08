@@ -379,7 +379,7 @@ Qed.
 Canonical T1_eqMixin := EqMixin T1eqP.
 Canonical T1_eqType := Eval hnf in EqType T1 T1_eqMixin.
 
-Arguments T1eqP [x y].
+Arguments T1eqP {x y}.
 Prenex Implicits T1eqP.
 
 
@@ -454,7 +454,7 @@ Notation "x > y"  := (y < x) (only parsing)  : cantor_scope.
 Lemma T1lenn x: x <= x.   
 Proof. by rewrite /T1le eqxx. Qed.
 
-Hint Resolve T1lenn.
+Hint Resolve T1lenn : core.
 
 Lemma T1ltnn x: (x < x) = false.
 Proof. by elim:x => //= a -> n b ->; rewrite ltnn ! if_same. Qed.
@@ -2874,7 +2874,7 @@ Qed.
 Canonical T2_eqMixin := EqMixin T2eqP.
 Canonical T2_eqType := Eval hnf in EqType T2 T2_eqMixin.
 
-Arguments T2eqP [x y].
+Arguments T2eqP {x y}.
 Prenex Implicits T2eqP.
 
 Lemma T2eqE a b n d a' b' n' d':
@@ -3055,7 +3055,7 @@ Qed.
 Lemma T2lenn x: x <= x.   
 Proof. by rewrite /T2le eqxx. Qed.
 
-Hint Resolve T2lenn.
+Hint Resolve T2lenn : core.
 
 
 Lemma T2ge1 x:  (one <= x) = (x != zero).
@@ -4606,7 +4606,7 @@ Qed.
 Canonical T3_eqMixin := EqMixin T3eqP.
 Canonical T3_eqType := Eval hnf in EqType T3 T3_eqMixin.
 
-Arguments T3eqP [x y].
+Arguments T3eqP {x y}.
 Prenex Implicits T3eqP.
 
 Lemma T3eqE a b c n d a' b' c' n' d':
@@ -4877,7 +4877,7 @@ Qed.
 Lemma T3lenn x: x <= x.   
 Proof. by rewrite /T3le eqxx. Qed.
 
-Hint Resolve T3lenn.
+Hint Resolve T3lenn : core.
 
 Lemma T3leNgt a b:  (a <= b) = ~~ (b < a).
 Proof.

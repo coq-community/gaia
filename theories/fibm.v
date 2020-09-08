@@ -3083,12 +3083,12 @@ Lemma Zeckv_bound3 l n: uniq l -> (all (leq^~ n) l) ->
 Proof.
 move /sorted_gtn;set l' := (rev (sort leq l))  => sa /allP sb.
 have hc: perm_eq l l'.
-  rewrite /l' perm_eq_sym; apply:(@perm_eq_trans _  (sort leq l)).
+  rewrite /l' perm_sym; apply:(@perm_trans _  (sort leq l)).
     by elim:(sort leq l)=> // a s h; rewrite rev_cons perm_rcons perm_cons.
- by apply/perm_eqlP; apply: perm_sort.
-have ->: (Zeck_val l) = (Zeck_val l') by apply: eq_big_perm.
+ by apply/permPl; apply: perm_sort.
+have ->: (Zeck_val l) = (Zeck_val l') by apply: perm_big.
 have:(all (leq^~ n) l').
-  apply/allP => x; rewrite -(perm_eq_mem hc x); apply: sb.
+  apply/allP => x; rewrite -(perm_mem hc x); apply: sb.
 move: sa; case l'. 
   by move => _ _; rewrite Zeckv_nil  -[1]/(fib 2) //; apply:fib_smonotone_bis. 
 move => a s pa pb; apply: (leq_trans (Zeckv_bound0 pa)).
@@ -3370,12 +3370,12 @@ Proof. by move /Zeckp_prop00 => []. Qed.
 Lemma Zeckp_prop1 (l: seq nat): uniq l -> Zeckp (Zeck_val l) =  Zeck_valp l.
 Proof.
 move /sorted_gtn;set l' := (rev (sort leq l)).
-have hb:perm_eq (sort leq l) l by apply/perm_eqlP; apply: perm_sort.
+have hb:perm_eq (sort leq l) l by apply/permPl; apply: perm_sort.
 have ha: forall (l: seq nat), perm_eq (rev l) l.
   by elim => // a s h; rewrite rev_cons perm_rcons perm_cons.
-have hc: perm_eq l l' by rewrite perm_eq_sym;apply: (perm_eq_trans (ha _ ) hb).
-have ->: (Zeck_val l) = (Zeck_val l') by apply: eq_big_perm.
-have ->: (Zeck_valp l) = (Zeck_valp l') by apply: eq_big_perm.
+have hc: perm_eq l l' by rewrite perm_sym;apply: (perm_trans (ha _ ) hb).
+have ->: (Zeck_val l) = (Zeck_val l') by apply: perm_big.
+have ->: (Zeck_valp l) = (Zeck_valp l') by apply: perm_big.
 apply: Zeckp_prop0.
 Qed.
 
@@ -4211,7 +4211,7 @@ Proof.
 move => i j sv.
 set l:= iota 0 (i+j).+1.
 have Ha: forall k, k\in l ->  Zval_v l = Zval_v (k :: rem k l). 
-  by move => k H;  apply: eq_big_perm; apply:perm_to_rem.
+  by move => k H;  apply: perm_big; apply:perm_to_rem.
 have il: i \in l by  rewrite mem_iota /= ltnS leq_addr.
 have : Zval_v (i :: rem i l) = Zval_v (j :: rem j l).
   by rewrite - Ha // -  Ha // mem_iota /= ltnS  leq_addl.
@@ -4630,7 +4630,7 @@ Lemma seq_to_setoK B (l:  seq nat):
 Proof.
 move => ul /allP bl.
 rewrite /seq_to_seto/seto_to_seq.
-apply: uniq_perm_eq => //.
+apply: uniq_perm => //.
    rewrite map_inj_uniq; [ apply: enum_uniq | apply: ord_inj].
 move => x;  apply/mapP/idP.
   move=> [i]; rewrite mem_enum => /imsetP [j /mapP [k kl ->] ->] ->.
@@ -4669,7 +4669,7 @@ Proof.
 transitivity (\sum_(i <- (enum t)) (f i)).
   rewrite /seto_to_seq /Zeck_val;elim (enum t); first by rewrite ! big_nil. 
   by move => a l h; rewrite map_cons !big_cons h.
-rewrite -filter_index_enum big_filter_cond. 
+rewrite -filter_index_enum big_filter_cond.
 by apply: eq_big =>//x; rewrite andbT.
 Qed.
 
@@ -4685,7 +4685,7 @@ Lemma Zeck_val_cv2 l B (n := Zeck_val l): uniq l -> n <= B ->
    n =  Zeck_sval (seq_to_seto B l).
 Proof.
 move => sa sb.
-symmetry;rewrite - Zeck_val_cv1; apply: eq_big_perm; apply:(seq_to_setoK sa).
+symmetry;rewrite - Zeck_val_cv1; apply: perm_big; apply:(seq_to_setoK sa).
 apply /allP => i /Zeckv_bnd lin; rewrite ltnS; apply: (leq_trans lin sb).
 Qed.
 
@@ -4693,7 +4693,7 @@ Lemma Zeck_valp_cv2 l B (n := Zeck_valp l): uniq l -> n <= B ->
   n =  Zeck_svalp (seq_to_seto B l).
 Proof.
 move => sa sb.
-symmetry;rewrite - Zeck_valp_cv1; apply: eq_big_perm; apply:(seq_to_setoK sa).
+symmetry;rewrite - Zeck_valp_cv1; apply: perm_big; apply:(seq_to_setoK sa).
 apply /allP => i /Zeckvp_bnd lin; rewrite ltnS; apply: (leq_trans lin sb).
 Qed.
 
@@ -4726,7 +4726,7 @@ split.
   by rewrite - si => /imsetP [t ty /Ha ->]. 
 move => t F.
 rewrite - (Zeck_val_cv0 t) - (Zeck_val_cv0 (g t)).
-apply: eq_big_perm; apply: uniq_perm_eq.
+apply: perm_big; apply: uniq_perm.
 + rewrite map_inj_uniq; [ apply: enum_uniq | apply: ord_inj].
 + rewrite map_inj_uniq; [ apply: enum_uniq | apply: ord_inj].
 + rewrite /seto_to_seq => i; rewrite /g;apply /mapP/idP.
