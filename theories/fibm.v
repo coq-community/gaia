@@ -1512,7 +1512,7 @@ elim:n; first by rewrite !big_ord_recr  !big_ord0 /= //.
 move =>n [He Ho]; split.
   rewrite big_ord_recl muln0 add0n doubleS fibSS - Ho.
   have ->: fib n.*2 = \sum_(i < n.+1) 'C(n, i.+1) * fib i.+1.
-    rewrite -He big_ord_recl big_ord_recr muln0 add0n bin_small //.
+    by rewrite -He big_ord_recl big_ord_recr muln0 add0n bin_small //= addn0.
   by rewrite addnC -big_split; apply:eq_bigr=> i _ /=; rewrite - mulnDl/= binS.
 rewrite doubleS fibSS fibSS -Ho - He big_ord_recl bin0 muln1 /=.
 transitivity (\sum_(i < n.+1) 'C(n, i) * fib (bump 0 i).+1 
@@ -1522,7 +1522,6 @@ transitivity (\sum_(i < n.+1) 'C(n, i) * fib (bump 0 i).+1
 rewrite (big_ord_recr (n.+1)) bin_small //= addn0;congr addn.
 by rewrite -big_split; apply:eq_bigr=> i _ /=; rewrite - mulnDr/= fibSS.
 Qed.
-
 
 Lemma fib_lt_lucas n: n != 0 -> fib n <= lucas n ?= iff (n==1).
 Proof.
@@ -1602,7 +1601,7 @@ Proof.
 case:j; first by rewrite /= addn0 subn0 mul2n addnn.
 move => j;rewrite leq_eqVlt; case/orP => ljk.
   rewrite (eqP ljk) mulnC - fib_double_lucas addnn subnn fib0.
-  by case: odd => //; rewrite subn0. 
+  by case: odd => //; rewrite ?subn0 ?addn0.
 have hb: 0 < fib (k - j.+1) by rewrite fib_gt0 //subn_gt0.
 have ha:=(fib_sub (ltnW ljk)).
 rewrite mulnC lucas_fib // (addnC k) fib_add // mulnDr addnC.
@@ -1620,7 +1619,7 @@ Proof.
 case:j; first by rewrite leqn0 => /eqP ->.
 move => j;rewrite  leq_eqVlt; case/orP => ljk.
   rewrite (eqP ljk) mulnC - fib_double_lucas addnn subnn fib0.
-  by case:odd; rewrite ? subn0. 
+  by case: odd; rewrite ?subn0 ?addn0.
 have hb: 0 < fib (j.+1 - k) by rewrite fib_gt0 //subn_gt0.
 rewrite addnC fib_add // lucas_fib // mulnDl // addnC.
 move: (fib_sub (ltnW ljk))=> ha; rewrite ha /=;move: ha; case:odd => ha.
@@ -1651,7 +1650,7 @@ Lemma lucas_lucas2 p n: p <= n ->
     (if (odd p) then addn else subn) (lucas (n + p)) (lucas (n - p)).
 Proof.
 elim: p {-2} p (leqnn p) => [p|p IHp p0].
-  by rewrite leqn0; move/eqP=>-> /=; rewrite /= addn0 subn0 subnn.
+  by rewrite leqn0; move/eqP=>-> /=; rewrite /= addn0 subn0 subnn muln0.
 rewrite leq_eqVlt; case/orP=> [|Hn1]; last by apply: IHp; rewrite - ltnS.
 move /eqP => -> lnp.
 case wwa: (p == 0).
@@ -3447,7 +3446,7 @@ by move => n H; rewrite /= mkseq_succ  mkseq_succ !sum_rcons doubleS H.
 Qed.
 
 Lemma Zeckp_fib n: Zeckp (fib n.+2) = fib n.+1.
-Proof. by rewrite /Zeckp Zeck_fib /Zeck_valp big_cons big_nil. Qed.
+Proof. by rewrite /Zeckp Zeck_fib /Zeck_valp big_cons big_nil addn0. Qed.
 
 Lemma Zeck_fib1 n: Zeck (fib n.*2.+1).-1 = rev (mkseq double n).
 Proof.
@@ -5242,7 +5241,7 @@ Proof.
 move => h.
 have H1: Zeck_li n != 0. 
   by move: h; rewrite/ Zeck_li;case : (last n (Zeck n)).
-by rewrite (FR_prop0 H1) (Zeckp_prop3b H1) - (Zeckp_prop4b h) FA_prop0bis. 
+by rewrite (FR_prop0 H1) (Zeckp_prop3b H1) - (Zeckp_prop4b h) FA_prop0bis ?addn0.
 Qed.
 
 Lemma FR_prop4 m: llen 1 (Zeck_li m) ->FR (Zeckp m).+1 = FR (Zeckp (Zeckp m)).
@@ -5331,7 +5330,7 @@ Proof.
 move => sa sb; rewrite /s.
 move:(Zeck_zeck_val m) (Zeck_ggen m) sb; rewrite /Zeck_li.
 set l := (Zeck m) => qa qb; case => qc.
-  rewrite /l sa qc /= !Zeckp_0 Zeck_0  !Zeckp_fib !Zeck_fib Zeckv_nil.
+  rewrite /l sa qc /= !Zeckp_0 Zeck_0  !Zeckp_fib !Zeck_fib Zeckv_nil addn0.
   by split => // /prednK {1} <-; rewrite Zeck_fib.
 have lp0: 1 < last m l by apply: (leq_trans _ qc); rewrite !ltnS leq0n.
 move:(Zeck_li_prop2 (ltnW lp0)) => lp1.
@@ -5787,14 +5786,14 @@ Lemma FR_fib_sum4 i j : 5 <= j -> j.+2 <= i ->
   FR(fib i + fib j + 2) = (i-j+1)./2 + (j-4)./2 * (i-j+2)./2.
 Proof.
 move => ha hb; have hc:=(subnK (ltn_trans (leqnn 4) ha)).
-by rewrite (FR_fib_sum2 (leqnSn 2) ha hb) mul0n -subnDA.
+by rewrite (FR_fib_sum2 (leqnSn 2) ha hb) mul0n -subnDA addn0.
 Qed.
 
 Lemma FR_fib_sum5 i: FR(fib (i + 4) + 1) = (i.+3)./2.
-Proof. by rewrite (FR_fib_sum1 i (leqnn 2)). Qed.
+Proof. by rewrite (FR_fib_sum1 i (leqnn 2)) mul0n addn0. Qed.
 
 Lemma FR_fib_sum6 i: FR(fib (i + 5) + 2) = (i.+3)./2.
-Proof.  by rewrite (FR_fib_sum1 i (leqnSn 2)). Qed.
+Proof. by rewrite (FR_fib_sum1 i (leqnSn 2)) addn0. Qed.
 
 Lemma FR_fib_sum7 i: FR(fib (i + 6) + 3) = (i.+3)./2 + (i.+4)./2.
 Proof. by rewrite (FR_fib_sum1 i) //= mul1n. Qed.

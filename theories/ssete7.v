@@ -33,7 +33,7 @@ Proof.  by rewrite mulnC -mul_bin_diag bin1 mulnC. Qed.
 
 Lemma mul_Sm_binm_1 n p: n * 'C(n+p,p) = p.+1 * 'C(n+p,p.+1).
 Proof.
-case: n => [| n]; first by rewrite add0n mul0n bin_small//.
+case: n => [| n]; first by rewrite add0n mul0n bin_small // muln0.
 rewrite -binom_mn_n addSn -mul_bin_diag -mul_bin_diag binom_mn_n //.
 Qed.
 
@@ -257,7 +257,7 @@ Lemma stir1_S n m :  'So(n.+1, m.+1) = n * 'So(n, m.+1) + 'So(n, m).
   Proof.  done. Qed.
 
 Lemma stir1_Sn1 n :  'So(n.+1,1) = n `!.
-Proof. by elim:n => // n Hr; rewrite  stir1_S stir1_n0 Hr. Qed.
+Proof. by elim:n => // n Hr; rewrite stir1_S stir1_n0 Hr addn0. Qed.
 
 Lemma stir_Sn1 n :  'St(n.+1,1) = 1.
 Proof. by elim:n => // n Hr; rewrite stirS Hr  stirn0. Qed.
@@ -387,7 +387,7 @@ move:p; elim: n.
 move => n Hrec p.
 case (ltnP n.+1 p) => ltnp.
    move : (ltnp); rewrite - subn_eq0 => /eqP ->; rewrite nbsurjn0 big1 //.
-   move => [i lin] _; rewrite bin_small //; apply: (leq_trans  lin ltnp).
+   move => [i lin] _; rewrite bin_small ?muln0 //. apply: (leq_trans  lin ltnp).
 move: ltnp; case: p.
    move => _; rewrite subn0 nbsurj_nn - euler_sum; apply: eq_bigr.
     by move => i _; rewrite bin0 muln1.
@@ -415,7 +415,7 @@ Qed.
 (*  Worpitzky *)
 Lemma euler_sum_pow k n : k ^n.+1 = \sum_(i<n.+1) 'Eu(n.+1,i) * 'C(k+i,n.+1).
 Proof.
-elim:n; first by rewrite big_ord_recl big_ord0 mul1n // addn0 bin1 //.
+elim:n; first by rewrite big_ord_recl big_ord0 mul1n // addn0 bin1 // addn0.
 move => n Hrec.
 rewrite big_ord_recl // addn0 eulern0 mul1n.
 transitivity (\sum_(i < n.+2) i.+1 * 'Eu(n.+1, i) * 'C(k + i, n.+2)
@@ -436,7 +436,7 @@ Lemma sum_pow_euler n k:
 Proof.
 move: k; elim :n. 
    move => k;rewrite big_ord0 big1 // => [] [i lin] _ /=. 
-   by rewrite bin_small // add0n leqW //.
+   by rewrite bin_small ?muln0 // add0n leqW //.
 move => n IHn k; rewrite big_ord_recr /= IHn euler_sum_pow - big_split /=.
 by apply: eq_bigr => i _; rewrite - mulnDr (addSn n) binS.
 Qed.
@@ -799,21 +799,21 @@ Definition br m p := \sum_(k<m.+1) 'C(m,k) * 'St(k,p).
 Lemma foo1 n: br n n = 'St(n.+1,n.+1).
 Proof.
 rewrite /br big_ord_recr /= binn 2!stir_nn big1 // => i _.
-by rewrite stir_small1.
+by rewrite stir_small1 ?muln0.
 Qed.
 
 
 Lemma foo2 n: br n.+1 n = 'St(n.+2,n.+1).
 Proof.
 rewrite /br 2!big_ord_recr /= binn mul1n  big1; last first. 
-   by move => i _; rewrite stir_small1.
+   by move => i _; rewrite stir_small1 ?muln0.
 by rewrite add0n stirS binSn 2!stir_nn.
 Qed.
 
 Lemma foo3 n: br n.+2 n = 'St(n.+3,n.+1).
 Proof.
 rewrite /br 3!big_ord_recr /= binn mul1n  big1; last first. 
-   by move => i ; rewrite stir_small1.
+   by move => i ; rewrite stir_small1 ?muln0.
 rewrite add0n stirS binS binn mulnDl mul1n -addnA binSn stir_nn muln1.
 rewrite addnA addnA stir_Snn (_: 'C(n.+2, n) + 'C(n.+1, 2) = n.+1 *n.+1).
   rewrite - mulnDr stirS stir_nn muln1 stir_Snn //.
@@ -838,7 +838,8 @@ Lemma sum_nbsurj n k:  \sum_(i<k.+1) 'Sj(k,i) * 'C(n,i) = n ^k.
 Proof.
 move:n; elim:k; first by move => n; rewrite big_ord_recr big_ord0 nbsurj00 bin0.
 move => k Hrec n; case:n.
-  by rewrite expnS mul0n big1 // =>  [] [i _] _ /=; case i.
+  rewrite expnS mul0n big1 //= => [] [i _] _ /=; case i => //.
+  by move => n; have ->: 'C(0, n.+1) = 0 by []; rewrite muln0.
 move => n; rewrite expnS - Hrec big_ord_recl  nbsurjn0 mul0n add0n.
 transitivity (n.+1 * \sum_(i < k.+1) (('Sj(k, i) + 'Sj(k, i.+1)) * 'C(n, i))).
   rewrite big_distrr; apply: eq_bigr; move => [i lik] _ //=.
@@ -859,7 +860,9 @@ Qed.
 
 Lemma sum_pow n k:  \sum_(i<n) i ^k =  \sum_(i<k.+1) 'Sj(k,i) * 'C(n,i.+1).
 Proof.
-elim:n => [| n Hrec]; first by rewrite big_ord0 big1 //.
+elim:n => [| n Hrec].
+  rewrite big_ord0 big1 //; case => i Hi _.
+  by have ->: 'C(0,i.+1) = 0 by []; rewrite muln0.
 rewrite big_ord_recr /= - sum_nbsurj Hrec - big_split //. 
 by apply: eq_bigr =>i _ /=;  rewrite  - mulnDr.
 Qed.
@@ -1350,7 +1353,7 @@ rewrite [X in _ = X] (_: _ = \sum_(i < n.*2.-1 | ~~ odd i) 'C(n, i)).
   have -> : (m.+2).*2.-1 = m.+3 + ( (m.+2).*2.-1 - m.+3).
     symmetry;apply: subnKC; rewrite 2! doubleS -pred_Sn 3! ltnS.
     rewrite -addnn; apply : leq_addr.
-  rewrite big_split_ord /=  [in X in _ = _ + X] big1 //.
+  rewrite big_split_ord /=  [in X in _ = _ + X] big1 ?addn0 //.
   move => i _; rewrite bin_small ? if_same //.
   by rewrite 3!addSn 3! ltnS leq_addr.
 transitivity (\sum_(i < n.*2 | odd i) 'C(n, i)).
@@ -1358,7 +1361,7 @@ transitivity (\sum_(i < n.*2 | odd i) 'C(n, i)).
   move: np; case :n => // m _.
   have -> : (m.+1).*2 = m.+2 + ( (m.+1).*2 - m.+2).
     symmetry;apply: subnKC; rewrite doubleS !ltnS -addnn; apply : leq_addr.
-  rewrite big_split_ord /= [in X in _ = _ + X] big1 //.
+  rewrite big_split_ord /= [in X in _ = _ + X] big1 ?addn0 //.
   move => i _; rewrite  bin_small ? if_same //.
   by rewrite addnC  ! addnS ! ltnS;  apply : leq_addl.
 transitivity (\sum_(i<n) ('C(n, i.*2.+1))).
@@ -1964,7 +1967,7 @@ Definition DP_Fcount (l:seq bool) := count_mem false l.
 Definition DP_balanced l :=  (DP_Tcount l == DP_Fcount l).
 
 Lemma DP_count l: DP_Tcount l + DP_Fcount l = size l.
-Proof. by elim:l => // a l /= <-; case:a. Qed.
+Proof. by elim:l => // a l /= <-; case:a; rewrite add1n //= add0n addnS. Qed.
 
 Lemma DP_count' m n l: size l = m + n ->
    (DP_Tcount l == m) = (DP_Fcount l == n).
@@ -2095,7 +2098,7 @@ Qed.
 
 Lemma set_to_listK m  (X: {set 'I_m}) :  (list_to_set m (char_seq X)) = X.
 Proof.
-by apply/setP => i; rewrite inE char_seq_prop (val_inj (Ordinal (ltn_ord i)) i).
+by apply/setP => i; rewrite inE char_seq_prop (@val_inj _ _ _ (Ordinal (ltn_ord i)) i).
 Qed.
 
 Lemma set_to_list_cardinal m (X: {set 'I_m}) :
@@ -3376,8 +3379,8 @@ rewrite big_ord_recl /= bin0 nder0 mul1n (bigID (fun i : 'I_n.+1 => odd i)) /=.
 have ->: \sum_(i < n.+1 | odd i) 'C(n.+1, bump 0 i) * nder (bump 0 i) =
   \sum_(i < n.+1 | odd i) 'C(n.+1,i.+1) +
   \sum_(i < n.+1 | odd i) 'C(n.+1,i.+1) * ((i.+1) *(nder i)).
-   rewrite addnC -big_split /=.
-  by apply:eq_big=> //[[i lin]] /= oi; rewrite nderS' oi.
+  rewrite addnC -big_split /=.
+  by apply:eq_big=> //[[i lin]] /= oi; rewrite nderS' oi /bump add1n addnC mulnS.
 rewrite 2! addnA.
 have <-:  2^n = 1 + \sum_(i < n.+1 | odd i) 'C(n.+1, i.+1).
   rewrite - (F25 np) big_mkcond big_ord_recl /= bin0 // -big_mkcond; congr addn.
@@ -3479,7 +3482,6 @@ move /eqP; case; rewrite - ffunP;  move => t; rewrite /f0 ffunE.
 by apply: val_inj; case: (g t); case. 
 Qed.
 
-
 Lemma G3_e (m n: nat): #|[set f:Ftype m.+1 n  | monomial_eq  f ]| 
   =  #|[set f:Ftype m n  | monomial_le f ]|.
 Proof.
@@ -3491,7 +3493,9 @@ have restr_pr1: forall f: T,  monomial_eq f ->
   rewrite -{1}le1 big_ord_recr /restr; congr( _ + _) =>//=.
   by apply: congr_big => // i _ /=; rewrite  ffunE.
 have restr_pr2: forall f: T,  monomial_eq f -> monomial_le (restr f).
-  move => f feq; rewrite /monomial_le {3} (restr_pr1 _ feq); apply: leq_addr.
+  move => f feq; rewrite /monomial_le; move: (restr_pr1 _ feq).
+  move: (\sum_(i < m) restr f i) => n0 Hn.
+  by rewrite Hn; apply: leq_addr.
 have restr_inj: {in [pred f | (monomial_eq f)] &, injective restr}. 
   move => f1 f2.
   rewrite !inE  => meq1 meq2 sr;rewrite - ffunP =>  i.
@@ -3508,7 +3512,8 @@ apply:eq_card => f; rewrite in_set in_set; apply /imsetP.
 case: ifP => lef; last first.
    by move=> [x]; rewrite inE  => meq fr; move:lef; rewrite fr restr_pr2.
 move: (leq_subr (\sum_(i < m) f i)  n); rewrite -ltnS => le2.
-pose g := [ffun i:'I_(m.+1) => if (unlift ord_max i)  is Some j then f j 
+pose g : {ffun ordinal_finType m.+1 -> ordinal_finType n.+1} :=
+  [ffun i:'I_(m.+1) => if (unlift ord_max i)  is Some j then f j
     else (Ordinal le2)].
 have gi : forall i: 'I_m, g (widen_ord (leqnSn m) i) = f i.
   move => i; rewrite /g ffunE. 

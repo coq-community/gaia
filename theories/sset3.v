@@ -1010,7 +1010,6 @@ move => h; move:(set2_equipotent_aux h); set g := Lf _ _ _.
 move =>[gp _ _]. apply: (equipotent_bp gp).
 Qed.
 
-Proof.
 (** We have a partition of a set by selecting a subset and its complement *)
 
 Definition partition_with_complement x j := 

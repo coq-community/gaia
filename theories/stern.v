@@ -22,6 +22,7 @@ Unset Printing Implicit Defensive.
 
 Import BinPos.
 Import GRing.Theory Num.Theory.
+Import PrimeDecompAux.
 
 (*
 Warning: Overwriting previous delimiting key num in scope N_scope
@@ -373,12 +374,10 @@ suff H: forall m, odd m -> log2 m <= log2 (base2rev m).
   by rewrite (base2rev_oddI on) =>sa sb; apply /eqP; rewrite eqn_leq sa sb.
 move => m on; rewrite (oddE on) base2r_odd log2_Sdouble.
 by case:m./2 => // m1; rewrite - log2_pow; apply:leqn_log; apply leq_addr.
-Qed. 
-
+Qed.
 
 Definition natnat_to_nat1 em := (2 ^ (em.1) * (em.2).*2.+1).-1.
 Definition natnat_to_nat1_inv n := elogn2 0 n n.
-
 
 Lemma natnat_to_nat1_bij: bijective natnat_to_nat1.
 Proof.                         
@@ -544,7 +543,7 @@ Lemma nn_to_n_merge_ext l1 l2 k1 k2
 Proof.
 have Ha l: nn_to_n_merge l [::] = nn_to_n_merge1 l by case:l.
 have Hb a: delta 0 a = a by rewrite /delta sub0n subn0. 
-have Hc a: delta a 0 = a by rewrite /delta sub0n subn0. 
+have Hc a: delta a 0 = a by rewrite /delta sub0n subn0 addn0.
 have Hd a b: delta a (a+b) = b.
   rewrite /delta addKn.
   by move: (leq_addr b a); rewrite - subn_eq0 => /eqP -> //.
@@ -3068,7 +3067,7 @@ Lemma fuscj_0 m:  Fuscj 0 m = fusc m.
 Proof. by rewrite /Fuscj fusci_0. Qed.
 
 Lemma fuscj_val n: Fuscj n 0 = fusc n.
-Proof. by rewrite /Fuscj/Fusci mul0n mul1n //. Qed.
+Proof. by rewrite /Fuscj/Fusci mul0n mul1n // addn0. Qed.
 
 Lemma fuscj_even n m: Fuscj (n.*2) m = Fuscj n (m.*2).
 Proof. by rewrite /Fuscj fusci_even fusc_even fusc_odd addnC. Qed.
@@ -4007,10 +4006,10 @@ Definition fuscN2 p := if p is (Npos p) then (fuscP2 p) else (0,1).
 Lemma fuscN2_prop n:
   fuscN2 (bin_of_nat n) = (fusc n, fusc n.+1).
 Proof.
-case: n => [// | n]; rewrite - {2 3}(bin_of_natK n.+1) - nat_of_succ_gt0 /=.
+case: n => [// | n]; rewrite - {2 3}(bin_of_natK n.+1) - nat_of_succ_pos /=.
 elim: (pos_of_nat _ _).
-+ by move => p /= ->; rewrite /= !natTrecE fusc_even fusc_odd nat_of_succ_gt0.
-+ by move => p /= ->; rewrite /= !natTrecE fusc_even fusc_odd nat_of_succ_gt0.
++ by move => p /= ->; rewrite /= !natTrecE fusc_even fusc_odd nat_of_succ_pos.
++ by move => p /= ->; rewrite /= !natTrecE fusc_even fusc_odd nat_of_succ_pos.
 + done.
 Qed.
 
