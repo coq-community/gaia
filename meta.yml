@@ -1,0 +1,95 @@
+---
+fullname: Gaia
+shortname: gaia
+organization: palmskog
+community: false
+dune: true
+action: true
+
+synopsis: Implementation of books from Bourbaki's Elements of Mathematics in Coq
+
+description: |-
+  Implementation of books from N. Bourbaki's Elements of Mathematics
+  in Coq using the Mathematical Components library, including set theory
+  and number theory.
+
+publications:
+- pub_url: https://jfr.unibo.it/article/view/1899
+  pub_title: "Implementation of Bourbaki's Elements of Mathematics in Coq: Part One, Theory of Sets"
+  pub_doi: 10.6092/issn.1972-5787/1899
+- pub_url: https://jfr.unibo.it/article/view/4771
+  pub_title: "Implementation of Bourbaki's Elements of Mathematics in Coq: Part Two, From Natural Numbers to Real Numbers"
+  pub_doi: 10.6092/issn.1972-5787/4771
+- pub_url: https://hal.inria.fr/inria-00408143
+  pub_title: "Implementation of Bourbaki's Elements of Mathematics in Coq: Part One, Theory of Sets"
+- pub_url: https://hal.inria.fr/inria-00440786
+  pub_title: "Implementation of Bourbaki's Elements of Mathematics in Coq: Part Two; Ordered Sets, Cardinals, Integers"
+- pub_url: https://hal.inria.fr/hal-01412037
+  pub_title: "Implementation of Bourbaki's Elements of Mathematics in Coq: Part Three Structures"
+- pub_url: https://hal.inria.fr/hal-01093589
+  pub_title: "Fibonacci numbers and the Stern-Brocot tree in Coq"
+- pub_url: https://hal.inria.fr/hal-00911710
+  pub_title: "Implementation of three types of ordinals in Coq"
+
+authors:
+- name: José Grimm
+- name: Alban Quadrat
+- name: Carlos Simpson
+
+opam-file-maintainer: palmskog@gmail.com
+
+opam-file-version: dev
+
+license:
+  fullname: MIT License
+  identifier: MIT
+
+supported_coq_versions:
+  text: '8.10 or later'
+  opam: '{>= "8.10" & < "8.13~"}'
+
+dependencies:
+- opam:
+    name: coq-mathcomp-ssreflect
+    version: '{>= "1.11.0" & < "1.12~"}'
+  description: |-
+    [MathComp ssreflect 1.11.0](https://math-comp.github.io)
+- opam:
+    name: coq-mathcomp-algebra
+  description: |-
+    [MathComp algebra](https://math-comp.github.io)
+
+tested_coq_opam_versions:
+- version: '1.11.0-coq-8.12'
+  repo: 'mathcomp/mathcomp'
+- version: '1.11.0-coq-8.11'
+  repo: 'mathcomp/mathcomp'
+- version: '1.11.0-coq-8.10'
+  repo: 'mathcomp/mathcomp'
+
+namespace: gaia
+
+keywords:
+- name: Bourbaki
+- name: set theory
+
+categories:
+- name: Mathematics/Logic/Set theory
+
+build: |-
+  ## Building instructions
+  
+  ``` shell
+  git clone https://github.com/palmskog/gaia
+  cd gaia
+  make   # or make -j <number-of-cores-on-your-machine>
+  ```
+
+documentation: |-
+  ## Documentation
+
+  Gaia stands for: Geometry, Algebra, Informatics and Applications.
+  More information about the project is available at the [project website][gaia-url].
+
+  [gaia-url]: http://www-sop.inria.fr/marelle/gaia/
+---
