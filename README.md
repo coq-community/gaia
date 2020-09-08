@@ -21,7 +21,7 @@ and number theory.
 - License: [MIT License](LICENSE)
 - Compatible Coq versions: 8.10 or later
 - Additional dependencies:
-  - [MathComp ssreflect 1.11.0](https://math-comp.github.io)
+  - [MathComp ssreflect 1.11.0 or later](https://math-comp.github.io)
   - [MathComp algebra](https://math-comp.github.io)
 - Coq namespace: `gaia`
 - Related publication(s):
