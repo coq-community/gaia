@@ -3071,7 +3071,7 @@ Inductive chain:Type :=
   chain_pair: Set -> Set -> chain
  | chain_next: Set -> chain -> chain. 
 
-Fixpoint chain_head x :=
+Definition chain_head x :=
   match x with chain_pair u _ => u | chain_next u _ => u end.
  
 Fixpoint chain_tail x :=
@@ -3103,7 +3103,7 @@ Lemma head_reconc x y:chain_head (reconc_chain x y) = chain_tail x.
 Proof. move: x y; elim=> [a b y | a c r] // y; by rewrite r. Qed.
 
 
-Fixpoint chain_reverse x:=
+Definition chain_reverse x:=
   match x with chain_pair u v => chain_pair v u
     | chain_next u v =>
       match v with chain_pair u' v' => chain_next v' (chain_pair u' u)

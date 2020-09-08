@@ -1854,7 +1854,7 @@ Fixpoint Mi i j:=
 
 
 
-Fixpoint Ni k n := ('C(n+k,n) * (n-k+1)) %/ (n+1).
+Definition Ni k n := ('C(n+k,n) * (n-k+1)) %/ (n+1).
 
 Lemma aa: Mi  3 1 = 9. done. Qed.
 
@@ -2105,9 +2105,9 @@ Lemma set_to_list_cardinal m (X: {set 'I_m}) :
   #|X| = DP_Tcount (char_seq X).
 Proof.
 rewrite /DP_Tcount/char_seq -sum1_count big_mkcond big_map -big_mkcond.
-rewrite -filter_index_enum big_filter_cond // -sum1_card.
+rewrite -sum1_card -big_enum big_filter big_filter_cond.
 by apply: eq_big => // i /=; case: (i \in X).
-Qed. 
+Qed.
 
 Lemma list_to_set_inj n: injective (fun s: n.-tuple bool => list_to_set n s).
 Proof.

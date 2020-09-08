@@ -388,7 +388,7 @@ Lemma T1eqE a n b a' n' b':
 Proof. by []. Qed.
 
 
-
+Declare Scope cantor_scope.
 Delimit Scope cantor_scope with ca.
 Open Scope cantor_scope.
 
@@ -2849,6 +2849,7 @@ Inductive T2 : Set :=
   zero : T2
 | cons : T2 -> T2  -> nat -> T2 -> T2.
 
+Declare Scope g0_scope.
 Delimit Scope g0_scope with g0.
 Open Scope g0_scope.
 
@@ -4577,6 +4578,7 @@ End Gamma0.
 (* Like T1 and T2 above, with one more argument *)
 
 Module Ackermann.
+Declare Scope ak_scope.
 Delimit Scope ak_scope with ak.
 Open Scope ak_scope.
 

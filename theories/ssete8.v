@@ -167,7 +167,7 @@ rewrite big_nat_rev /= big_mkord; apply: eq_bigr; move => [i] /=.
 rewrite ltnS => lin _.
 rewrite add0n  subnS subSKn bin_sub // subKn // mulrnAr mulrA.
 congr (_ * _  *+ _).
-by rewrite -(signr_odd _ (n-i)) -exprD (odd_sub lin) - odd_add signr_odd.
+by rewrite -(signr_odd _ (n-i)) -exprD (oddB lin) - oddD signr_odd.
 Qed.
 
 

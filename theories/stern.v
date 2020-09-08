@@ -6,7 +6,7 @@
 
 
 Set Warnings "-notation-overridden".
-From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat seq choice fintype.
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat seq choice fintype order.
 From mathcomp  Require Import bigop ssralg div ssrnum ssrint rat prime path binomial.
 From mathcomp  Require Import tuple finset.
 Set Warnings "notation-overridden".
@@ -769,7 +769,7 @@ Qed.
 
 Lemma divzMDl q m d : d != 0 -> ((q * d + m) %/ d)%Z = q + (m %/ d)%Z.
 Proof.
-rewrite neqr_lt -oppr_gt0 => nz_d.
+rewrite Order.TotalTheory.neq_lt -oppr_gt0 => nz_d.
 wlog{nz_d} d_gt0: q d / d > 0; last case: d => // d in d_gt0 *.
   move=> IH; case/orP: nz_d => /IH// /(_  (- q)).
   by rewrite mulrNN !divzN -opprD => /oppr_inj.
@@ -818,8 +818,8 @@ Lemma divzMpl p m d : p > 0 -> (p * m %/ (p * d) = m %/ d)%Z.
 Proof.
 case: p => // p p_gt0; wlog d_gt0: d / d > 0; last case: d => // d in d_gt0 *.
   by move=> IH; case/intP: d => [|d|d]; rewrite ?mulr0 ?divz0 ?mulrN ?divzN ?IH.
-rewrite {1}(divz_eq m d) mulrDr mulrCA divzMDl ?mulf_neq0 ?gtr_eqF // addrC.
-rewrite divz_small ?add0r // PoszM pmulr_rge0 ?modz_ge0 ?gtr_eqF //=.
+rewrite {1}(divz_eq m d) mulrDr mulrCA divzMDl ?mulf_neq0 ?Order.POrderTheory.gt_eqF // addrC.
+rewrite divz_small ?add0r // PoszM pmulr_rge0 ?modz_ge0 ?Order.POrderTheory.gt_eqF //=.
 by rewrite ltr_pmul2l ?ltz_pmod.
 Qed.
 
@@ -843,19 +843,20 @@ Qed.
  
 Lemma ltz_ceil m d : d > 0 -> m < ((m %/ d)%Z + 1) * d.
 Proof.
-by case: d => // d d_gt0; rewrite mulrDl mul1r -ltr_subl_addl ltz_mod ?gtr_eqF.
+by case: d => // d d_gt0; rewrite mulrDl mul1r -ltr_subl_addl ltz_mod ?Order.POrderTheory.gt_eqF.
 Qed.
 
 Lemma ltz_divLR m n d : d > 0 -> ((m %/ d)%Z < n) = (m < n * d).
 Proof.
 move=> d_gt0; apply/idP/idP.
-  by rewrite -lez_addr1 -(ler_pmul2r d_gt0); apply: ltr_le_trans (ltz_ceil _ _).
-rewrite -(ltr_pmul2r d_gt0 _ n) //; apply: ler_lt_trans (lez_floor _ _).
-by rewrite gtr_eqF.
+  rewrite -(lez_addr1 _ n) -(ler_pmul2r d_gt0).
+  exact: (Order.POrderTheory.lt_le_trans (ltz_ceil _ _)).
+rewrite -(ltr_pmul2r d_gt0 _ n) //; apply: Order.POrderTheory.le_lt_trans (lez_floor _ _).
+by rewrite Order.POrderTheory.gt_eqF.
 Qed.
 
 Lemma lez_divRL m n d : d > 0 -> (m <= (n %/ d)%Z) = (m * d <= n).
-Proof. by move=> d_gt0; rewrite !lerNgt ltz_divLR. Qed.
+Proof. by move=> d_gt0; rewrite !Order.TotalTheory.leNgt ltz_divLR. Qed.
 
 
 Lemma divz_ge0 m d : d > 0 -> ((m %/ d)%Z >= 0) = (m >= 0).
@@ -866,9 +867,9 @@ Proof.
 case: n => // [[|n]] _; first by rewrite mul0r !divz0 div0z.
 wlog p_gt0: p / p > 0; last case: p => // p in p_gt0 *.
   by case/intP: p => [|p|p] IH; rewrite ?mulr0 ?divz0 ?mulrN ?divzN // IH.
-rewrite {2}(divz_eq m (n.+1%:Z * p)) mulrA mulrAC !divzMDl // ?gtr_eqF //.
+rewrite {2}(divz_eq m (n.+1%:Z * p)) mulrA mulrAC !divzMDl // ?Order.POrderTheory.gt_eqF //.
 rewrite [rhs in _ + rhs]divz_small ?addr0 // ltz_divLR // divz_ge0 //.
-by rewrite mulrC ltz_pmod ?modz_ge0 ?gtr_eqF ?pmulr_lgt0.
+by rewrite mulrC ltz_pmod ?modz_ge0 ?Order.POrderTheory.gt_eqF ?pmulr_lgt0.
 Qed.
 
 Lemma modz_small m d : 0 <= m < d -> (m %% d)%Z = m.
@@ -904,14 +905,14 @@ Qed.
 Lemma floorp2 x (y: int): y%:Q <= x < y%:Q +1 ->  y = floorq x.
 Proof.
 move: (floorp1 x) => /andP [sa sb] /andP [sc sd].
-apply/eqP;  rewrite eqr_le - !ltz_addr1 -! (ltr_int rat_numDomainType).
-by rewrite - !succq (ler_lt_trans sc sb) (ler_lt_trans sa sd).
+apply/eqP;  rewrite Order.POrderTheory.eq_le - !ltz_addr1 -! (ltr_int rat_numDomainType).
+by rewrite - !succq (Order.POrderTheory.le_lt_trans sc sb) (Order.POrderTheory.le_lt_trans sa sd).
 Qed.
 
 Lemma floor_ge0 x: 0 <= x -> 0 <= floorq x.
 Proof.
 move /andP:(floorp1 x) => [la lb] lc. 
-by move: (ler_lt_trans lc lb); rewrite  succq ltr0z ltz_addr1.
+by move: (Order.POrderTheory.le_lt_trans lc lb); rewrite  succq ltr0z ltz_addr1.
 Qed.
 
 Lemma floor_small x: 0 <= x < 1 -> floorq x = 0.
@@ -1034,8 +1035,9 @@ move => la lb; move: (ler_lt_add la lb); rewrite addr0 => lab.
 have labq:  0 < (a + b)%:Q by rewrite ltr0z.
 have dnz: (a + b)%:Q != 0 by move: labq; rewrite lt0r => /andP [].
 have ha: 0 <= a%:Q / (a + b)%:Q < 1.
-  rewrite divr_ge0 ?ler0z // ? (ltrW  lab)//= ltr_pdivr_mulr //.
-  by rewrite mul1r  ltr_int - {1} (addr0  a) ltr_add2l.
+  rewrite divr_ge0 ?ler0z ? (ltrW lab)//= ?ltr_pdivr_mulr //.
+    by rewrite mul1r ltr_int - {1} (addr0  a) ltr_add2l.
+  by move: lab; rewrite lt0r; move/andP => [la1 la2].
 rewrite Sn_small - intrD // -(invf_div b%:~R) subf_div1 //.
 by rewrite - rmorphB /= {1} (addrC a) - addrA subrr addr0.
 Qed.
@@ -1081,7 +1083,7 @@ Lemma SCF_pos2 a L : all (fun z => 0 < z) L ->  a <= SCF (a::L).
 Proof.
 rewrite /SCF - {1}(addr0 a) ler_add2l.
 case lz: (L== nil) => h; first by rewrite (eqP lz).
-rewrite ltrW ?  SCF_pos1 ? lz //=.
+by rewrite Order.POrderTheory.ltW ?  SCF_pos1 ? lz //=.
 Qed.
 
 Lemma SCF_rec a l : SCF (a :: l) = a + 1 / SCF l.
@@ -1226,7 +1228,7 @@ Lemma all_rat_in_P_pos l: all rat_in_P l -> all (> 0) l.
 Proof.  
 move => aa.
 apply/allP => i /(allP aa) / rat_in_P_ge1 h.
-exact: (ltr_le_trans ltr01 h).
+exact: (Order.POrderTheory.lt_le_trans ltr01 h).
 Qed.
 
 Lemma CF_bound a l: good_for_cf a l -> floorq a = floorq (SCF (a::l)).
@@ -1235,11 +1237,11 @@ move => /and3P [ha hb hc].
 have ap:= (all_rat_in_P_pos hb).
 apply: floorp2;rewrite -(eqP ha)(SCF_pos2 _ ap) /= ltr_add2l.
 move: hb hc ap; case:l => // c l hb hc /= /andP[_ ap]. 
-suff ww: 1 < c + SCF' l by rewrite /= div1r invf_lt1 // (ltr_trans ltr01 ww).
+suff ww: 1 < c + SCF' l by rewrite /= div1r invf_lt1 // (Order.POrderTheory.lt_trans ltr01 ww).
 move: hb => /= /andP [/rat_in_P_ge1 cp hb].
 case lz: (l== [::]).  
   move:hc lz cp; clear;case: l => //= ca _ cb. 
-  by rewrite addr0 ltr_neqAle eq_sym ca cb.
+  by rewrite addr0 Order.POrderTheory.lt_neqAle eq_sym ca cb.
 have la: 0 <  SCF' l by apply:SCF_pos1 =>//; rewrite lz. 
 by move:(ler_lt_add cp la); rewrite addr0.
 Qed.
@@ -1258,7 +1260,7 @@ have aa: a = a'.
 move:sv; rewrite aa /= => /addrI sv; congr cons.
 move: ha2 hb2 ss sv; clear;elim: l l'.
   case => // a l ha /andP[ea eb] hc /= ec.
-  by move:(SCF_pos1 (all_rat_in_P_pos ea) isT); rewrite /= ec ltrr.
+  by move:(SCF_pos1 (all_rat_in_P_pos ea) isT); rewrite /= ec Order.POrderTheory.ltxx.
 move => a l Hrec; case; first by rewrite ltn0.
 move => a' l' /= /andP[/andP[pa pb] pc] /andP[/andP[qa qb] qc].
 rewrite ltnS => ss. 
@@ -1318,7 +1320,7 @@ Proof.
 move: (floorp1 x) => /=; set a := (floorq x)%:~R => /andP[eq1 eq2].
 have ra:  rat_in_Z a by apply: rat_in_Z_int.
 have: 0 <= x - a < 1 by rewrite subr_ge0 eq1 ltr_subl_addr addrC eq2.
-rewrite ler_eqVlt eq_sym subr_eq0.
+rewrite Order.POrderTheory.le_eqVlt eq_sym subr_eq0.
 case:eqP => xa /=.
   by move => _; exists a, [::]; rewrite /= addr0 /good_for_cf ra.
 move /CF'_exists => [l lp xv]; exists a, l.
@@ -1402,7 +1404,7 @@ case => [// | a  [ // | b l]].
 rewrite continuantS ltnS -/(size _) => /ltnW sLn /andP [sa sb].
 move/andP: (sb); rewrite [odd _]/= negbK => [][_ sc] os.
 have: 0 <= a * K (b :: l) by apply: (mulr_ge0 sa); apply:continuant_ge0. 
-by rewrite - (ler_addr (K l));apply: ltr_le_trans; apply:IH.
+by rewrite - (ler_addr (K l));apply: Order.POrderTheory.lt_le_trans; apply:IH.
 Qed.
 
 Lemma continuant_zeroA l: odd (size l) ->
@@ -1422,7 +1424,7 @@ Proof.
 elim: {l}(size l) {-2}l (leqnn (size l)) =>  [[] //|n IH].
 case => [// | a  [ // | b l]]; first by move => _ _ /= az; split => // [] [].
 rewrite ltnS -/(size _) => /ltnW sa sb sc; case od: odd; last first.
-  by move:(continuant_gt0_odd sb (negbT od)); rewrite sc ltrr.
+  by move:(continuant_gt0_odd sb (negbT od)); rewrite sc Order.POrderTheory.ltxx.
 move: sb; rewrite/all -/(all _ (b::l)) => /andP [sb1 sb2].
 move: (sb2)=> /andP [_ sb3].
 have ha: 0 <= K l by apply: continuant_ge0. 
@@ -1713,14 +1715,14 @@ Proof.
 case: n; first by rewrite leqn1; case/orP => /eqP -> //.
 move => n l1; set p := 2^n;case/orP:(leq_total i p) => l2.
   have ha: p <= i + p <= p.*2 by rewrite leq_addl - addnn leq_add2r.
-  have hb: i + p + (2 ^ n.+1 - i) =  3*p.
+  have hb: i + p + (2 ^ n.+1 - i) =  3 * p.
     rewrite expn2S -addnn -/p - addnBA // addnC - addnA (addnA _ i) subnK //.
     by rewrite addnn -mul2n -mulSn.
   by rewrite -(fusc_palindrome ha hb) fusc_col_progression // (addnC p).
 move: (subnKC l1); set j := _ - _ => l3.
 have l4: j <= 2^n by rewrite - (leq_add2l i) l3 expn2S - addnn leq_add2r.
 have ha : p <= i <= p.*2 by rewrite /p -expn2S l1 l2.
-have hb: i + (j +p) = 3 *p by rewrite addnA l3 mulSnr expn2S mul2n.
+have hb: i + (j +p) = 3 * p by rewrite addnA l3 mulSnr expn2S mul2n.
 have hc:  2 ^ (n.+1) <= 2 ^ n.+1 + i <= (2 ^ (n.+1)).*2.
   by rewrite leq_addr - addnn leq_add2l.
 rewrite (fusc_palindrome ha hb) addnC (addnC j) - fusc_col_progression //.
@@ -1937,7 +1939,7 @@ Lemma Sba_i_pos x: 0 < x -> 0 < Sba_i x < 1.
 Proof.
 move => h.
 have h1: 1 < 1 + x^-1 by apply: Sba_p_pos; rewrite invr_gt0.
-by move: (ltr_trans ltr01 h1) => h2; rewrite invr_gt0  invf_lt1 h2. 
+by move: (Order.POrderTheory.lt_trans ltr01 h1) => h2; rewrite invr_gt0  invf_lt1 h2.
 Qed.
 
 Lemma Sba_j_pos_contra x: 0 < x -> {y:rat | (0 < y <1) && (Sba_j y == x) }.
@@ -1964,7 +1966,7 @@ Qed.
 Lemma snumden_gt0 x: 0 < x ->  (snumden x) != 0%N.
 Proof.
 move => xp; apply /negP => h.
-move: (snumden_pos (ltrW xp)); rewrite (eqP h) /snumden' => eq1.
+move: (snumden_pos (Order.POrderTheory.ltW xp)); rewrite (eqP h) /snumden' => eq1.
 move:xp (denq_gt0 x); rewrite - numq_gt0 ! gtz0_ge1 => sa sb.
 by move: (ler_add sa sb); rewrite eq1. 
 Qed.
@@ -1981,8 +1983,8 @@ Lemma Sba_m_snum x: 1 < x ->  (snumden (Sba_m x) <  snumden x)%N.
 Proof.
 suff: 1 <x -> snumden' (Sba_m x) <  snumden' x.
   move => H x1; move: (H x1).
-  rewrite (snumden_pos(ltrW(Sba_m_pos x1))).
-  by rewrite (snumden_pos(ltrW (ltr_trans ltr01 x1))).
+  rewrite (snumden_pos(Order.POrderTheory.ltW(Sba_m_pos x1))).
+  by rewrite (snumden_pos(Order.POrderTheory.ltW (Order.POrderTheory.lt_trans ltr01 x1))).
 rewrite /Sba_m -subr_gt0 -{3} (subrK 1 x) -numq_gt0 /snumden /snumden'.
 case/ratP: (x-1) => n d cp n0.
 have H: coprime `|n + d.+1| d.+1.
@@ -2020,7 +2022,7 @@ case: (ltrgtP x 1) => lx1.
 + have ll: 0 < x < 1 by rewrite xp lx1.
   move:(Sba_j_pos ll) (Sba_j_snum ll) => sa sb; move:(Hb _ sb) => sc.
   by rewrite /= ll Hr // {2} /Stern_bij1 /= ll Hr.
-+ have ll: (0 < x < 1) = false by rewrite xp ltrNge (ltrW lx1).
++ have ll: (0 < x < 1) = false by rewrite xp Order.TotalTheory.ltNge (Order.POrderTheory.ltW lx1).
   move:(Sba_m_pos lx1) (Sba_m_snum lx1) => sa sb; move:(Hb _ sb) => sc.
   by rewrite /= ll lx1  Hr // {2} /Stern_bij1 /= ll lx1 Hr.
 + by rewrite lx1.
@@ -2040,7 +2042,7 @@ Qed.
 Lemma Stern_bij1_gt1 x : 1 < x ->  Stern_bij1 x = xI (Stern_bij1 (Sba_m x)).
 Proof.
 move => xp1; rewrite - (Stern_bij_recE (Sba_m_pos xp1) (Sba_m_snum xp1)).
-by rewrite {1} /Stern_bij1 /= (ltrNge x 1) (ltrW xp1) andbF xp1.
+by rewrite {1} /Stern_bij1 /= (Order.TotalTheory.ltNge x 1) (Order.POrderTheory.ltW xp1) andbF xp1.
 Qed.
 
 Lemma Stern_bij1_lt1K x : 0 < x -> 
@@ -2064,7 +2066,7 @@ Proof.
 move => h.
 move/andP: (h) => [xp _].
 move: (Stern_bij1_lt1 h).
-rewrite /Stern_bij ! lerNgt (Sba_j_pos h) xp /negb => -> /=.
+rewrite /Stern_bij ! Order.TotalTheory.leNgt (Sba_j_pos h) xp /negb => -> /=.
 by rewrite natTrecE.
 Qed.  (* ORIG *)
 
@@ -2075,8 +2077,8 @@ Lemma Stern_bij_gt1 x : 1 < x ->
    Stern_bij x = (Stern_bij (Sba_m x)).*2.+1.
 Proof.
 move => h.
-move:(Stern_bij1_gt1 h);rewrite /Stern_bij ! lerNgt  (Stern_bij1_gt1 h). 
-by rewrite (Sba_m_pos h) (ltr_trans ltr01 h) /= natTrecE.
+move:(Stern_bij1_gt1 h);rewrite /Stern_bij ! Order.TotalTheory.leNgt  (Stern_bij1_gt1 h).
+by rewrite (Sba_m_pos h) (Order.POrderTheory.lt_trans ltr01 h) /= natTrecE.
 Qed.
 
 Lemma Stern_bij_lt1K x : 0 < x -> 
@@ -2092,7 +2094,7 @@ Proof. by move /Sba_p_pos /Stern_bij_gt1;rewrite Sba_pK. Qed.
 Lemma Stern_bij1_surj p: { x | (0 < x) /\ (Stern_bij1 x = p) }.
 Proof.
 elim: p => [ p [x [xp ev]] |  p [x [xp ev]] | ].
-+ move: (ltr_trans ltr01 (Sba_p_pos xp)) => lt2.
++ move: (Order.POrderTheory.lt_trans ltr01 (Sba_p_pos xp)) => lt2.
   by exists (Sba_p x); rewrite Stern_bij1_gt1K // ev. 
 + move: (Sba_i_pos xp) => /andP [lt1 _].
   by exists  (Sba_i x); rewrite Stern_bij1_lt1K // ev.   
@@ -2103,8 +2105,8 @@ Lemma Stern_bij_surj n: { x | (0 <= x) /\ (Stern_bij x = n) }.
 Proof.
 case: n; first by exists 0.
 move => n; move:(Stern_bij1_surj (pos_of_nat n n)) => [x [xp xv]].
-exists x; split; first by apply: ltrW.
-rewrite /Stern_bij xv lerNgt xp /=; exact:(bin_of_natK n.+1).
+exists x; split; first by apply: Order.POrderTheory.ltW.
+rewrite /Stern_bij xv Order.TotalTheory.leNgt xp /=; exact:(bin_of_natK n.+1).
 Qed.
 
 Lemma Stern_bij1_inj  x y: 0 < x -> 0 < y  ->
@@ -2114,11 +2116,11 @@ move: (leq_maxl (snumden x) (snumden y)) (leq_maxr (snumden x) (snumden y)).
 move: (maxn _ _) => k; elim: k x y => [ x y | n Hrec x y].
   by rewrite leqn0 => sa _ /snumden_gt0; rewrite sa.
 wlog lexy: x y / x <= y.
-   move => H l1 l2 xp yp eq; case /orP: (ler_total x y) => l3;first by apply:H.
+   move => H l1 l2 xp yp eq; case /orP: (Order.TotalTheory.le_total x y) => l3;first by apply:H.
    by symmetry; apply: H.
 move => lxn lyn xp yp.
 case:(ltrgtP 1 x) => cx1.
-+ have l1y := (ltr_le_trans cx1 lexy).
++ have l1y := (Order.POrderTheory.lt_le_trans cx1 lexy).
   rewrite (Stern_bij1_gt1 cx1) (Stern_bij1_gt1 l1y); case => eq'.
   rewrite - (Sba_mK x) - (Sba_mK y).
   move:(Sba_m_pos cx1) (Sba_m_pos l1y) => xp' yp'.
@@ -2135,13 +2137,13 @@ case:(ltrgtP 1 x) => cx1.
     by rewrite !ltnS => lxn' lyn'; rewrite (Hrec _ _ lxn' lyn' xp' yp' eq').
   * by rewrite - cy1 Stern_bij1_1  (Stern_bij1_lt1 lx1).
 + rewrite - cx1; case y1: (y==1); first by rewrite  (eqP y1).
-  have l1y: 1 < y by rewrite ltr_neqAle; rewrite eq_sym y1 cx1.
+  have l1y: 1 < y by rewrite Order.POrderTheory.lt_neqAle; rewrite eq_sym y1 cx1.
   by rewrite Stern_bij1_1  (Stern_bij1_gt1 l1y). 
 Qed.
 
 Lemma Stern_bij_gt0 x: 0 < x -> (0 < Stern_bij x)%N.
 Proof. 
-by rewrite /Stern_bij lerNgt => -> /=; rewrite lt0n nat_of_pos_ne0.
+by rewrite /Stern_bij Order.TotalTheory.leNgt => -> /=; rewrite lt0n nat_of_pos_ne0.
 Qed.
 
 
@@ -2176,7 +2178,7 @@ Lemma Stern_gt0 n: 0 < Stern n.+1.
 Proof. by apply:divr_gt0; rewrite ltr0n fusc_gt0. Qed.
 
 Lemma Stern_nz n: Stern n.+1 != 0.
-Proof. by move:(Stern_gt0 n); rewrite ltr_def => /andP[]. Qed.
+Proof. by move:(Stern_gt0 n); rewrite Order.POrderTheory.lt_def => /andP[]. Qed.
 
 
 Lemma Stern_pow2 n: Stern (2^n) = 1/(n.+1)%:Q.
@@ -2341,7 +2343,7 @@ have lt3 : 0 < 3 by [].
 elim/fusc_ind:n => //.
   move => n Hr; rewrite fusc_even Hr -addnn - modnDm.
   by move: (ltn_pmod n lt3); case (n %% 3) => // [] [] // [].
-move => n Hr1 Hr2; rewrite fusc_odd odd_add Hr1 Hr2 -addnn -addnS -modnDm.
+move => n Hr1 Hr2; rewrite fusc_odd oddD Hr1 Hr2 -addnn -addnS -modnDm.
 rewrite - (add1n n) - modnDm.
 move: (ltn_pmod n lt3); case (n %% 3) => // [] [] // [] //.
 Qed.
@@ -2404,10 +2406,10 @@ Lemma FM_recc2 n: FMc (n.+1) =  (FMc n - (odd n)).*2.+1.
 Proof. by rewrite (FM_recE1 n) addnK FM_cE. Qed.
 
 Lemma FM_dodd n: odd (FMd (n.+1)) = odd n.
-Proof. by rewrite FM_recd2 odd_add odd_double /= oddb. Qed.
+Proof. by rewrite FM_recd2 oddD odd_double /= oddb. Qed.
 
 Lemma FM_codd n: odd (FMc (n.+1)).
-Proof. by rewrite FM_recE1 odd_add FM_dodd /=; case: odd. Qed.
+Proof. by rewrite FM_recE1 oddD FM_dodd /=; case: odd. Qed.
 
 Definition zero_one_rep n:=
   nat_of_list(iter n (fun l => ~~(head true l) :: l) [::true]).
@@ -2640,7 +2642,7 @@ Lemma binom_evenP n k:  ~~(odd 'C(n,k)) <->
 Proof.
 have ->: ~~(odd 'C(n,k)) = ('C(n, k) %% 2 == 0).
   move: (ltn_pmod 'C(n, k) (leqnSn 1)); rewrite {2} (divn_eq 'C(n, k) 2). 
-  rewrite odd_add muln2 odd_double //=; case: ( _ %% 2) => // [] [] //.
+  rewrite oddD muln2 odd_double //=; case: ( _ %% 2) => // [] [] //.
 move: n {-2} n (leqnn n)  k; elim.
   move => n;rewrite leqn0 => /eqP ->.
   case; first by split => // [] [i]; rewrite mod0n //.
@@ -2833,7 +2835,7 @@ elim: v u u' a b.
   by rewrite ! fusci_1 addnC.
 move => n Hrec u u' a b;rewrite expn2S => sa.
 wlog: a b u u' sa / ~~(odd u) && odd u'.
-  move => H; move: (odd_double (2 ^ n)); rewrite - {1} sa /odd -/odd odd_add.
+  move => H; move: (odd_double (2 ^ n)); rewrite - {1} sa /odd -/odd oddD.
   case od: (odd u) => /= ou. 
     by symmetry; apply: H => //; [ by rewrite addnC | move:ou; case (odd _)].
   by apply:H => //; rewrite od /=; move:ou; case (odd _).
@@ -3200,8 +3202,8 @@ case: (odd_dichot i) => iv; case:(odd_dichot j) => jv.
      by rewrite !fusc_odd (eqP xx) addnC ltn_add2l H.
   have hd: i./2.+1 < j./2 by rewrite ltn_neqAle xx -ltn_double -ltnS -iv -jv.
   by rewrite !fusc_odd addnC -addnS leq_add // ?(ltnW (H _ _ hd hb)) // H. 
-+ by move: oij; rewrite iv jv odd_add /= !odd_double.
-+ by move: oij; rewrite iv jv odd_add /= !odd_double.
++ by move: oij; rewrite iv jv oddD /= !odd_double.
++ by move: oij; rewrite iv jv oddD /= !odd_double.
 + rewrite iv jv !fusc_even; apply:H; first by rewrite - ltn_double - iv -jv.
   by apply/eqP; rewrite - eqn_double doubleD - iv - jv sij expn2S.
 Qed.
@@ -3291,7 +3293,7 @@ wlog: n/ ~~(odd n).
   case n1: (n==1); first by rewrite (eqP n1) DH_1  coprime1n. 
   move:(DH_palindrome_res nz) => [m [mp -> ->]].
   rewrite /coprime gcdnC;apply: H.
-  by move: mp; rewrite n1 odd_add on /= addbT.
+  by move: mp; rewrite n1 oddD on /= addbT.
 case: n=> [ | n on ]; first by rewrite DH_1 coprimen1.
 move: (base2_rev_invert (on: odd n.+2) (is_true_true: (n.+2 != 1))).
 by move/hyp;rewrite DH_BI ! DH_FR.
@@ -3313,7 +3315,7 @@ case ek1: (k==1).
 suff: forall m, ~~(odd m) -> prop2_aux (s m) (s m.+1).
    move => H; case ok: (odd k); last by apply: H => //; rewrite ok.
    move:(DH_palindrome_res kp); move => [m [hm -> ->]].
-  by apply: sym; apply: H; move: hm; rewrite odd_add ek1 ok addbT.
+  by apply: sym; apply: H; move: hm; rewrite oddD ek1 ok addbT.
 move => m om.
 case mz: (m ==0); first by rewrite (eqP mz); exists 0,1,0.
 exists (base2rev m.+1.-1), (bin_invert (base2rev m.+1)),(log2 m.+1); split.
@@ -3402,7 +3404,7 @@ case: (posnP (p - k)) => ltkp.
   move /eqP:nmp'; rewrite ltkp /= addnS eqSS addn_eq0.
   by move => /andP [/eqP -> /eqP ->]; exists 0.
 case: (odd_dichot w) => ow2; last first.
-  have: (odd (2 ^ (p - k))) by rewrite  -nmp' odd_add ow2 /= !odd_double /=.
+  have: (odd (2 ^ (p - k))) by rewrite  -nmp' oddD ow2 /= !odd_double /=.
   by rewrite odd_exp /= orbF => /eqP e0; move: ltkp; rewrite e0.
 move: nmp'; rewrite ow2 - (prednK ltkp).
 move:(w./2) ((p-k).-1).
@@ -3530,7 +3532,7 @@ Qed.
 Lemma wbase2_odd l : odd (wbase2 l) <-> head ord0 l = ord1_3.
 Proof.
 case: l => // a l /=. 
-rewrite odd_add odd_double addbF; split; last by move => ->.
+rewrite oddD odd_double addbF; split; last by move => ->.
 move: (Ord3_trichot a); case: eqP; first by move => ->.
 by case: eqP => // _ _ /= /eqP ->.
 Qed.
@@ -3747,6 +3749,7 @@ Qed.
 
 
 Definition natnat := (nat * nat)%type.
+Declare Scope nat_pair_scope.
 Delimit Scope nat_pair_scope with nat_pair.
 Bind Scope nat_pair_scope with natnat.
 Open Scope nat_pair_scope.
@@ -3883,7 +3886,7 @@ Proof. by rewrite /area subr_ge0. Qed.
 Lemma area_eq0 a b: good_pair a -> good_pair b ->
    (area a b) == 0 -> a = b.
 Proof. 
-move => sa sb; rewrite eqr_le {1} area_sym oppr_le0 - !area_ge0 => h.
+move => sa sb; rewrite Order.POrderTheory.eq_le {1} area_sym oppr_le0 - !area_ge0 => h.
 by move:(esym(pair_le_anti sb sa)); rewrite h => /eqP ->.
 Qed.
 
@@ -4843,10 +4846,10 @@ have lb : x < p.*2 by rewrite /p/x - addnn ltn_add2l.
 have lc: p <= x <= p.*2 by rewrite la (ltnW lb).
 have ld:  p <= x.+1 <= p.*2 by rewrite lb andbT ltnW.
 pose x' := 3 * p - x.+1.
-have ea: x.+1 + x' = 3 *p.
+have ea: x.+1 + x' = 3 * p.
    apply: subnKC. apply: (leq_trans lb); rewrite -mul2n. 
    by apply: leq_pmul2r; rewrite expn_gt0.
-have eb: x + x'.+1 = 3 *p by rewrite - addSnnS ea.
+have eb: x + x'.+1 = 3 * p by rewrite - addSnnS ea.
 have ly:log2 y = (l + n.+1).+1.
    by apply: log2_pr; rewrite expn2S - addnn ltn_add2l leq_addr qd.
 have lx:log2 x' = (k + n.+1).+1.
@@ -4936,7 +4939,7 @@ Lemma sternD_1n_bezout n q i (S := sternD 1 n q)
   (k:= stern (2 ^ q - i)) (l:= stern i)
   (k':=  stern (2 ^ q - i.+1)) (l':= stern i.+1):
   i < 2^q ->
-  [/\ nth 0 S i = k + n*l, nth 0 S i.+1 = k' + n*l' &  k * l' = k' * l + 1 ].
+  [/\ nth 0 S i = k + n * l, nth 0 S i.+1 = k' + n * l' &  k * l' = k' * l + 1 ].
 Proof.
 rewrite (mulnC k) (mulnC k') /S/k/k'/l/l'; clear. 
 case:q. 

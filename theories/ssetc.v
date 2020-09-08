@@ -6,7 +6,7 @@
 
 Set Warnings "-notation-overridden".
 From mathcomp
-Require Import ssreflect ssrfun ssrbool eqtype ssrnat ssrint ssralg ssrnum div.
+Require Import ssreflect ssrfun ssrbool eqtype order ssrnat ssrint ssralg ssrnum div.
 Require Export ssetz ssetq1 ssetq2 ssetr.
 
 
@@ -16,7 +16,6 @@ Unset Printing Implicit Defensive.
 
 
 Module RingCompat.
-
 
 Import GRing.Theory.
 
@@ -228,7 +227,7 @@ Qed.
 
 Lemma BZ_of_Z_lt (x y:int):  x < y  <-> ( (BZ_of_Z x) <z (BZ_of_Z y)). 
 Proof.
-rewrite Num.Theory.ltr_neqAle; split=> //.
+rewrite Order.POrderTheory.lt_neqAle; split=> //.
   move/andP => [p1 /BZ_of_Z_le p2]; split => // eq.
   by move /eqP: p1; case; apply:BZ_of_Z_injective.
 case; move /BZ_of_Z_le => p1 p2; apply /andP; split => //. 

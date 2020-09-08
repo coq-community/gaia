@@ -374,11 +374,11 @@ Proof.
 move => lqp; rewrite {2}/coprime.
 rewrite subn_sqr -{1 2 4 5} (subnK lqp); set r := p - q.
 rewrite /coprime_sym /coprime gcdnC gcdnDr -/(coprime _ _) => cqr.
-rewrite odd_add negb_eqb - addbA addbb addbF => or.
+rewrite oddD negb_eqb - addbA addbb addbF => or.
 have cpq: (coprime (r * (r + q + q)) q).
   by rewrite coprime_sym /coprime Gauss_gcdr // !gcdnDr.
 have cp2: coprime (r * (r + q + q)) 2.
-  by rewrite /coprime gcd_n2 odd_mul - addnA odd_add or addnn odd_double.
+  by rewrite /coprime gcd_n2 odd_mul - addnA oddD or addnn odd_double.
 rewrite - mul2n Gauss_gcdr // Gauss_gcdl // gcdnC Gauss_gcdl.
   by rewrite gcdnC -/(coprime _ _) coprimeDl coprime_sym.
 by rewrite coprimeDl coprime_sym  coprimeDr.
@@ -425,11 +425,11 @@ wlog: a b az bz h cp1 / odd a && ~~(odd b).
 move => /andP[oa eb].
 have lac: a < c by rewrite - ltn_sqr -h ltn_paddr // expn_gt0 lt0n bz.
 have lac' := ltnW lac.
-move: (f_equal odd h); rewrite odd_add ! odd_sqr oa (negbTE eb) /= => oc.
+move: (f_equal odd h); rewrite oddD ! odd_sqr oa (negbTE eb) /= => oc.
 have eq2:=(evenE (negbTE eb)).
 have eq3: b^2 = (c-a)* (c+a) by rewrite - subn_sqr -h addKn.
-move:(odd_double_half (c +a)); rewrite odd_add oa - oc add0n => eq4.
-move:(odd_double_half (c -a)); rewrite odd_sub // oa - oc add0n => eq5.
+move:(odd_double_half (c +a)); rewrite oddD oa - oc add0n => eq4.
+move:(odd_double_half (c -a)); rewrite oddB // oa - oc add0n => eq5.
 have eq6: (b./2) ^2 = (c - a)./2 * (c + a)./2.
   apply/eqP; rewrite -(@eqn_pmul2l (2 * 2)) // mulnACA !mul2n eq4 eq5 - eq3.
   by rewrite  -(expnMn 2 _ 2) mul2n - eq2.
@@ -456,7 +456,7 @@ have eq9: b = (p * q).*2.
   by rewrite - expnMn muln2 -eq2.
 exists p, q; rewrite - eq9 coprime_sym; split => //.
 + by rewrite - ltn_sqr -eq7 -eq8 - ltn_double eq4 eq5.
-+ by rewrite  (H p) (H q) negb_eqb -odd_add -eq7 -eq8 addnC (eqP cv).
++ by rewrite  (H p) (H q) negb_eqb -oddD -eq7 -eq8 addnC (eqP cv).
 + by left; rewrite -eq7 - eq8 (eqP av) addnC  (eqP cv) eq9.
 Qed.
 
@@ -501,7 +501,7 @@ case ob: (odd b); last first.
   by rewrite /coprime -muln_gcdl muln_eq1 andbF. 
 have cp2: coprime (b ^ 2 - a ^ 2)  (b ^ 2 + a ^ 2).
   have cp1:coprime (b ^ 2 + a ^ 2) 2.
-    by rewrite coprimen2 odd_add !odd_sqr oa addbF.
+    by rewrite coprimen2 oddD !odd_sqr oa addbF.
   rewrite /coprime gcdnC -gcdnDl -addnA subnKC // addnn -muln2 Gauss_gcdl //.
   by rewrite gcdnC gcdnDl gcdnC -/(coprime _ _) coprime_sqr. 
 move /eqP: (eqa); move/esym => eqa'.
@@ -509,8 +509,8 @@ case: (posnP (b ^ 2 - a ^ 2)) => dp.
   by move: cp; rewrite -sqrn_gt0 - eqa' dp. 
 case: (factor_square dp cp2 eqa'); set t := _ %/ _; set s := _ %/ _.
 move => t2 s2 cst.
-have os: odd s by rewrite -odd_sqr -s2 odd_add !odd_sqr oa ob.
-have ot: odd t by rewrite -odd_sqr -t2 odd_sub // !odd_sqr oa ob.
+have os: odd s by rewrite -odd_sqr -s2 oddD !odd_sqr oa ob.
+have ot: odd t by rewrite -odd_sqr -t2 oddB // !odd_sqr oa ob.
 move: (oddE os) (oddE ot) => sv1 tv1.
 set u := (s+t)./2; set v := (s-t)./2.
 have cp0: t < s.
@@ -543,7 +543,7 @@ case:(pythagore_tripleB suv).
   by move => [vzz]; move: vz; rewrite vzz.
 move => [p [q [gp lqp cpq opq]]]; rewrite (eqP cuv) ! mul1n.
 have odf: odd (p ^ 2 - q ^ 2).
-  by rewrite odd_sub ?odd_sqr ?leq_sqr ?(ltnW lqp) //= - negb_eqb.
+  by rewrite oddB ?odd_sqr ?leq_sqr ?(ltnW lqp) //= - negb_eqb.
 have pp: 0 < p by  move: lqp; case p. 
 have Hw w: 0 < w -> w <= w^2 by move => h; rewrite -{1}(expn1 w) leq_pexp2l.
 case=> [] [up vp bp].
@@ -608,7 +608,7 @@ move => oy; case: (pythagore_tripleB ha).
   by move => [->]; rewrite orbT.
 move => [p [q []]]; rewrite (eqP  hb) !mul1n => _ lqp cp2 opq.
 case => [][yv xv zv]; first by move: oy; rewrite xv odd_double.
-have oz: odd z by rewrite -odd_sqr - ha odd_add !odd_sqr oy xv odd_double.
+have oz: odd z by rewrite -odd_sqr - ha oddD !odd_sqr oy xv odd_double.
 have paw w:  pa w -> odd w ->exists y', w = y'^2.
   move => [t]; case => ->; [ by exists t | by rewrite odd_double].
 have lb: (q ^ 2) <= (p ^ 2)  by rewrite leq_sqr (ltnW lqp).
@@ -752,7 +752,7 @@ move => h; move:(subn_sqr m n); rewrite - h addKn.
 case: (ltnP m n); first by rewrite -ltn_sqr - (addn0 (n^2)) -h ltn_add2l.
 move => ha; rewrite -{2} (subnK ha)- addnA addnn.
 rewrite -(odd_double_half (m-n)); case: odd.
-  by move => eqA; move:(f_equal odd eqA); rewrite odd_mul !odd_add !odd_double.
+  by move => eqA; move:(f_equal odd eqA); rewrite odd_mul !oddD !odd_double.
 move/esym; move/eqP; rewrite -[4]/(1.*2.*2) add0n -doubleD -doubleMr.
 by rewrite -doubleMl 2!eqn_double muln_eq1 => /andP[/eqP -> /eqP]; case.
 Qed.
@@ -772,7 +772,7 @@ case/orP:  (dvd2 _ he) => /eqP.
    move: eb; clear; case: q; first by rewrite !muln0. 
    move => q av /eqP; rewrite addnS eqSS addn_eq0 => /andP [ha hb].
    by rewrite av (eqP ha) muln0.
-by move/(f_equal odd); rewrite odd_add -negb_eqb hd.
+by move/(f_equal odd); rewrite oddD -negb_eqb hd.
 Qed.
 
 
@@ -783,7 +783,7 @@ case:(Fermat2_bound2 h). rewrite muln2 addn2 double_eq0 2!leq_eqVlt 2!ltnS.
 rewrite addnC in h; move/leqifP:(Fermat2_bound h) => /= lnm.
 rewrite leqNgt lnm /=; case/orP; first by move->.
 rewrite orbF eqSS => /eqP k; move:(congr1 odd h). 
-by rewrite k odd_add !odd_sqr/=; case: odd.
+by rewrite k oddD !odd_sqr/=; case: odd.
 Qed.
 
 Lemma square_plus9_square n m: n ^2 + 3^2 = m ^2 -> (n = 0 \/ n = 4).
@@ -812,7 +812,7 @@ case:(ltnP n m); last first.
   move => cap; have /gtn_eqF -> //: m^2 < n ^ 2 + 4^2.
   by apply: (@leq_ltn_trans (n^2)); rewrite ? leq_sqr // -addSnnS leq_addr.
 move => lnm /eqP h; move: lnm; rewrite leq_eqVlt; case/orP => lmn.
-  by move:(congr1 odd h); rewrite -(eqP lmn) odd_add !odd_sqr /=; case: odd. 
+  by move:(congr1 odd h); rewrite -(eqP lmn) oddD !odd_sqr /=; case: odd.
 move:lmn; rewrite -(leq_sqr) - addn2 -h sqrnD - addnA leq_add2l.
 rewrite - [4 ^ 2]/( 2 ^ 2  + 4 * 3) leq_add2l (mulnC n) mulnA leq_pmul2l //.
 rewrite leq_eqVlt; case/orP => n3; [right | left].
@@ -841,7 +841,7 @@ move => [p [q[ha hb hc hd]]]; case; case => ea eb ec.
   by right;move: g2; rewrite ea (eqP g1) mul1n pv mul2n eqn_double => /eqP <-.
 have hb':= (ltnW hb).
 have od: odd (p^2 - q^2).
-   by rewrite odd_sub ?leq_sqr // !odd_sqr  -negb_eqb.
+   by rewrite oddB ?leq_sqr // !odd_sqr  -negb_eqb.
 have g4: gcdn n 4 = 4.
   move: (f_equal odd ea); rewrite odd_mul od /= andbT => /esym neg.
   move: ea;rewrite (evenE neg) -[4]/(2.*2) -doubleMl => /eqP.
@@ -1426,7 +1426,7 @@ Qed.
 Lemma lucas_pow2_odd n: odd (lucas (2^n)).
 Proof.
 elim: n => // n on; rewrite expn2S lucas_square'. case: n on=> // n.
-by rewrite {2} expn2S odd_double odd_sub ?lucas_powge2 // odd_sqr => ->.
+by rewrite {2} expn2S odd_double oddB ?lucas_powge2 // odd_sqr => ->.
 Qed.
 
 Lemma lucas_pow2_mod4 n: lucas (2^(n.+1)) = 3 %[mod 4].
@@ -1467,7 +1467,7 @@ Qed.
 Lemma lucas_is_even_mod3 n: odd (lucas n)  =  (n %%3 !=0). 
 Proof.
 rewrite - fib_is_even_mod3; case:n => // n.
-by rewrite lucasS odd_add odd_double addbF.
+by rewrite lucasS oddD odd_double addbF.
 Qed.
 
 Lemma gcd_lucas_fib1 n: gcdn (lucas n.+1) (fib n.+1) = fib (gcdn n.+1 3).
@@ -1752,11 +1752,11 @@ move => eq1; case:(odd_dichot n) => eq2; last first.
       by move: (lucas_gt0 n./2); rewrite - ltn_sqr sb.
     by move:(subnK sa); rewrite - h => /square_plus2_square.
   by move/esym /square_plus2_square.
-move: (f_equal odd nv);rewrite eq2 /= -[12]/(6.*2)odd_add odd_mul !odd_double.
+move: (f_equal odd nv);rewrite eq2 /= -[12]/(6.*2)oddD odd_mul !odd_double.
 rewrite andbF /= => ob.
 (*
 have ob: odd b.
-  move: (f_equal odd nv);rewrite eq2 /= -[12]/(6.*2)odd_add odd_mul !odd_double.
+  move: (f_equal odd nv);rewrite eq2 /= -[12]/(6.*2)oddD odd_mul !odd_double.
   by rewrite andbF /=.
 *)
 have Hc: ((b==1) || (b==3) || (b== 9)).
@@ -2321,7 +2321,7 @@ case: (ltngtP m k) => hc; last first.
     rewrite (fib_plus_fib _ cnmk) mk4 mk3 !andbF /=.
      case/orP; first by rewrite fib_eq (gtn_eqF hd) /= mk1 mk2 /= andbF.
     rewrite - {2} he - addnA addnn => /andP[/eqP ->] /eqP  h.
-    by move:(f_equal odd h); rewrite odd_add odd_double addbF /=;case:odd.
+    by move:(f_equal odd h); rewrite oddD odd_double addbF /=;case:odd.
   rewrite subn_eq0 leqNgt hc /= - {2} he => /andP[_].
   by rewrite -addnA -addn2 eqn_add2l addnn (eqn_double _ 1) k1.
 + rewrite (fib_lucas2 (ltnW hc)) ;  apply/negP => /eqP.
@@ -2337,7 +2337,7 @@ case: (ltngtP m k) => hc; last first.
      rewrite (fib_plus_fib _ cnmk) mk4 mk3 !andbF /=.
      case/orP; first by  rewrite fib_eq (gtn_eqF hd) /= mk1 mk2 /= andbF.
      rewrite - {2} he addnA addnn => /andP[/eqP ->] /eqP  h.
-     by move:(f_equal odd h); rewrite odd_add odd_double /=;case:odd.
+     by move:(f_equal odd h); rewrite oddD odd_double /=;case:odd.
    rewrite subn_eq0 leqNgt hc /= - {2} he => /andP[_].
    by rewrite addnA -add2n eqn_add2r addnn (eqn_double _ 1) ha.
 Qed.
@@ -2603,7 +2603,7 @@ case /orP: (leq_total (m - k) n) => la.
   by rewrite - {1} (subnK km) -addnA -addn2 eqn_add2l addnn (eqn_double k 1) k1.
 rewrite (addnC (lucas _)) lucas_plus_lucas // (gtn_eqF  hb) x0 /= => /andP[].
 move/eqP => <- /eqP ea; move:(f_equal odd ea).
-by rewrite -{1} (subnK km) -addnA addnn odd_add /= odd_double addbF; case:odd.
+by rewrite -{1} (subnK km) -addnA addnn oddD /= odd_double addbF; case:odd.
 Qed.
 
 Lemma fib_times_fib_is_lucas m n k: k <= m -> 
@@ -2779,7 +2779,7 @@ set x := 5*( (lucas m.*2 + lucas n.*2)).
 have: (x <= lucas (k.*2+12) + 22) && (lucas (k.*2+12) <= x + 22).
   move /eqP: h; rewrite -(eqn_pmul2l l05).
   rewrite !lucas_square mulnA lucas_lucas2 ?leqnn // addnn subnn lucas0.
-  have ->: odd (k + 6) = ~~(odd k.+1) by rewrite odd_add addbF/=; case: odd.
+  have ->: odd (k + 6) = ~~(odd k.+1) by rewrite oddD addbF/=; case: odd.
   pose T b x := (if b then subn else addn) x 2.
   have Ta: forall b x, x <= (T b x)  + 2. 
      by rewrite /T;move => b y; case b => //; rewrite -addnA leq_addr.
@@ -4669,8 +4669,7 @@ Proof.
 transitivity (\sum_(i <- (enum t)) (f i)).
   rewrite /seto_to_seq /Zeck_val;elim (enum t); first by rewrite ! big_nil. 
   by move => a l h; rewrite map_cons !big_cons h.
-rewrite -filter_index_enum big_filter_cond.
-by apply: eq_big =>//x; rewrite andbT.
+by rewrite big_enum.
 Qed.
 
 Lemma Zeck_val_cv1 B (t:{set 'I_B.+1}) :
