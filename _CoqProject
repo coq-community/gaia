@@ -1,4 +1,5 @@
 -R theories gaia
+-arg -w -arg -notation-overridden
 -arg -w -arg -notation-incompatible-format
 -arg -w -arg -ambiguous-paths
 theories/fibm.v

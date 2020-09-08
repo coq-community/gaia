@@ -2,12 +2,10 @@
 Bourbaki aux fime
 *)
 
-
-Set Warnings "-notation-overridden".
 From mathcomp
-Require Import ssreflect ssrfun ssrbool eqtype ssrnat seq path  div.
+Require Import ssreflect ssrfun ssrbool eqtype ssrnat seq path div.
 From mathcomp
-     Require Import fintype tuple finfun bigop finset binomial. 
+Require Import fintype tuple finfun bigop finset binomial.
 
 Set Implicit Arguments.
 Unset Strict Implicit.

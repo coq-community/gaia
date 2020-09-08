@@ -2,4 +2,4 @@
  (name gaia)
  (package coq-gaia)
  (synopsis "An implementation of the theory of sets (following Bourbaki) in Coq")
- (flags -w -notation-incompatible-format -w -ambiguous-paths))
+ (flags -w -notation-overridden -w -notation-incompatible-format -w -ambiguous-paths))

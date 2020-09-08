@@ -2,10 +2,8 @@
   Copyright INRIA (2009-2013) (Apics) Marelle Team (Jose Grimm).
 *)
 
-Set Warnings "-notation-overridden".
 From mathcomp
 Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
-Set Warnings "notation-overridden".
 Require Export sset2.
 
 Set Implicit Arguments.

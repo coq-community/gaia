@@ -5,7 +5,6 @@
 
 (* $Id: fibm.v,v 1.3 2018/07/13 05:59:59 grimm Exp $ *)
 
-Set Warnings "-notation-overridden".
 From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat seq path fintype.
 From mathcomp Require Import div bigop binomial prime finset ssralg ssrnum ssrint.
 Set Implicit Arguments.

@@ -4,12 +4,10 @@
 
 (* $Id: sset16c.v,v 1.5 2018/09/04 07:58:00 grimm Exp $ *)
 
-Set Warnings "-notation-overridden".
 From mathcomp
 Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
-Set Warnings "notation-overridden".
 
-Require Export sset15 . 
+Require Export sset15.
 
 Set Implicit Arguments.
 Unset Strict Implicit.
@@ -3408,6 +3406,3 @@ End SierpinskiEx1.
 
 End InfiniteOsum.
 Export InfiniteOsum.
-
-  
-  

@@ -4,10 +4,8 @@
 
 (* $Id: sset5.v,v 1.6 2018/09/04 07:58:00 grimm Exp $ *)
 
-Set Warnings "-notation-overridden".
 From mathcomp
 Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
-Set Warnings "notation-overridden".
 Require Export sset4.
 
 Set Implicit Arguments.

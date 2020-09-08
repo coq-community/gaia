@@ -3,14 +3,13 @@
 $Id: ssete8.v,v 1.2 2018/07/13 12:58:25 grimm Exp $
 *)
 
-
-Set Warnings "-notation-overridden".
 From mathcomp
-Require Import ssreflect ssrfun ssrbool eqtype ssrnat seq  choice fintype.
+Require Import ssreflect ssrfun ssrbool eqtype ssrnat seq choice fintype.
 From mathcomp
-Require Import binomial  bigop ssralg poly ssrint.
+Require Import binomial bigop ssralg poly ssrint.
 
 Require Import ssete7.
+
 Set Implicit Arguments.
 Unset Strict Implicit.
 Import Prenex Implicits.

@@ -4,20 +4,14 @@
 
 (* $Id: stern.v,v 1.6 2018/07/17 15:49:43 grimm Exp $ *)
 
-
-Set Warnings "-notation-overridden".
 From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat seq choice fintype order.
 From mathcomp  Require Import bigop ssralg div ssrnum ssrint rat prime path binomial.
 From mathcomp  Require Import tuple finset.
-Set Warnings "notation-overridden".
 
 Require Import fibm.
 
-
 Set Implicit Arguments.
 Unset Strict Implicit.
-
-
 Unset Printing Implicit Defensive.
 
 Import BinPos.

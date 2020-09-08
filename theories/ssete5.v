@@ -1,13 +1,9 @@
 (** ** Bourbaki  Exercices
  Copyright INRIA (2012-2013 2018) Marelle Team (Jose Grimm). 
- *)
+*)
 
-
-Set Warnings "-notation-overridden".
 From mathcomp
 Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
-Set Warnings "-notation-overridden".
-
 
 Require Export sset15 ssete4.
 (* $Id: ssete5.v,v 1.4 2018/09/04 07:58:00 grimm Exp $ *)

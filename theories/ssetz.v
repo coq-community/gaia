@@ -4,11 +4,8 @@
 
 (* $Id: ssetz.v,v 1.7 2018/10/01 14:40:54 grimm Exp $ *)
 
-
-Set Warnings "-notation-overridden".
 From mathcomp
 Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
-Set Warnings "notation-overridden".
 
 Require Export sset10.
 
@@ -4525,4 +4522,3 @@ Qed.
 
 End RationalIntegers.
 Export  RationalIntegers.
- 

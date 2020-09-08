@@ -6,9 +6,8 @@
 
 Require Import BinNat.
 
-Set Warnings "-notation-overridden".
 From mathcomp
-Require Import     ssreflect ssrfun ssrbool eqtype  ssrnat div.
+Require Import ssreflect ssrfun ssrbool eqtype  ssrnat div.
 
 Set Implicit Arguments.
 Unset Strict Implicit.

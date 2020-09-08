@@ -2,15 +2,10 @@
 Original file by Carlos Simpson (CNRS/UNSA)
 
 Copyright INRIA (2009-2013 2018) Apics-Marelle Team (Jose Grimm).
- *)
-
-
-Set Warnings "-notation-overridden".
+*)
 
 From mathcomp
 Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
-Set Warnings "notation-overridden".
-
 
 Set Implicit Arguments.
 Unset Strict Implicit.

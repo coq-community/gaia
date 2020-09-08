@@ -3,7 +3,6 @@
 *)
 (* $Id: ssete10.v,v 1.3 2018/09/04 07:58:00 grimm Exp $ *)
 
-Set Warnings "-notation-overridden".
 From mathcomp
 Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
 Require Export sset14 ssete9.

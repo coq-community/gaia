@@ -4,11 +4,8 @@
 $Id: ssete6.v,v 1.31 2018/10/01 14:40:54 grimm Exp $
 *)
 
-Set Warnings "-notation-overridden".
 From mathcomp
 Require Import ssreflect ssrbool eqtype ssrfun.
-Set Warnings "notation-overridden".
-
 
 Set Implicit Arguments.
 Unset Strict Implicit.
