@@ -1,8 +1,8 @@
 ---
 fullname: Gaia
 shortname: gaia
-organization: palmskog
-community: false
+organization: coq-community
+community: true
 dune: true
 action: true
 
@@ -35,6 +35,10 @@ authors:
 - name: José Grimm
 - name: Alban Quadrat
 - name: Carlos Simpson
+
+maintainers:
+- name: Laurent Théry
+  nickname: thery
 
 opam-file-maintainer: palmskog@gmail.com
 
@@ -82,7 +86,7 @@ build: |-
   ## Building instructions
   
   ``` shell
-  git clone https://github.com/palmskog/gaia
+  git clone https://github.com/coq-community/gaia
   cd gaia
   make   # or make -j <number-of-cores-on-your-machine>
   ```

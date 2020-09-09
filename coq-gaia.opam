@@ -2,9 +2,9 @@ opam-version: "2.0"
 maintainer: "palmskog@gmail.com"
 version: "dev"
 
-homepage: "https://github.com/palmskog/gaia"
-dev-repo: "git+https://github.com/palmskog/gaia.git"
-bug-reports: "https://github.com/palmskog/gaia/issues"
+homepage: "https://github.com/coq-community/gaia"
+dev-repo: "git+https://github.com/coq-community/gaia.git"
+bug-reports: "https://github.com/coq-community/gaia/issues"
 license: "MIT"
 
 synopsis: "Implementation of books from Bourbaki's Elements of Mathematics in Coq"

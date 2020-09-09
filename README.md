@@ -1,10 +1,21 @@
 # Gaia
 
 [![CI][action-shield]][action-link]
+[![Contributing][contributing-shield]][contributing-link]
+[![Code of Conduct][conduct-shield]][conduct-link]
+[![Zulip][zulip-shield]][zulip-link]
 
-[action-shield]: https://github.com/palmskog/gaia/workflows/CI/badge.svg?branch=master
-[action-link]: https://github.com/palmskog/gaia/actions?query=workflow%3ACI
+[action-shield]: https://github.com/coq-community/gaia/workflows/CI/badge.svg?branch=master
+[action-link]: https://github.com/coq-community/gaia/actions?query=workflow%3ACI
 
+[contributing-shield]: https://img.shields.io/badge/contributions-welcome-%23f7931e.svg
+[contributing-link]: https://github.com/coq-community/manifesto/blob/master/CONTRIBUTING.md
+
+[conduct-shield]: https://img.shields.io/badge/%E2%9D%A4-code%20of%20conduct-%23f15a24.svg
+[conduct-link]: https://github.com/coq-community/manifesto/blob/master/CODE_OF_CONDUCT.md
+
+[zulip-shield]: https://img.shields.io/badge/chat-on%20zulip-%23c1272d.svg
+[zulip-link]: https://coq.zulipchat.com/#narrow/stream/237663-coq-community-devs.20.26.20users
 
 
 
@@ -18,6 +29,8 @@ and number theory.
   - José Grimm
   - Alban Quadrat
   - Carlos Simpson
+- Coq-community maintainer(s):
+  - Laurent Théry ([**@thery**](https://github.com/thery))
 - License: [MIT License](LICENSE)
 - Compatible Coq versions: 8.10 or later
 - Additional dependencies:
@@ -36,7 +49,7 @@ and number theory.
 ## Building instructions
 
 ``` shell
-git clone https://github.com/palmskog/gaia
+git clone https://github.com/coq-community/gaia
 cd gaia
 make   # or make -j <number-of-cores-on-your-machine>
 ```
