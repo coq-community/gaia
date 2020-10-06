@@ -698,7 +698,7 @@ move/and3P: (nx);rewrite -/T1nf; move => [na nb lba].
 have aca: Acc (restrict T1nf T1lt) a by split.
 have Hc: forall b, Acc (restrict T1nf T1lt) b ->
   T1nf (cons a 0 b)-> Acc (restrict T1nf T1lt) (cons a 0 b).
-  move => c; elim => {c} c qa qb qc; split; case; first by move => _; apply: az.
+  move => c; elim => {} c qa qb qc; split; case; first by move => _; apply: az.
   move => a'' n'' b'' [] sa /= ua /and3P [_ nc _];move/and3P:(sa) => [ra rb _].
   move: ua;case: (T1ltgtP a'' a) => ua ub.
   - by apply: Hb.

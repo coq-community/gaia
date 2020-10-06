@@ -177,7 +177,7 @@ Lemma num_of_list_false x:
    num_of_list (rcons x false) = num_of_list (rcons x true).
 Proof.
 case: x => // a l; rewrite !rcons_cons /num_of_list; congr Npos.
-rewrite -!rcons_cons; elim: (a::l) => // {a l} a l /= ->.
+rewrite -!rcons_cons; elim: (a::l) => // {l} a l /= ->.
 move: (rev_cons true (rev l))  (rev_cons false (rev l)); rewrite revK.
 by rewrite split_rev (split_rev false) => <- <-.
 Qed.
