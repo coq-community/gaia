@@ -7736,9 +7736,6 @@ move=> [ma prm]; exists m => //; split => // p pp cmp pa; symmetry; apply: xm.
 by apply /sub_gleP;split => //; apply: Zo_i => //; apply /setP_P.
 Qed.
 
-
-
-
 (** If  [M] is maximal pure and [x] is not in [M] then  [Ex4_11EM M x] 
    is the unique subset of [M] such that adjoining [x] gives an element of [R]*)
 
@@ -7784,7 +7781,6 @@ Qed.
 
 Definition Ex4_11EM M x := select (fun z => (sub z M /\ inc (z +s1 x) R))
   (\Po A).
-
 
 Lemma Exercise4_11d M x: max_pure A R M -> inc x (A -s M) ->
   (sub (Ex4_11EM M x) M /\ inc ((Ex4_11EM M x) +s1 x) R).
@@ -7956,84 +7952,220 @@ have cb: cardinalp (cardinal (s -s1 b)) by apply: CS_cardinal.
 by rewrite - (csucc_inj cb ca ss);apply/card_eqP; apply:Hrec.
 Qed.
 
+Lemma finite_set_strong_induction (s : property) :
+  (forall x : Set, finite_set x -> 
+    (forall y : Set, ssub y x -> s y) -> s x) ->
+  forall x : Set, finite_set x -> s x.
+Proof.
+move=> IH.
+suff IH1 : forall n, 
+     natp n -> (forall x, cardinal x = n -> s x).
+  move=> x fx.   
+  apply: (IH1 (cardinal x)) => //.
+  by apply/card_finite_setP.
+apply: (@Nat_induction1
+         (fun n => forall x : Set, cardinal x = n -> s x)).
+move=> n nn IH1 x ecxn.
+have fx : finite_set x by apply/card_finite_setP; rewrite ecxn.
+apply: IH => //.
+move=> y ssyx; apply: (IH1 (cardinal y)) => //.
+have /strict_sub_smaller/(_ _ ssyx) := fx.
+by rewrite ecxn.
+Qed.
+
+Lemma Exercise4_11d' M x M' : max_pure A R M -> inc x (A -s M) ->
+  sub M' A -> sub M' M -> inc (M' +s1 x) R -> M' = Ex4_11EM M x.
+Proof. 
+move => pa pb sm'a sm'm icm'xr; rewrite /Ex4_11EM.
+pose p z := sub z M /\ inc (z +s1 x) R; rewrite -/p -/(p _).
+move:(Exercise4_11c pa pb) => [z [[qa qb qc] zb]].
+have h:(singl_val2 (inc ^~ (\Po A)) p).
+  move => a b aP [r1 r2] bP [r3 r4].  
+  by rewrite - (zb _ (And3 aP r1 r2)) (zb _ (And3 bP r3 r4)).
+apply: select_uniq => //.
+by apply/setP_i.
+Qed.
+
 (** Assume [z] in [M-N] not in the union of [ Ex4_11EM M x] for [x]
   in [N-M]. Let [F = Ex4_11EM N z].
-Admitted  *)
-
-Lemma  Exercise4_11h M N:
-  max_pure A R M -> max_pure A R N -> 
-  sub (M -s N)  (unionb (Lg (N -s M) (fun z => (Ex4_11EM M z)))).
-Proof.
-move => mp np; move => z zmn; apply setUb_P; aw;ex_middle bad1.
-have bad2: forall x, inc x (N -s M) -> ~(inc z (Ex4_11EM M x)).
-  move => x xa xb; case: bad1; ex_tac; rewrite LgV//.
-move: (zmn) =>  /setC_P[zM zN].
-move: (proj31 mp _ zM) => zA.
-have zan: inc z (A -s N) by apply /setC_P.
-move: (Exercise4_11d np zan) => [F0n F0R].
-move: mnr => [q1 q2 q3 q4].
-
-have rec: forall F y, sub F (N \cup M) -> inc (F +s1 z) R ->
-  inc y (F -s M) ->  
-  exists F', [/\ sub F' (N \cup M), inc (F' +s1 z) R, ~ (inc y F') &
-    sub (F' -s M) (F -s M)].
-  move => F y FA FpR yFsM.
-  move: yFsM => /setC_P [yF yM]; move: (FA _ yF) => yNuM.
-  have yN: inc y N by move: yNuM; case /setU2_P.
-  have yam: inc y (A -s M) by apply/setC_P; split => //;apply: (proj31 np _ yN).
-  move:  (Exercise4_11d mp yam) => [ta tb].
-  have nXY: (F +s1 z) <> (Ex4_11EM M y +s1 y).
-    move => heq.
-    have yNM: inc y (N -s M) by apply /setC_P.
-    move: (bad2 _ yNM) => nz.
-    have: inc z (F +s1 z) by fprops.
-    rewrite heq;case  /setU1_P => // => eq2;case: zN; ue.
-  have ti: inc y ((F +s1 z) \cap (Ex4_11EM M y +s1 y)) by fprops.
-  move : (q3 _ _  FpR tb nXY _ ti) => [Z [Za Zb Zc]].
-  have zd:  sub Z (N \cup M).
-    move => t tz; case/setU2_P:(Zb _ tz).
-      by case/setU1_P; [ apply: FA | move => ->; apply/setU2_P; right].
-    case /setU1_P; move =>h; apply/setU2_P; [by right; apply:ta | left; ue].
-
-Admitted.
-(*
-move: (Exercise4_11h np zA zN) => [F0n F0R].
-have pa: forall x, inc x (N -s M) -> 
-  exists y, inc y (M -s N) /\ inc y (Ex4_11EM M x).
-  move => x; srw; move => [xN xM].
-  move: (proj11 np _ xN) => xA.
-  move: (Exercise4_11h mp xA xM) => [ta tb].
-  case: (emptyset_dichot ((Ex4_11EM M x) -s N)) => ed.
-    move: (empty_complement ed) => sd.
-    have sd1: sub (Ex4_11EM M x +s1 x) N by move => t; aw; case;split => // ->.
-    by move: (proj12 np _ sd1).
-  move: ed => [t]; srw; move=> [t1 t2]; exists t; srw;split => //.
-pose f x := choose (fun y => inc y (M -s N) /\ inc y (Ex4_11EM M x)).
-have fp: forall x, inc x (N -s M)  -> 
-   (inc (f x) (M -s N) /\ inc (f x) (Ex4_11EM M x)).
-   by move => x xc; apply choose_pr; apply: pa.
-
-set S :=  (M -s (fun_image (N -s M) f)) \cup (N -s M).
-have pb: sub N S.
-  move => t tm; rewrite /S; aw.
-  case: (inc_or_not t M) => tM; last by right; srw; split => //.
-  left; srw; split => //; aw; move => [z]; aw; move => [ta tb].
-  move: (fp _ ta); rewrite tb; srw; intuitionxx.
-have ps: pure S.
-   split. rewrite/S => t;aw; srw; case; move => [ta _].
-      apply: (proj11 mp _ ta).
-      apply: (proj11 np _ ta).
-   move => X Xs Xr.
-   admit.  (* wrong ? *)
-move: (proj2 np _ ps pb) => ns.
-move => t; srw; move=> [tm tn]; bw.
-case: (inc_or_not t (fun_image (N -s M) f)).
-  aw; move => [z [zc fz]]; move: (fp _ zc) => [ta tb].
-  exists z;split => //;bw; ue.
-move => xx; case: tn; rewrite ns /S; aw; left; srw;split => //.
-
-Qed.
 *)
+
+(* This proof is due to the collaborators of Nicolas Bourbaki *)
+Lemma Exercise4_11h M N:
+  max_pure A R M -> max_pure A R N -> 
+  sub (M -s N) (unionb (Lg (N -s M) (fun z => (Ex4_11EM M z)))).
+Proof.
+move => mp np y ymn.
+have /setC_P[ym yn] := ymn.
+have yIA : inc y A by have [H _ _] := mp; apply: H.
+apply/setUb_P1.
+suff IH : forall K, finite_set K ->
+   (forall M, max_pure A R M -> 
+              inc y M ->
+              K = Ex4_11EM N y -s M ->
+              exists2 x : Set, inc x K & inc y (Ex4_11EM M x)).
+  have [] // := (IH (Ex4_11EM N y -s M) _ M).
+    apply: sub_finite_set (_ : sub _ (Ex4_11EM N y +s1 y)) _.
+      by move=> z /setC_P[izeny _]; apply/setU1_P; left.
+    have yan : inc y (A -s N) by apply/setC_P.
+    have [_ rF _ _] := mnr; apply: rF.
+    by move: (Exercise4_11d np yan) => [F0n F0R].
+  move=> x /setC_P[ixeny nixm] iyemx; exists x => //.
+  apply/setC_P; split => //.
+  have [||senyn _] // := (@Exercise4_11d N y); first by apply/setC_P.
+  by apply: senyn.
+move=> {M mp ymn ym}.  
+apply: (@finite_set_strong_induction
+  (fun K => forall M : Set,
+max_pure A R M ->
+inc y M ->
+K = Ex4_11EM N y -s M ->
+exists2 x : Set, inc x K & inc y (Ex4_11EM M x))).
+move=> K fk IH M mp ym ek.
+have iya : inc y A by have [sma _ _] := mp; apply: sma.
+have [x /setC_P[ixeny nixm]] : nonempty (Ex4_11EM N y -s M).
+  apply/nonemptyP => /empty_setC sEm.
+  have /(_ (Ex4_11EM N y +s1 y))[] : pure R M by case: mp.
+    by apply: setU1_sub.
+  have [] // := (@Exercise4_11d _ y np).
+  by apply: setC_i.
+have ixn : inc x N.
+  have [|senyn _] // := (@Exercise4_11d _ y np); first by apply/setC_P.
+  by apply: senyn.
+have ixa : inc x A by have [sna _ _] := np; apply: sna.
+have [y' /setC_P[iy'emx niy'em]] : nonempty (Ex4_11EM M x -s N).
+  apply/nonemptyP => /empty_setC semxn.
+  have [_ pn _] := np; case: (pn ((Ex4_11EM M x +s1 x))).
+    by move=> z /setU1_P[/semxn|->].
+  case:  (@Exercise4_11d _ x mp) => //.
+  by apply/setC_P.
+have iy'm : inc y' M.
+  have [|semxm _] // := (@Exercise4_11d _ x mp); first by apply/setC_P.
+  by apply: semxm.
+have dxy' : x <> y' by move=> exy'; case: nixm; rewrite exy'.
+have [iyemx|niyemx] := inc_or_not y (Ex4_11EM M x).
+  have iym : inc y M.
+    by have [|semxm _] // := (@Exercise4_11d _ x mp); apply/setC_P.
+  exists x => //; rewrite ek.
+  by apply/setC_P.
+have dyy' : y <> y' by move=> eyy'; case: niyemx; rewrite eyy'.
+pose M' := (M +s1 x) -s1 y'.
+have m'p : max_pure A R M'.
+  by apply: Exercise4_11f => //; apply/setC_P.
+have senym'enym : sub (Ex4_11EM N y -s M') (Ex4_11EM N y -s M).
+  move=> z /setC_P[izeny nizm']; apply/setC_P; split => //.
+  move=> izm; case: (nizm').
+  apply/setC1_P; split; first by apply/setU1_P; left.
+  move=> ezy'; case: niy'em; rewrite -ezy'.
+  have [|senyn _] := @Exercise4_11d _ y np.
+    by apply/setC_P.
+  by apply: senyn.
+case: (@IH (Ex4_11EM N y -s M') _ M') => //.
+- rewrite ek; split => //.
+  move=> eenymenym.
+  have : inc x (Ex4_11EM N y -s M) by apply/setC_P; split => //.
+  rewrite -eenymenym => /setC_P[_ []].
+  apply/setC_P; split; first by apply/setU1_1.
+  by move=> /set1_eq .
+- apply/setC1_P; split => //.
+  by apply/setU1_P; left.
+move=> x' /setC_P[ix'exny nix'm'] iyem'x'.
+have nix'm : ~ inc x' M.
+  suff : inc x' (Ex4_11EM N y -s M) by case/setC_P.
+  by apply/senym'enym/setC_P.
+have ix'N : inc x' N.
+  have [|senyn _] := @Exercise4_11d _ y np; first by apply/setC_P.
+  by apply: senyn.
+have ix'A : inc x' A by have [sna _ _] := np; apply: sna.
+have iym' : inc y M'.
+  have [|sem'x'm' _] := @Exercise4_11d _ x' m'p; first by apply/setC_P.
+  by apply: sem'x'm'.
+have [iy'emx'|niy'emx'] := inc_or_not y' (Ex4_11EM M x'); last first.
+  have smx'm' : sub (Ex4_11EM M x') M'.
+    move=> z izemx'.
+    apply/setC1_P; split => //; last first.
+      by move=> ezy'; case: niy'emx'; rewrite -ezy'. 
+    apply/setU1_P; left.
+    have [|semx'm _] := @Exercise4_11d _ x' mp.
+      by apply/setC_P.
+    by apply: semx'm.
+  exists x' => //.
+    rewrite ek.
+    by apply/senym'enym/setC_P.
+  suff <-: Ex4_11EM M' x' = Ex4_11EM M x' by [].
+  apply/sym_equal/Exercise4_11d' => //.
+  - by apply/setC_P.
+  - move=> z izemx'.
+    have [sma _ _ ] := mp; apply: sma.
+    have [|semx'm _] := @Exercise4_11d _ x' mp; first by apply/setC_P.
+    by apply: semx'm.
+  by have [] // := @Exercise4_11d _ x' mp; apply/setC_P.
+have iy' : inc y' ((Ex4_11EM M x +s1 x) \cap (Ex4_11EM M x' +s1 x')).
+  by apply/setI2_P; split; apply/setU1_P; left.
+have dxx' : x <> x'.
+  move=> exx'; case: nix'm'; rewrite -exx'.
+  apply/setC1_P; split; first by apply/setU1_P; right.
+  move=> exy'; case: nix'm.
+  by rewrite -exx' exy'.
+have [_ _ mr _] := mnr.
+red in mr.
+case: (mr (Ex4_11EM M x +s1 x) (Ex4_11EM M x' +s1 x') _ _ _ y') => //.
+- by case: (@Exercise4_11d M x) => //; apply/setC_P.
+- by case: (@Exercise4_11d M x') => //; apply/setC_P.
+- move=> eemxxemx'x'.
+  have : inc x (Ex4_11EM M x +s1 x) by apply/setU1_P; right.
+  rewrite eemxxemx'x' => /setU1_P[] // ixmx'.
+  case: nixm.
+  case: (@Exercise4_11d M x') => //; first by apply/setC_P.
+  by move=> /(_ _ ixmx').
+move=> X [ixr sxc niy'x].
+have sxm'x' : sub X (M' +s1 x').
+  move=> z izx.
+  case/setU2_P: (sxc _ izx); last first.
+    case/setU1_P=> [izemx'|->]; last by apply/setU1_P; right.
+    apply/setU1_P; left.
+    apply/setC1_P; split; last first.
+      by move=> ezy'; case: niy'x; rewrite -ezy'.
+    apply/setU1_P; left.
+    case: (@Exercise4_11d M x') => //; first by apply/setC_P.
+    by move=> /(_ _ izemx').
+  move=> /setU1_P[|->]; last first.
+    apply/setU1_P; left.
+    apply/setC1_P; split => //.
+    by apply/setU1_P; right.
+  move=> izemx.
+  apply/setU1_P; left.
+  apply/setC1_P; split; last first.
+    by move=> ezy'; case: niy'x; rewrite -ezy'.
+  apply/setU1_P; left.
+  case: (@Exercise4_11d M x) => //; first by apply/setC_P.
+  by move=> /(_ _ izemx).
+have ix'x : inc x' X.
+  ex_middle nix'x.
+  have [_ pm' _] := m'p.
+  case: (pm' X) => //.
+  move=> z izx.
+  have /setU1_P[|ezx] // := sxm'x' _ izx.
+  by case: nix'x; rewrite -ezx.
+have exem'x' : X -s1 x' = Ex4_11EM M' x'.
+  apply: Exercise4_11d' => //.
+  - by apply/setC_P.
+  - move => z /setC1_P[izx _].
+    by case: mnr => /(_ _ ixr _ izx).
+  move=> z /setC1_P[izx' dzx'].
+    by have /setU1_P[|ezx'] := sxm'x' _ izx'.
+  by rewrite setC1_K.
+suff : inc y ((Ex4_11EM M x +s1 x) \cup (Ex4_11EM M x' +s1 x')).
+  case/setU2_P; case/setU1_P.
+  - by move=> iymx; exists x.
+  - by move=> eyx; case: yn; rewrite eyx.
+  - move=> iymx; exists x' => //.
+    by rewrite ek; apply/setC_P.
+  by move=> eyx'; case: yn; rewrite eyx'.
+apply: sxc.
+rewrite -(@setC1_K X x') // exem'x'.
+by apply/setU1_P; left.
+Qed.
 
 (** If one complement is finite, then [M] and [N] are equipotent.
 Otherwise we use [ Exercise4_11k ] and an upper bound of the cardinal of the 
@@ -8074,7 +8206,6 @@ move: (cleT le1 (notbig_family_sum h1' cd1 l1)) => l3.
 move: (cleT le2 (notbig_family_sum h2' cd2 l2)) => l4.
 apply/card_eqP;  apply: cardinal_setC3; exact: (cleA l3 l4). 
 Qed.
-
 
 End Exercice4_11.
 
