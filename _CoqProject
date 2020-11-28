@@ -2,6 +2,8 @@
 -arg -w -arg -notation-overridden
 -arg -w -arg -notation-incompatible-format
 -arg -w -arg -ambiguous-paths
+-arg -w -arg -deprecated-hint-without-locality
+-arg -w -arg -deprecated-ident-entry
 theories/fibm.v
 theories/sset1.v
 theories/sset10.v
