@@ -55,9 +55,9 @@ supported_coq_versions:
 dependencies:
 - opam:
     name: coq-mathcomp-ssreflect
-    version: '{(>= "1.11.0" & < "1.12~") | (= "dev")}'
+    version: '{(>= "1.11" & < "1.13~") | (= "dev")}'
   description: |-
-    [MathComp ssreflect 1.11.0 or later](https://math-comp.github.io)
+    [MathComp ssreflect 1.11 or later](https://math-comp.github.io)
 - opam:
     name: coq-mathcomp-algebra
   description: |-
@@ -66,6 +66,8 @@ dependencies:
 tested_coq_opam_versions:
 - version: 'coq-dev'
   repo: 'mathcomp/mathcomp-dev'
+- version: '1.12.0-coq-8.12'
+  repo: 'mathcomp/mathcomp'
 - version: '1.11.0-coq-8.12'
   repo: 'mathcomp/mathcomp'
 - version: '1.11.0-coq-8.11'
@@ -81,15 +83,6 @@ keywords:
 
 categories:
 - name: Mathematics/Logic/Set theory
-
-build: |-
-  ## Building instructions
-  
-  ``` shell
-  git clone https://github.com/coq-community/gaia
-  cd gaia
-  make   # or make -j <number-of-cores-on-your-machine>
-  ```
 
 documentation: |-
   ## Documentation

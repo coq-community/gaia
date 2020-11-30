@@ -34,7 +34,7 @@ and number theory.
 - License: [MIT License](LICENSE)
 - Compatible Coq versions: 8.10 or later
 - Additional dependencies:
-  - [MathComp ssreflect 1.11.0 or later](https://math-comp.github.io)
+  - [MathComp ssreflect 1.11 or later](https://math-comp.github.io)
   - [MathComp algebra](https://math-comp.github.io)
 - Coq namespace: `gaia`
 - Related publication(s):
@@ -46,13 +46,25 @@ and number theory.
   - [Fibonacci numbers and the Stern-Brocot tree in Coq](https://hal.inria.fr/hal-01093589) 
   - [Implementation of three types of ordinals in Coq](https://hal.inria.fr/hal-00911710) 
 
-## Building instructions
+## Building and installation instructions
+
+The easiest way to install the latest released version of Gaia
+is via [OPAM](https://opam.ocaml.org/doc/Install.html):
+
+```shell
+opam repo add coq-released https://coq.inria.fr/opam/released
+opam install coq-gaia
+```
+
+To instead build and install manually, do:
 
 ``` shell
-git clone https://github.com/coq-community/gaia
+git clone https://github.com/coq-community/gaia.git
 cd gaia
-make   # or make -j <number-of-cores-on-your-machine>
+make   # or make -j <number-of-cores-on-your-machine> 
+make install
 ```
+
 
 ## Documentation
 
