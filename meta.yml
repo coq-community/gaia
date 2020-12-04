@@ -71,11 +71,6 @@ tested_coq_opam_versions:
 - version: 'coq-dev'
   repo: 'mathcomp/mathcomp-dev'
 - version: '1.12.0-coq-8.12'
-<<<<<<< HEAD
-=======
-  repo: 'mathcomp/mathcomp'
-- version: '1.11.0-coq-8.12'
->>>>>>> f9a8cc39f3ec943ae7ba8e27f609a113ff949a07
   repo: 'mathcomp/mathcomp'
 - version: '1.12.0-coq-8.11'
   repo: 'mathcomp/mathcomp'
