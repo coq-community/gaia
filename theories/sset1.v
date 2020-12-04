@@ -231,7 +231,7 @@ Qed.
 Lemma sub0_set x : sub emptyset x.
 Proof. by move=> t /in_set0. Qed.
 
-Hint Resolve sub0_set sub_refl : fprops.
+Global Hint Resolve sub0_set sub_refl : fprops.
 
 Lemma sub_set0 x: sub x emptyset <-> (x = emptyset).
 Proof.  
@@ -340,7 +340,7 @@ Proof. by apply /IM_P; exists false. Qed.
 Lemma set2_hi z x y: inc z (doubleton x y) -> z = x \/ z = y.
 Proof. by move/IM_P => [][]; [left | right]. Qed.
 
-Hint Resolve set2_1 set2_2: fprops.
+Global Hint Resolve set2_1 set2_2: fprops.
 
 Lemma set2_P z x y : inc z (doubleton x y) <-> (z = x \/ z = y).
 Proof. split; [apply: set2_hi | by case => ->; fprops]. Qed.
@@ -391,7 +391,7 @@ Proof. by case/set2_P. Qed.
 Lemma set1_1 x: inc x (singleton x).
 Proof. by apply/set2_P;left. Qed.
 
-Hint Resolve set1_1: fprops.
+Global Hint Resolve set1_1: fprops.
 
 Lemma set1_P y x: inc y (singleton x) <-> (y = x).
 Proof. by split; [ apply:set1_eq| move => ->; fprops ]. Qed.
@@ -405,7 +405,7 @@ Proof. by apply: set2_ne. Qed.
 Lemma set1_sub x X: inc x X -> sub (singleton x) X.
 Proof. by move=> ixy; apply: sub_set2. Qed.
 
-Hint Resolve set1_ne: fprops.
+Global Hint Resolve set1_ne: fprops.
 
 Definition C0 := emptyset.
 Definition C1 := singleton C0.
@@ -429,8 +429,8 @@ Proof. exact: set2_1. Qed.
 Lemma inc_C1_C2: inc C1 C2.
 Proof. exact: set2_2. Qed.
 
-Hint Resolve C0_ne_C1 C1_ne_C0: fprops.
-Hint Resolve inc_C0_C2 inc_C1_C2: fprops.
+Global Hint Resolve C0_ne_C1 C1_ne_C0: fprops.
+Global Hint Resolve inc_C0_C2 inc_C1_C2: fprops.
 
 
 Definition alls (X: Set)(P: property) := forall a, inc a X -> P a.
@@ -519,7 +519,7 @@ Proof. exact: Zo_P. Qed.
 Lemma setC_i x A B: inc x A -> ~ inc x B -> inc x (A -s B).
 Proof. by move => xa xb; apply /setC_P. Qed.
 
-Hint Resolve  setC_i: fprops.
+Global Hint Resolve  setC_i: fprops.
 
 Lemma nin_setC x A B: inc x A -> ~ inc x (A -s B) -> inc x B.
 Proof. move=> xa nx_cab; ex_middle h; case: nx_cab; fprops. Qed.
@@ -687,7 +687,7 @@ Proof. move => xa; apply (setU_i xa); fprops. Qed.
 Lemma setU2_2 x A B: inc x B -> inc x (A \cup B).
 Proof. move => xb;apply: (setU_i xb); fprops. Qed.
 
-Hint Resolve setU2_1 setU2_2: fprops.
+Global Hint Resolve setU2_1 setU2_2: fprops.
 
 Lemma setU2_P x A B: inc x (A \cup B) <-> (inc x A \/ inc x B).
 Proof. by split; [apply: setU2_hi | case; fprops ]. Qed. 
@@ -827,7 +827,7 @@ Proof. by move=> x xA; apply/setU1_P; left. Qed.
 Lemma setU1_r A b x: inc x A -> inc x (A +s1 b).
 Proof. apply: sub_setU1. Qed.
 
-Hint Resolve setU1_1 setU1_r sub_setU1: fprops.
+Global Hint Resolve setU1_1 setU1_r sub_setU1: fprops.
 
 Lemma setU1_eq A b: inc b A -> A +s1 b = A.
 Proof. 
@@ -1142,7 +1142,7 @@ move => xa xb.
 by apply: setI_i; [ apply: set2_ne | move=> t /set2_P [] -> ].
 Qed.
 
-Hint Resolve setI2_i : fprops.
+Global Hint Resolve setI2_i : fprops.
 
 Lemma setI2_1 A B: sub (A \cap B) A.
 Proof. move => x xi; apply: (setI_hi xi); fprops. Qed.
@@ -1590,7 +1590,7 @@ Definition pairp (x : Set) := (J (P x) (Q x) = x).
 Lemma pair_is_pair x y: pairp (J x y). 
 Proof. by rewrite /pairp; aw. Qed.
 
-Hint Resolve pair_is_pair: fprops.
+Global Hint Resolve pair_is_pair: fprops.
 
 Lemma pair_exten x y:
   pairp x -> pairp y -> P x = P y -> Q x = Q y -> x = y.
@@ -1641,7 +1641,7 @@ Proof.
 by split; [move/setX_P=> [_]; aw | move=> [xa ya]; apply: setXp_i].
 Qed.
 
-Hint Resolve setXp_i: fprops.
+Global Hint Resolve setXp_i: fprops.
 
 
 (** A product is empty if and only one factor is empty *)
@@ -1878,7 +1878,7 @@ move=> [_ fg] ia ib.
 move: (fg _ _ ia ib); aw => h; exact: (pr2_def (h (erefl x))).
 Qed. 
 
-Hint Resolve fgraph_sg : fprops.
+Global Hint Resolve fgraph_sg : fprops.
 
 (** We give here some properties of the domain and range *)
 
@@ -1889,7 +1889,7 @@ Proof. by apply: funI_i. Qed.
 Lemma range_i2 f x: inc x f -> inc (Q x) (range f). 
 Proof. by apply: funI_i. Qed.
 
-Hint Resolve domain_i1 range_i2: fprops.
+Global Hint Resolve domain_i1 range_i2: fprops.
 
 Lemma domain_i f x y: inc (J x y) f -> inc x (domain f). 
 Proof. by move/domain_i1; aw. Qed.
@@ -2017,7 +2017,7 @@ Proof. by rewrite domain_setU2 domain_set1. Qed.
 Lemma sgraph_set0: sgraph emptyset.
 Proof. by move=> t [][]. Qed. 
 
-Hint Resolve sgraph_set0 : fprops.
+Global Hint Resolve sgraph_set0 : fprops.
 Hint Rewrite range_set0 domain_set0 : aw.
 
 Lemma fgraph_set0: fgraph emptyset.
@@ -2107,7 +2107,7 @@ Lemma inc_V_range x: inc x (domain f) -> inc (Vg f x) (range f).
 Proof. move=> xd; apply/range_gP; ex_tac. Qed.
 
 End Vprops.
-Hint Resolve inc_V_range: fprops.
+Global Hint Resolve inc_V_range: fprops.
 
 
 Lemma simple_fct a b A B (f := singleton (J a b)):
@@ -2167,7 +2167,7 @@ by rewrite Lgd.
 Qed.
 
 Hint Rewrite Lgd Lgcomp_domain : aw. 
-Hint Resolve Lg_fgraph: fprops.
+Global Hint Resolve Lg_fgraph: fprops.
 
 Lemma LgV x p y: inc y x -> Vg (Lg x p) y = p y. 
 Proof. 
@@ -2238,7 +2238,7 @@ Qed.
 Lemma identity_ev x a: inc x a -> Vg (identity_g a) x = x.
 Proof. by rewrite/identity_g => /(LgV (p := id)). Qed.
 
-Hint Resolve identity_sgraph : fprops.
+Global Hint Resolve identity_sgraph : fprops.
 Hint Rewrite  identity_ev : bw.
 
 Definition cst_graph x y:= Lg x (fun _ => y).
@@ -2260,7 +2260,7 @@ Lemma cst_graph_fgraph a b: fgraph (cst_graph a b).
 Proof. rewrite /cst_graph; fprops. Qed.
 
 Hint Rewrite cst_graph_d : aw.
-Hint Resolve cst_graph_fgraph: fprops.
+Global Hint Resolve cst_graph_fgraph: fprops.
 
 Lemma setU1_V_out f x y:
   fgraph f -> ~ (inc x (domain f)) ->  Vg (f +s1 (J x y)) x = y.
@@ -2318,7 +2318,7 @@ Proof. by move=>  ix; rewrite LgV.  Qed.
 
 Hint Rewrite restr_d: aw.
 Hint Rewrite restr_ev: bw.
-Hint Resolve restr_fgraph : fprops.
+Global Hint Resolve restr_fgraph : fprops.
 
 Lemma double_restr f a b: sub a b -> (restr (restr f b) a) = (restr f a).
 Proof.  
@@ -2382,7 +2382,7 @@ apply: pc; apply /(range_gP pb); ex_tac.
 Qed.
 
 
-Hint Resolve composef_fgraph: fprops.
+Global Hint Resolve composef_fgraph: fprops.
 
 
 End Function.

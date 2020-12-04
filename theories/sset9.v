@@ -1470,7 +1470,7 @@ Proof.
 move => aN ; rewrite cremE; apply: (NS_diff _ aN).
 Qed.
 
-Hint Resolve  NS_rem NS_quo: fprops.
+Global Hint Resolve  NS_rem NS_quo: fprops.
 
 Lemma cdiv_pr a b: natp a -> natp b -> 
   a = (b *c (a %/c b)) +c (a %%c b).
@@ -3825,7 +3825,7 @@ move: n nN; apply: Nat_induction.
 move => n nN [sa sb]; split => //; rewrite (Fib_rec nN); fprops.
 Qed.
 
-Hint Resolve NS_Fib : fprops.
+Global Hint Resolve NS_Fib : fprops.
 
 Lemma Fib_gt0 n: natp n -> n <> \0c ->  (Fib n) <> \0c.
 Proof.
@@ -4900,7 +4900,7 @@ move: n;apply: Nat_induction; first by rewrite factorial0; fprops.
 move=> m mN u; rewrite (factorial_succ mN); fprops.
 Qed.
 
-Hint Resolve  factorial_nz: fprops.
+Global Hint Resolve  factorial_nz: fprops.
 
 Lemma factorial_prop f: f \0c = \1c ->
   (forall n, natp n -> f (csucc n) =  (f n) *c (csucc n)) ->

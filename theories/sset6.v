@@ -30,7 +30,7 @@ Definition worder_on G E := worder G /\ substrate G = E.
 Lemma worder_or r: worder r -> order r.
 Proof. exact: proj1. Qed.
 
-Hint Resolve worder_or: fprops.
+Global Hint Resolve worder_or: fprops.
 
 Lemma wordering_pr r x: 
   worder_r r -> {inc x, reflexive_r r} ->  
@@ -604,7 +604,7 @@ Proof. by move=> or xs;apply/segmentcP =>//; order_tac. Qed.
 Lemma sub_segmentc r x: sub (segmentc r x) (substrate r).
 Proof. by move=> t /Zo_S. Qed.
 
-Hint Resolve inc_bound_segmentc: fprops.
+Global Hint Resolve inc_bound_segmentc: fprops.
 
 Lemma segmentc_pr r x: order r -> inc x (substrate r) ->
   (segment r x) +s1 x = segmentc r x.
@@ -3223,7 +3223,7 @@ Proof. by split; [apply: orsum_or | rewrite orsum_sr]. Qed.
 
 End OrderSumBasic.
 
-Hint Resolve orsum_or orprod_or: fprops.
+Global Hint Resolve orsum_or orprod_or: fprops.
 
 Definition order_prod2 r r' :=
   order_prod canonical_doubleton_order (variantLc r' r).
@@ -3237,7 +3237,7 @@ Proof.
 by move => or or';hnf; aw;move=> i itp; try_lvariant itp.  
 Qed.
 
-Hint Resolve order_sp_axioms: fprops.
+Global Hint Resolve order_sp_axioms: fprops.
 
 Section OrderSum2Basic.
 Variables r r': Set.

@@ -16,7 +16,7 @@ and number theory."""
 build: ["dune" "build" "-p" name "-j" jobs]
 depends: [
   "dune" {>= "2.5"}
-  "coq" {(>= "8.10" & < "8.13~") | (= "dev")}
+  "coq" {(>= "8.10" & < "8.14~") | (= "dev")}
   "coq-mathcomp-ssreflect" {(>= "1.11" & < "1.13~") | (= "dev")}
   "coq-mathcomp-algebra" 
 ]

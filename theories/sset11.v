@@ -139,7 +139,7 @@ move: cdo_wor => [pa pb] wor wor'; apply: orsum_wor; first by aw.
 by hnf;aw;move=> i ind; try_lvariant ind.
 Qed.
 
-Hint Resolve  orsum2_wor orprod2_wor: fprops.
+Global Hint Resolve  orsum2_wor orprod2_wor: fprops.
 
 Lemma set_ord_lt_prop3a a: ordinalp a -> ole_on a = ordinal_o a.
 Proof.
@@ -287,7 +287,7 @@ Proof.
 move=> wo1 wo2; apply: OS_ordinal; fprops.
 Qed.
 
-Hint Resolve OS_sum2 OS_prod2 : fprops.
+Global Hint Resolve OS_sum2 OS_prod2 : fprops.
 
 Lemma orsum_invariant1 r r' f g g':
   order_on r (domain g) -> 

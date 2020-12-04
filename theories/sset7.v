@@ -33,7 +33,7 @@ Definition osucc x := x +s1 x.
 Lemma succ_i x: inc x (osucc x).
 Proof. by apply:setU1_1.  Qed.
 
-Hint Resolve succ_i: fprops.
+Global Hint Resolve succ_i: fprops.
 
 Lemma transitive_setP x: transitive_set  x <-> sub (union x) x.
 Proof.
@@ -100,7 +100,7 @@ case /setU1_P: (ytx _ ty) => // tx; rewrite tx in ty.
 by case: yntxx; apply: (extensionality ytx); apply: setU1_sub => //; apply: tsy.
 Qed.
 
-Hint Resolve OS_succ : fprops.
+Global Hint Resolve OS_succ : fprops.
 
 Lemma ordinal_trans_dec x: ordinalp x -> trans_dec_set x. 
 Proof. 
@@ -382,7 +382,7 @@ Proof. exact: (proj1 (sub_osr x)). Qed.
 Lemma ordinal_o_tor x: ordinalp x -> total_order (ordinal_o x).
 Proof. by move=> or; apply: (worder_total (ordinal_o_wor or)). Qed.
 
-Hint Resolve ordinal_o_or ordinal_o_wor: fprops.
+Global Hint Resolve ordinal_o_or ordinal_o_wor: fprops.
 
 (** Two isomorphic ordinals are equal *)
 
@@ -943,7 +943,7 @@ Proof. exact: (proj1 wordering_ole). Qed.
 Lemma oleR x: ordinalp x -> x <=o x.
 Proof. by move=> or; split.  Qed.
 
-Hint Resolve oleR: fprops.
+Global Hint Resolve oleR: fprops.
 
 Lemma oleT y x z: x <=o y -> y <=o z -> x <=o z.
 Proof. move: ole_order_r => [p1 p2 _]; apply: p1. Qed.
@@ -1713,7 +1713,7 @@ Qed.
 Lemma OS_cardinal x: cardinalp x -> ordinalp x.
 Proof. by case.  Qed.
 
-Hint Resolve CS_cardinal: fprops.
+Global Hint Resolve CS_cardinal: fprops.
 
 Lemma double_cardinal x: cardinal x =c x.
 Proof. apply: card_card; fprops. Qed.
@@ -1843,7 +1843,7 @@ Proof. exact: (proj1 C2_ne_C01). Qed.
 Lemma card_12: \1c <> \2c.
 Proof. exact: (nesym (proj2 C2_ne_C01)). Qed.
 
-Hint Resolve card_12 card1_nz card2_nz: fprops.
+Global Hint Resolve card_12 card1_nz card2_nz: fprops.
 
 Lemma gfunctions_empty X: (gfunctions emptyset X) = \1c.
 Proof.
@@ -2030,7 +2030,7 @@ Proof. apply:CS_finite_o; apply:finite_one. Qed.
 Lemma CS2: cardinalp \2c.
 Proof. apply:CS_finite_o; apply:finite_two. Qed.
 
-Hint Resolve CS0 CS1 CS2 : fprops.
+Global Hint Resolve CS0 CS1 CS2 : fprops.
 
 (** We define finite and infinite for sets and cardinals *)
 
@@ -2047,7 +2047,7 @@ Qed.
 Lemma CS_finite x: finite_c x -> cardinalp x.
 Proof. by exact: CS_finite_o. Qed.
 
-Hint Resolve CS_finite: fprops.
+Global Hint Resolve CS_finite: fprops.
 
 
 Lemma finite_not_infinite x : finite_c x -> ~ infinite_c x.
@@ -2233,7 +2233,7 @@ Qed.
 Lemma OS_omega: ordinalp omega0.
 Proof. exact: (proj31 omega0_pr). Qed.
 
-Hint Resolve OS0 OS1 OS2 OS_omega : fprops.
+Global Hint Resolve OS0 OS1 OS2 OS_omega : fprops.
 
 Lemma OIS_omega: infinite_o omega0.
 Proof. exact: (proj32 omega0_pr). Qed.
@@ -2636,7 +2636,7 @@ Qed.
 Lemma cleR x: cardinalp x -> x <=c x.
 Proof. by move=> cx;split. Qed.
 
-Hint Resolve cleR: fprops.
+Global Hint Resolve cleR: fprops.
 
 Lemma cleT b a c: a <=c b -> b <=c c -> a <=c c.
 Proof.  
@@ -2943,7 +2943,7 @@ Proof. rewrite - osucc_zero;apply:iff_sym; exact:oleSltP. Qed.
 Lemma oge1 x: ordinalp x -> x <> \0o -> \1o <=o x.
 Proof. by move=> ox xne; apply/oge1P; apply: ord_ne0_pos. Qed.
 
-Hint Resolve oge1 : fprops.
+Global Hint Resolve oge1 : fprops.
 
 Lemma olt1 x:  x <o \1o -> x = \0o.
 Proof. by move/(oltP OS1) /set1_P. Qed.
@@ -3006,7 +3006,7 @@ Proof. rewrite - succ_zero; apply: succ_positive. Qed.
 Lemma cle_01: \0c <=c \1c.
 Proof. exact: (proj1 clt_01). Qed.
 
-Hint Resolve cle_01 clt_01 : fprops.
+Global Hint Resolve cle_01 clt_01 : fprops.
 
 Lemma cle_12: \1c <=c \2c.
 Proof. by split; fprops => // t /set1_P ->; apply:set2_1. Qed.

@@ -46,7 +46,7 @@ Proof. by move=> t /setX_P []. Qed.
 Lemma sub_setX_graph u x y: sub u (x \times y) -> sgraph u.
 Proof. move=> su t tu; exact: (setX_graph (su _ tu)). Qed. 
 
-Hint Resolve setX_graph: fprops.
+Global Hint Resolve setX_graph: fprops.
 
 Lemma setX_relP x y a b:
   related (x \times y) a b <-> (inc a x /\ inc b y).
@@ -165,7 +165,7 @@ Lemma corresp_sub_domain g:
   correspondence g -> sub (domain (graph g)) (source g).
 Proof. by move /corr_propc => [_].  Qed.
 
-Hint Resolve corresp_sub_range corresp_sub_domain corresp_is_graph: fprops.
+Global Hint Resolve corresp_sub_range corresp_sub_domain corresp_is_graph: fprops.
 
 (** The set of correspondences  [E->F] is the product of [P] and [singleton E] 
    and [singleton F], where [P == \Po (E \times F)] 
@@ -266,7 +266,7 @@ Definition inverse_graph r :=
 Lemma igraph_graph r: sgraph (inverse_graph r).
 Proof. move=> x /Zo_S xp; apply: (setX_pair xp). Qed.
 
-Hint Resolve igraph_graph: fprops.
+Global Hint Resolve igraph_graph: fprops.
 
 Lemma igraphP r y: 
   inc y (inverse_graph r) <-> (pairp y /\  inc (J (Q y)(P y)) r).
@@ -358,7 +358,7 @@ Lemma ifun_g f: graph (inverse_fun f) = inverse_graph (graph f).
 Proof. by rewrite /inverse_fun;aw. Qed.
 
 Hint Rewrite ifun_s ifun_t ifun_g : aw.
-Hint Resolve icor_correspondence: fprops.
+Global Hint Resolve icor_correspondence: fprops.
 
 (** Inverse image by a graph r of a set x *)
 
@@ -394,7 +394,7 @@ Notation "x \cg y" := (composeg x y) (at level 50).
 Lemma compg_graph r r': sgraph (r \cg r').
 Proof. by move=> t /Zo_P [/setX_pair]. Qed. 
 
-Hint Resolve compg_graph: fprops.
+Global Hint Resolve compg_graph: fprops.
 
 Lemma compg_P r r' x:
   inc x (r' \cg r) <->
@@ -642,7 +642,7 @@ Proof. by move=> [_ ]. Qed.
 Lemma f_range_graph f: function f -> sub (range (graph f))(target f).
 Proof. by move => [cf _ _]; apply:corresp_sub_range. Qed.
 
-Hint Resolve function_sgraph function_fgraph : fprops.
+Global Hint Resolve function_sgraph function_fgraph : fprops.
 
 Lemma ImfE f: function f -> Imf f =  range (graph f).
 Proof.
@@ -723,7 +723,7 @@ Proof. apply: fun_image_Starget1. Qed.
 
 End Vf_pr.
 
-Hint Resolve Vf_target : fprops.
+Global Hint Resolve Vf_target : fprops.
 
 Lemma Imf_i f x: function f -> inc x (source f) -> inc (Vf f x) (Imf f).
 Proof. move => ff xsf; apply/(Imf_P ff); ex_tac. Qed.
@@ -948,7 +948,7 @@ Proof. exact: (proj31 (identity_prop x)). Qed.
 Lemma idV x y: inc y x -> Vf (identity x) y = y.
 Proof. move =>yx; rewrite /Vf /identity; aw; apply:(identity_ev yx). Qed.
 
-Hint Resolve identity_f: fprops.
+Global Hint Resolve identity_f: fprops.
 Hint Rewrite idV : bw.
 
 Lemma identity_prop0 E f:
@@ -1799,7 +1799,7 @@ rewrite {1}/extension; aw => a b /setU1_P; case => av; move/setU1_P; case => bv.
 - by rewrite av bv.
 Qed.
 
-Hint Resolve extension_f: fprops.
+Global Hint Resolve extension_f: fprops.
 
 Lemma extension_f_injective x f g a b:
   function f -> function g -> target f = target g ->
@@ -1824,7 +1824,7 @@ Proof. by move => h; rewrite canonical_injectionE; apply:lf_injective. Qed.
 Lemma ci_f a b: sub a b -> function  (canonical_injection a b).
 Proof. move => h; exact (proj1 (ci_fi h)). Qed.
   
-Hint Resolve ci_f : fprops.
+Global Hint Resolve ci_f : fprops.
 
 Lemma ci_V a b x:
   sub a b -> inc x a -> Vf (canonical_injection a b) x = x.
@@ -2695,7 +2695,7 @@ Proof. by exists f.  Qed.
 Lemma EqR: reflexive_r equipotent.
 Proof. move => x; exists (identity x); apply: identity_bp. Qed.
 
-Hint Resolve EqR: fprops.
+Global Hint Resolve EqR: fprops.
 
 Lemma EqT: transitive_r equipotent.
 Proof. 
@@ -2892,7 +2892,7 @@ Qed.
 
 End Ext_to_prod.
 
-Hint Resolve  ext_to_prod_f: fprops.
+Global Hint Resolve  ext_to_prod_f: fprops.
 
 
 (** If the two functions are  injective, surjective, bijective, 

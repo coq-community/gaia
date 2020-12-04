@@ -127,7 +127,7 @@ Proof. by move => []. Qed.
 Lemma preorder_sgraph r: preorder r -> sgraph r.
 Proof. by move => []. Qed.
 
-Hint Resolve order_sgraph equivalence_sgraph : fprops.
+Global Hint Resolve order_sgraph equivalence_sgraph : fprops.
 
 Lemma reflexive_domain g: reflexivep g -> domain g = substrate g.
 Proof. 
@@ -706,7 +706,7 @@ Proof.
 move=> xy /setQ_P [pa pb]; apply: (@sub_class_substrate (rep y)); ue.
 Qed.
 
-Hint Resolve inc_class_setQ: fprops.
+Local Hint Resolve inc_class_setQ: fprops.
 
 Lemma setU_setQ: union (quotient r) = substrate r. 
 Proof.
@@ -758,7 +758,7 @@ Qed.
 
 End Class.
 
-Hint Resolve rep_i_sr inc_itself_class inc_class_setQ : fprops.
+Global Hint Resolve rep_i_sr inc_itself_class inc_class_setQ : fprops.
 
 
 (** Canonical projection on the quotient *)
@@ -779,7 +779,7 @@ Lemma canon_proj_t : target (canon_proj r) = quotient r.
 Proof. by rewrite /canon_proj; aw. Qed.
 
 Hint Rewrite canon_proj_s canon_proj_t: aw.
-Hint Resolve canon_proj_f: fprops.
+Local Hint Resolve canon_proj_f: fprops.
 
 Lemma canon_proj_V x:
   inc x (substrate r) -> Vf (canon_proj r) x = class r x.
@@ -843,7 +843,7 @@ Qed.
 End CanonProj.
 
 Hint Rewrite canon_proj_s canon_proj_t: aw.
-Hint Resolve canon_proj_f: fprops.
+Global Hint Resolve canon_proj_f: fprops.
 
 (** The diagonal is the graph of equality *)
 

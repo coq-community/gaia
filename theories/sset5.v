@@ -2759,7 +2759,7 @@ apply: the_greatest_pr => //; last by exists z.
 exact: (proj1 (iorder_osr or (Zo_S(p:=lower_bound r X)))).
 Qed.
 
-Hint Resolve supremum_pr1 infimum_pr1: fprops.
+Global Hint Resolve supremum_pr1 infimum_pr1: fprops.
 
 
 Lemma supremum_pr2 r X a: order  r -> 

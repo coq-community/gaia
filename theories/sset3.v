@@ -944,7 +944,7 @@ Definition variantLc f g:=  variantL C0 C1 f g.
 Lemma variantLc_fgraph x y:  fgraph (variantLc x y).
 Proof. rewrite/variantLc/variantL; fprops. Qed.
 
-Hint Resolve variant_fgraph variantLc_fgraph: fprops.
+Global Hint Resolve variant_fgraph variantLc_fgraph: fprops.
 
 Lemma variantLc_d f g: domain (variantLc f g) = C2.
 Proof. by rewrite/variantLc/variantL; aw. Qed.
@@ -1188,7 +1188,7 @@ move=> i j; rewrite  Lgd=> id jd ;rewrite ! LgV //.
 by mdi_tac t => u /indexed_P [_ _] qu /indexed_P [_ _]; rewrite qu.
 Qed.
 
-Hint Resolve disjointU_disjoint: fprops.
+Global Hint Resolve disjointU_disjoint: fprops.
 
 Lemma disjointU_fgraph f: fgraph (disjointU_fam f).
 Proof. rewrite /disjointU_fam; fprops. Qed.
@@ -1196,7 +1196,7 @@ Proof. rewrite /disjointU_fam; fprops. Qed.
 Lemma disjointU_d f: domain (disjointU_fam f) = domain f.
 Proof. by rewrite /disjointU_fam; aw. Qed.
 
-Hint Resolve  disjointU_fgraph: fprops.
+Global Hint Resolve  disjointU_fgraph: fprops.
 
 
 Lemma disjointU_E I (f:fterm ):
@@ -1365,7 +1365,7 @@ Lemma disjointU2_pr a b x y:
   x <> y ->  disjoint (a *s1 x) (b *s1 y).
 Proof. by move=> xy; apply: disjointU2_pr0; apply: disjointU2_pr1. Qed.
 
-Hint Resolve disjointU2_pr: fprops.
+Global Hint Resolve disjointU2_pr: fprops.
 
 
 Lemma Eq_du2 a b a' b' : disjoint a b ->  disjoint a' b' -> 
@@ -1476,7 +1476,7 @@ Proof.
 by move => cf /setP_P s; rewrite LfV //; apply: etp_axiom.
 Qed.
 
-Hint Resolve etp_f : fprops.
+Global Hint Resolve etp_f : fprops.
 
 (** Morphism properties of extension *)
 
@@ -2349,7 +2349,7 @@ Lemma pri_V f i x:
   Vf (pr_i f i) x = Vg x i. 
 Proof. by rewrite/pr_i=> id xp; rewrite LfV // ; apply: pri_axiom. Qed.
 
-Hint Resolve pri_f : fprops.
+Global Hint Resolve pri_f : fprops.
 
 (** Special case where the domain is empty *)
 

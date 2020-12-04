@@ -452,7 +452,7 @@ Notation "x > y"  := (y < x) (only parsing)  : cantor_scope.
 Lemma T1lenn x: x <= x.   
 Proof. by rewrite /T1le eqxx. Qed.
 
-Hint Resolve T1lenn : core.
+Global Hint Resolve T1lenn : core.
 
 Lemma T1ltnn x: (x < x) = false.
 Proof. by elim:x => //= a -> n b ->; rewrite ltnn ! if_same. Qed.
@@ -3054,7 +3054,7 @@ Qed.
 Lemma T2lenn x: x <= x.   
 Proof. by rewrite /T2le eqxx. Qed.
 
-Hint Resolve T2lenn : core.
+Global Hint Resolve T2lenn : core.
 
 
 Lemma T2ge1 x:  (one <= x) = (x != zero).
@@ -4877,7 +4877,7 @@ Qed.
 Lemma T3lenn x: x <= x.   
 Proof. by rewrite /T3le eqxx. Qed.
 
-Hint Resolve T3lenn : core.
+Global Hint Resolve T3lenn : core.
 
 Lemma T3leNgt a b:  (a <= b) = ~~ (b < a).
 Proof.

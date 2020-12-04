@@ -2103,7 +2103,7 @@ Qed.
 Lemma CS_aleph x: ordinalp x -> cardinalp (\aleph x).
 Proof. by move=> /CIS_aleph []. Qed.
 
-Hint Resolve CS_aleph: fprops.
+Global Hint Resolve CS_aleph: fprops.
 
 Lemma OS_aleph x: ordinalp x -> ordinalp (\omega x).
 Proof. by move=> /CS_aleph []. Qed.

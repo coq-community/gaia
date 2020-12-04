@@ -3446,7 +3446,7 @@ case: (ord2_trichotomy ox).
   apply:(ord_induction_p5 (erefl opow') ax1 xo oy).
 Qed.
 
-Hint Resolve OS_pow : fprops.
+Global Hint Resolve OS_pow : fprops.
 
 Lemma opow_normal x: \2o <=o x ->
   normal_ofs (opow x).

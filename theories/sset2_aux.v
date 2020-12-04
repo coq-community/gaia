@@ -105,7 +105,7 @@ set_extens t.
 move/funI_P => [x /IM_P [a ->] ->]; aw; trivial; apply: R_inc. 
 Qed.
 
-Hint Resolve acreate_function: fprops.
+Global Hint Resolve acreate_function: fprops.
 
 Lemma acreate_V  (A B:Set) (f:A->B) (x:A):
   Vf (acreate f)  (Ro x) =  Ro (f x).

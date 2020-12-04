@@ -53,7 +53,7 @@ Proof. rewrite /csum; fprops. Qed.
 Lemma CS_cprod f: cardinalp (cprod f).
 Proof. rewrite /cprod; fprops. Qed.
 
-Hint Resolve  CS_csum CS_cprod: fprops.
+Global Hint Resolve  CS_csum CS_cprod: fprops.
 
 Theorem cprod_pr f: cprod f = cprodb (domain f) (fun a => cardinal (Vg f a)).
 Proof. by rewrite - cprod_gr; apply cprod_pr0. Qed.
@@ -342,7 +342,7 @@ Proof. rewrite/csum2/csumb; fprops. Qed.
 Lemma CS_prod2 a b: cardinalp (a *c b).
 Proof. rewrite /cprod2/cprodb; fprops. Qed.
 
-Hint Resolve CS_sum2 CS_prod2: fprops.
+Global Hint Resolve CS_sum2 CS_prod2: fprops.
 
 Lemma csum2_pr a b f: doubleton_fam f a b -> a +c b = csum f.
 Proof.
@@ -826,7 +826,7 @@ Notation "x ^c y" := (cpow x y) (at level 30).
 Lemma CS_pow a b: cardinalp (a ^c b).
 Proof. apply:CS_cardinal. Qed.
 
-Hint Resolve CS_pow: fprops.
+Global Hint Resolve CS_pow: fprops.
 
 Lemma cpow_pr0 a b: a ^c b = cardinal (gfunctions b a).
 Proof. by apply/card_eqP; apply:Eq_fun_set. Qed.
@@ -1376,7 +1376,7 @@ Proof. by move /NatP. Qed.
 Lemma Nat_hi a: natp a -> finite_c a.
 Proof. by move /NatP. Qed.
 
-Hint Resolve Nat_i Nat_hi: fprops.
+Global Hint Resolve Nat_i Nat_hi: fprops.
 
 Lemma CS_nat x: natp x -> cardinalp x.
 Proof. fprops. Qed.
@@ -1398,8 +1398,8 @@ Proof. by move => /NatP h;rewrite (succ_of_finite h); apply/NatP/finite_sP. Qed.
 Lemma NS_nsucc x: cardinalp x -> natp (csucc x) -> natp x.
 Proof. by  move => xs /NatP/(finite_succP xs) /NatP. Qed.
 
-Hint Resolve CS_nat : fprops.
-Hint Resolve NS_succ: fprops.
+Global Hint Resolve CS_nat : fprops.
+Global Hint Resolve NS_succ: fprops.
 
 Lemma Nsucc_rw x: natp x -> csucc x = x +c \1c.
 Proof. by move=> fx; apply: csucc_pr4; fprops. Qed.
@@ -1508,7 +1508,7 @@ Proof. move: NS2; rewrite /card_three; fprops. Qed.
 Lemma NS4: natp \4c.
 Proof. move: NS3; rewrite /card_four; fprops. Qed.
 
-Hint Resolve NS0 NS1 NS2: fprops.
+Global Hint Resolve NS0 NS1 NS2: fprops.
 
 
 Lemma finite_0: finite_c \0c.
@@ -1520,7 +1520,7 @@ Proof. fprops. Qed.
 Lemma finite_2: finite_c \2c.
 Proof. fprops. Qed.
 
-Hint Resolve finite_0 finite_1 finite_2 : fprops.
+Global Hint Resolve finite_0 finite_1 finite_2 : fprops.
 
 Lemma csum_22: \2c +c \2c = \4c.
 Proof.
@@ -1598,7 +1598,7 @@ Proof.
 move => h; apply:(NS_le_nat (cdiff_le1 b (CS_nat h)) h).
 Qed.
 
-Hint Resolve  NS_diff: fprops.
+Global Hint Resolve  NS_diff: fprops.
 
 Definition cpred := opred. 
 
@@ -1667,7 +1667,7 @@ Proof. by move=> /CS_nat /cleS0. Qed.
 Lemma cltS a: natp a -> a <c (csucc a).
 Proof. by move => aN; apply/(NltP (NS_succ aN)); apply: Nsucc_i. Qed.
 
-Hint Resolve cleS cltS: fprops.
+Global Hint Resolve cleS cltS: fprops.
 
 Lemma cle_24: \2c <=c \4c.
 Proof. exact: (cleT (cleS NS2)(cleS NS3)). Qed.
@@ -2120,8 +2120,8 @@ Qed.
 Lemma NS_pow2 n: natp n -> natp (\2c ^c n).
 Proof. apply: NS_pow; fprops. Qed.
 
-Hint Resolve NS_sum NS_prod: fprops.
-Hint Resolve NS_pow NS_pow2: fprops.
+Global Hint Resolve NS_sum NS_prod: fprops.
+Global Hint Resolve NS_pow NS_pow2: fprops.
 
 
 Lemma setU2_finite x y:
