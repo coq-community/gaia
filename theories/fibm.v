@@ -67,7 +67,7 @@ Proof. apply: inj_comp succn_inj  double_inj. Qed.
 (* Odd *)
 
 Lemma odd_sqr n: odd (n^2) = odd n.
-Proof. by rewrite odd_exp. Qed.
+Proof. by rewrite oddX. Qed.
 
 Lemma odd_dichot n: n = (n./2).*2.+1 \/ n = (n./2).*2.
 Proof. by rewrite -{1 3} (odd_double_half n);case: odd; [left | right]. Qed.
@@ -110,7 +110,7 @@ Qed.
 
 Lemma sqrnD_sub' m n: n <= m -> (m + n) ^ 2 =  4 * (m * n) + (m - n) ^ 2.
 Proof.
-move => h; rewrite sqrnD sqrn_sub // -[4]/(2+2) mulnDl - [in RHS]addnA addnC.
+move => h; rewrite sqrnD sqrnB // -[4]/(2+2) mulnDl - [in RHS]addnA addnC.
 by rewrite subnKC // nat_Cauchy.
 Qed.
 
@@ -245,7 +245,7 @@ move => n1; move:(ltnW n1) => n0.
 move:(pdiv_prime n1); set u := (pdiv n) => pu.
 move:(pfactor_coprime pu n0)(prime_gt1 pu) => [m pa pb] u1.
 have lp: 0 <  logn u n by rewrite logn_gt0 mem_primes pu n0 pdiv_dvd.
-have pc: coprime m (u ^ logn u n) by rewrite coprime_sym; apply:coprime_expl.
+have pc: coprime m (u ^ logn u n) by rewrite coprime_sym; apply:coprimeXl.
 case m1: (m==1).
   set y := u.-1 * u ^ (logn u n).-1.
   have yp: 0 < y by rewrite muln_gt0 expn_gt0 -ltnS (ltnW u1) (ltn_predK u1) u1.
@@ -288,13 +288,13 @@ Lemma factor_square a b c (u:=a %/ gcdn a c) (v := c %/ gcdn a c):
 Proof.
 move => ap cab /eqP Eq.
 move:(gcd_aux c ap); rewrite -/u -/v; move  => [av cv cuv].
-move: cab; rewrite av coprime_mull => /andP [cub cgb].
+move: cab; rewrite av coprimeMl => /andP [cub cgb].
 move: Eq; rewrite {1}av {2} cv mulnAC expnMn - (mulnn (gcdn a c)) mulnA.
 rewrite eqn_pmul2r ?gcdn_gt0 ? ap // => /eqP Eq.
 move:ap; rewrite {1}av muln_gt0  => /andP [up _].
 have: (u %| v ^ 2 * gcdn a c) by rewrite -Eq /dvdn modnMr.
 have: (gcdn a c %| b * u ) by rewrite mulnC Eq /dvdn mulnC modnMr.
-rewrite !Gauss_dvdr ? coprime_expr // => dvd1 dvd2.
+rewrite !Gauss_dvdr ? coprimeXr // => dvd1 dvd2.
 move: (eqn_dvd (gcdn a c) u); rewrite dvd1 dvd2 /= => /eqP gv.
 by move /eqP:Eq; rewrite gv mulnn mulnC eqn_pmul2r // => /eqP ->.
 Qed.
@@ -310,7 +310,7 @@ elim: m {-2} m (leqnn m) n h.
 move => k IH m; rewrite leq_eqVlt; case/orP=> [|Hm]; last first.
   by apply: IH; rewrite -ltnS.
 move => /eqP -> n; case: (odd_dichot k.+1) => od h.
-  by move:(f_equal odd (eqP h)); rewrite odd_exp od /= !odd_double. 
+  by move:(f_equal odd (eqP h)); rewrite oddX od /= !odd_double. 
 have nk: n <= k. 
   rewrite - ltnS ltn_neqAle  - leq_sqr - (eqP h) double_le1 andbT. 
   apply /negP => eq1; move: h. 
@@ -377,7 +377,7 @@ rewrite oddD negb_eqb - addbA addbb addbF => or.
 have cpq: (coprime (r * (r + q + q)) q).
   by rewrite coprime_sym /coprime Gauss_gcdr // !gcdnDr.
 have cp2: coprime (r * (r + q + q)) 2.
-  by rewrite /coprime gcd_n2 odd_mul - addnA oddD or addnn odd_double.
+  by rewrite /coprime gcd_n2 oddM - addnA oddD or addnn odd_double.
 rewrite - mul2n Gauss_gcdr // Gauss_gcdl // gcdnC Gauss_gcdl.
   by rewrite gcdnC -/(coprime _ _) coprimeDl coprime_sym.
 by rewrite coprimeDl coprime_sym  coprimeDr.
@@ -449,7 +449,7 @@ have cp2: (coprime (c - a)./2 (c + a)./2).
   by rewrite gcdnC -{2}(subnK lac') gcdnDl gcdnC - gcdnDr subnK // gcdnC.
 case: (factor_square lt1 cp2 (esym eq6)).
 set q := _ %/ _; set p := _ %/ _ => eq7 eq8 cpxy.
-have H w: odd w = odd (w ^2) by rewrite odd_mul andbb.
+have H w: odd w = odd (w ^2) by rewrite oddM andbb.
 have eq9: b = (p * q).*2.  
   apply /eqP; rewrite -eqn_sqr - muln2 2!expnMn -eq8 -eq7 (mulnC (_ ./2)) -eq6.
   by rewrite - expnMn muln2 -eq2.
@@ -531,7 +531,7 @@ have cuv: coprime u v.
   by rewrite addnn - muln2 Gauss_gcdl ? coprimen2 -?sE // sE gcdnC gcdnDl.
 have suv: u^2 + v ^2 = b^2.
   have h: (b^2).*2 = s^2 + t ^2 by rewrite -t2 -s2 -addnA (subnKC ha) addnn.
-  apply/eqP; rewrite - eqn_double h sE tE sqrnD (sqrn_sub (ltnW luv)) -addnA.
+  apply/eqP; rewrite - eqn_double h sE tE sqrnD (sqrnB (ltnW luv)) -addnA.
   by rewrite subnKC ?addnn // nat_Cauchy.
 have puv: v * (2 * u) = a ^2.
   by move/eqP:(sqrnD u v);rewrite suv -sE -s2 eqn_add2l mulnA mulnC => /eqP ->.
@@ -751,7 +751,7 @@ move => h; move:(subn_sqr m n); rewrite - h addKn.
 case: (ltnP m n); first by rewrite -ltn_sqr - (addn0 (n^2)) -h ltn_add2l.
 move => ha; rewrite -{2} (subnK ha)- addnA addnn.
 rewrite -(odd_double_half (m-n)); case: odd.
-  by move => eqA; move:(f_equal odd eqA); rewrite odd_mul !oddD !odd_double.
+  by move => eqA; move:(f_equal odd eqA); rewrite oddM !oddD !odd_double.
 move/esym; move/eqP; rewrite -[4]/(1.*2.*2) add0n -doubleD -doubleMr.
 by rewrite -doubleMl 2!eqn_double muln_eq1 => /andP[/eqP -> /eqP]; case.
 Qed.
@@ -832,7 +832,7 @@ have H a b:  odd b -> 2 == a * b -> (a == 2).
 move => [p [q[ha hb hc hd]]]; case; case => ea eb ec.
   move/eqP: eb; rewrite -{1}[4]/(2.*2) -doubleMr eqn_double => ed.
   case opq: (odd (p * q)). 
-     move: opq hd; rewrite odd_mul; case: odd; case: odd => //=.
+     move: opq hd; rewrite oddM; case: odd; case: odd => //=.
   move: ed; rewrite -{1} [2]/(1.*2) (evenE opq) -doubleMr eqn_double  eq_sym.
   rewrite muln_eq1 -(eqn_double _./2) -(evenE opq) => /andP [g1 g2].
   rewrite eq_sym in g2;case/orP: (H1 _ _ g2) => /eqP pv; rewrite pv in g2.
@@ -842,7 +842,7 @@ have hb':= (ltnW hb).
 have od: odd (p^2 - q^2).
    by rewrite oddB ?leq_sqr // !odd_sqr  -negb_eqb.
 have g4: gcdn n 4 = 4.
-  move: (f_equal odd ea); rewrite odd_mul od /= andbT => /esym neg.
+  move: (f_equal odd ea); rewrite oddM od /= andbT => /esym neg.
   move: ea;rewrite (evenE neg) -[4]/(2.*2) -doubleMl => /eqP.
   by rewrite eqn_double => h; rewrite (eqP (H _ _ od h)).
 move /eqP:ea; rewrite g4 -{1} (muln1 4) eqn_pmul2l // eb => /eqP h.
@@ -1751,11 +1751,11 @@ move => eq1; case:(odd_dichot n) => eq2; last first.
       by move: (lucas_gt0 n./2); rewrite - ltn_sqr sb.
     by move:(subnK sa); rewrite - h => /square_plus2_square.
   by move/esym /square_plus2_square.
-move: (f_equal odd nv);rewrite eq2 /= -[12]/(6.*2)oddD odd_mul !odd_double.
+move: (f_equal odd nv);rewrite eq2 /= -[12]/(6.*2)oddD oddM !odd_double.
 rewrite andbF /= => ob.
 (*
 have ob: odd b.
-  move: (f_equal odd nv);rewrite eq2 /= -[12]/(6.*2)oddD odd_mul !odd_double.
+  move: (f_equal odd nv);rewrite eq2 /= -[12]/(6.*2)oddD oddM !odd_double.
   by rewrite andbF /=.
 *)
 have Hc: ((b==1) || (b==3) || (b== 9)).

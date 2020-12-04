@@ -328,7 +328,7 @@ move/eqP; wlog: a b a' b' / b <= b'.
    move =>h; case/orP: (leq_total b b') => h'; first by apply: h.
    by rewrite eq_sym; move /(h _ _ _ _ h').
 move => la; rewrite - (subnK la) expnD mulnA eqn_pmul2r ?expn_gt0 // => /eqP h.
-move:(congr1 odd h); rewrite odd_mul /= !odd_double /= odd_exp orbF => ha.
+move:(congr1 odd h); rewrite oddM /= !odd_double /= oddX orbF => ha.
 by move /eqP: h; rewrite (eqP (esym ha))  muln1 eqSS eqn_double => /eqP.
 Qed.
 
@@ -393,7 +393,7 @@ wlog: a b a' b' / a <= a'.
    move =>h; case/orP: (leq_total a a') => h'; first by apply: h.
    by rewrite eq_sym; move /(h _ _ _ _ h').
 move => la;rewrite - (subnKC la) expnD -mulnA eqn_pmul2l ?expn_gt0 // => /eqP h.
-move:(congr1 odd h); rewrite odd_mul /= !odd_double /= andbT odd_exp orbF => ha.
+move:(congr1 odd h); rewrite oddM /= !odd_double /= andbT oddX orbF => ha.
 move /eqP: h; rewrite (eqP (esym ha)) mul1n /= eqSS eqn_double addn0 => /eqP.
 by move => ->.
 Qed.
@@ -3267,7 +3267,7 @@ have rd: m.+1 <= p.*2.
   by rewrite -(leq_add2r k) rb  (mulnDl 2 1 p) mul1n mul2n leq_add2l.
 have le4: p <= m.+1 <= p.*2 by rewrite rc rd.
 have okm: (k == 1) || odd (m+k).
-  move:(f_equal odd ra); rewrite addSn odd_mul /p odd_exp /= orbF.
+  move:(f_equal odd ra); rewrite addSn oddM /p oddX /= orbF.
   move:le2; rewrite  addnC /p; case: (odd (m+k)); first by rewrite orbT.
   case iz: (i==0) => //. rewrite (eqP iz) /=. move: knz. clear.
   by case: k => //;case.
@@ -3399,7 +3399,7 @@ case: (posnP (p - k)) => ltkp.
   by move => /andP [/eqP -> /eqP ->]; exists 0.
 case: (odd_dichot w) => ow2; last first.
   have: (odd (2 ^ (p - k))) by rewrite  -nmp' oddD ow2 /= !odd_double /=.
-  by rewrite odd_exp /= orbF => /eqP e0; move: ltkp; rewrite e0.
+  by rewrite oddX /= orbF => /eqP e0; move: ltkp; rewrite e0.
 move: nmp'; rewrite ow2 - (prednK ltkp).
 move:(w./2) ((p-k).-1).
 clear a b n m p k ltkp le1 pp eq3 lekp nmp eq4 w ow2 av bv.
@@ -4396,7 +4396,7 @@ elim:n u v.
   by move => a b;rewrite /sternD_sum ! big_cons big_nil addn0 mul1n.
 rewrite /sternD_sum =>n Hrec a b;apply/eqP. 
 move:(Hrec (a+b) b); rewrite {1} sternD_split1  big_cons addnC => eq1.
-have o3n: odd (3 ^ n) by elim n => // q hr; rewrite expnS odd_mul hr.
+have o3n: odd (3 ^ n) by elim n => // q hr; rewrite expnS oddM hr.
 rewrite - (eqn_add2r (a + b)) - mulSnr expnS split_sternD big_cat Hrec - addnA.
 rewrite eq1 - mulnDr  (addnA a) addnn - (addnA a) addnn addnACA.
 rewrite - mul2n - mulSnr - mul2n - mulSn - mulnDr mulnA (mulnC _ 3).
@@ -4470,7 +4470,7 @@ Qed.
 Lemma sternD_odd_rec u v k q n (i:= 2^k * (q.*2.+1)) (S := sternD u v n):
   i < 2^n -> odd (nth 0 S i) ->  odd(nth 0 S i.-1 + nth 0 S i.+1).
 Proof.
-by move => h1 h2; rewrite (sternD_middle_quo _ _ h1) odd_mul /= odd_double.
+by move => h1 h2; rewrite (sternD_middle_quo _ _ h1) oddM /= odd_double.
 Qed.
 
 Lemma sternD_gcd_succ u v i n  (S := sternD u v n):

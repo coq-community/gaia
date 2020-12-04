@@ -707,7 +707,7 @@ Lemma set_surj_fun_onP  (aT rT: finType)(B: {set rT} )(f: {ffun aT -> rT}):
       (f \in set_surj_fun_on aT B).
 Proof.
 rewrite inE; apply: (iffP eqP).
-  move => <-; split;[ by move => b /imsetP | by move => a;apply: mem_imset].
+  move => <-; split;[ by move => b /imsetP | by move => a;apply: imset_f].
 move => [h1 h2]; apply /setP => b; apply /idP/idP. 
     move /imsetP => [x] _ ->;apply: h2.
 by move => bb; apply /imsetP; apply: h1.
@@ -721,7 +721,7 @@ rewrite inE; apply: (iffP eqP) => h.
   by move /imsetP: brt => [a _ ->]; exists a.
 apply /setP => b; apply /idP/idP.
   by move /imsetP; rewrite inE. 
-by move: (h b) => [a -> _]; apply: mem_imset.
+by move: (h b) => [a -> _]; apply: imset_f.
 Qed.
 
 (*
@@ -1451,7 +1451,7 @@ Qed.
 Lemma F6_aux n: n ^2 = 2 * 'C(n,2)  + 'C(n,1).
 Proof.
 case: n => // n; rewrite bin2 bin1 succnK mul2n  - mulnn mulnSr.
-by move:(odd_double_half (n.+1 * n)); rewrite odd_mul /= andNb add0n => ->.
+by move:(odd_double_half (n.+1 * n)); rewrite oddM /= andNb add0n => ->.
 Qed.
 
 Lemma F7_aux n:  n ^ 3 = 6 * 'C(n, 3) +  6 * 'C(n, 2) + 'C(n, 1).
@@ -3570,7 +3570,7 @@ move: m f fi; elim => [  //= | n hrec f fi /=].
 rewrite (fi 0 (ltn0Sn n)) /=.
 set f' := f \o (addn 1).
 have fi': (forall i, i < n -> f' i < f' i.+1) by move => i lin; rewrite fi.
-move: (hrec _ fi'); rewrite map_comp /f' /= addn0 - iota_addl //.
+move: (hrec _ fi'); rewrite map_comp /f' /= addn0 - iotaDl //.
 Qed.
 
 (* Variant *)

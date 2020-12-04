@@ -388,7 +388,7 @@ Lemma power_monom (c:R) n :
 Proof.
 rewrite addrC exprDn_comm ?poly_def; last by apply: commr_polyX.
 apply: eq_big=> // [[i lin]] _ /=.
-by rewrite - mul_polyC - polyC_exp polyC_muln  mulrnAl.
+by rewrite - mul_polyC - polyC_exp polyCMn  mulrnAl.
 Qed.
 
 (* is size_XaddC 
@@ -441,7 +441,7 @@ have leq1: n - p < n.+1 by rewrite ltnS leq_subr.
 move: (power_monom (a+b) n) => eq1.
 move: (f_equal (coefp (n - p)%N) eq1) => /=; rewrite coef_poly leq1/=.
 rewrite (subKn lenp) (bin_sub lenp) => <-.
-rewrite polyC_add addrA exprDn coef_sum /=.
+rewrite polyCD addrA exprDn coef_sum /=.
 move: (lenp); rewrite - ltnS => lenp'. 
 have aux: forall i : nat, p < i < n.+1 -> 
   (('X + a%:P) ^+ (n - i) * b%:P ^+ i *+ 'C(n, i))`_(n - p) = 0.
