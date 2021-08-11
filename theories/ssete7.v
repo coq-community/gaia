@@ -3541,11 +3541,11 @@ Proof.
 move => ba.
 move: (subnK ba); rewrite addnC => <-; rewrite - addnA leq_add2l => le1.
 move: (leq_trans (leq_addr n (a-b)) le1) => aux.
-move: (iota_add b (a-b)(m -(a-b))); rewrite addnC (subnK aux) => ->.
+move: (iotaD b (a-b)(m -(a-b))); rewrite addnC (subnK aux) => ->.
 rewrite -{1}(cat0s (iota (b + (a - b)) n)); apply: cat_subseq => //.
   apply: sub0seq.
 have nm: n <= (m - (a - b)) by rewrite -(leq_add2l (a-b)) subnKC //.
-set c := (b + (a - b)); move: (iota_add  c n ((m - (a - b)) - n)).
+set c := (b + (a - b)); move: (iotaD  c n ((m - (a - b)) - n)).
 rewrite addnC (subnK nm) => ->.
 rewrite -{1}(cats0 (iota c n)); apply: cat_subseq => //; apply: sub0seq.
 Qed.
