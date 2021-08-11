@@ -1,12 +1,16 @@
+<!---
+This file was generated from `meta.yml`, please do not edit manually.
+Follow the instructions on https://github.com/coq-community/templates to regenerate.
+--->
 # Gaia
 
-[![CI][action-shield]][action-link]
+[![Docker CI][docker-action-shield]][docker-action-link]
 [![Contributing][contributing-shield]][contributing-link]
 [![Code of Conduct][conduct-shield]][conduct-link]
 [![Zulip][zulip-shield]][zulip-link]
 
-[action-shield]: https://github.com/coq-community/gaia/workflows/CI/badge.svg?branch=master
-[action-link]: https://github.com/coq-community/gaia/actions?query=workflow%3ACI
+[docker-action-shield]: https://github.com/coq-community/gaia/workflows/Docker%20CI/badge.svg?branch=master
+[docker-action-link]: https://github.com/coq-community/gaia/actions?query=workflow:"Docker%20CI"
 
 [contributing-shield]: https://img.shields.io/badge/contributions-welcome-%23f7931e.svg
 [contributing-link]: https://github.com/coq-community/manifesto/blob/master/CONTRIBUTING.md
@@ -34,7 +38,7 @@ and number theory.
 - License: [MIT License](LICENSE)
 - Compatible Coq versions: 8.10 or later
 - Additional dependencies:
-  - [MathComp ssreflect 1.11 or later](https://math-comp.github.io)
+  - [MathComp ssreflect 1.12 or later](https://math-comp.github.io)
   - [MathComp algebra](https://math-comp.github.io)
 - Coq namespace: `gaia`
 - Related publication(s):
