@@ -5543,7 +5543,7 @@ have ph: Zeck (Zeckp (Zeckp m)) = s2.
 have qg: llen k.*2 (Zeck_li (Zeckpn 2 m)). 
   move: qe mz; rewrite /s1 /Zeck_li ph qi /pred_seq -map_comp /comp /=. 
   by case s2 => // a l h _ /=; move/(allP h) :(map_f succn (mem_last a l)). 
-by rewrite -qh (Hrec _ qg qf)  /Zeckpn - ! iter_add // !addn2 doubleS.
+by rewrite -qh (Hrec _ qg qf)  /Zeckpn - ! iterD // !addn2 doubleS.
 Qed.
 
 

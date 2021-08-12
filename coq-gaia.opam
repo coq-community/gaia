@@ -1,3 +1,6 @@
+# This file was generated from `meta.yml`, please do not edit manually.
+# Follow the instructions on https://github.com/coq-community/templates to regenerate.
+
 opam-version: "2.0"
 maintainer: "palmskog@gmail.com"
 version: "dev"
@@ -16,7 +19,7 @@ and number theory."""
 build: ["dune" "build" "-p" name "-j" jobs]
 depends: [
   "dune" {>= "2.5"}
-  "coq" {(>= "8.10" & < "8.13~") | (= "dev")}
+  "coq" {(>= "8.10" & < "8.15~") | (= "dev")}
   "coq-mathcomp-ssreflect" {(>= "1.12.0" & < "1.13~") | (= "dev")}
   "coq-mathcomp-algebra" 
 ]

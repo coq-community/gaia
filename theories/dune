@@ -2,4 +2,10 @@
  (name gaia)
  (package coq-gaia)
  (synopsis "Implementation of books from Bourbaki's Elements of Mathematics in Coq")
- (flags -w -notation-overridden -w -notation-incompatible-format -w -ambiguous-paths -w -deprecated-hint-without-locality -w -deprecated-ident-entry))
+ (flags
+   -w -notation-overridden
+   -w -notation-incompatible-format
+   -w -ambiguous-paths
+   -w -deprecated-hint-without-locality
+   -w -deprecated-ident-entry
+   -w -deprecated-hint-rewrite-without-locality))

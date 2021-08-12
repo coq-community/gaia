@@ -4,6 +4,7 @@
 -arg -w -arg -ambiguous-paths
 -arg -w -arg -deprecated-hint-without-locality
 -arg -w -arg -deprecated-ident-entry
+-arg -w -arg -deprecated-hint-rewrite-without-locality
 theories/fibm.v
 theories/sset1.v
 theories/sset10.v
