@@ -2751,8 +2751,8 @@ Qed.
 Lemma sum_Stern n: \sum_(i<2^n) (Stern (i+2^n)) = ((3* 2^n)%N%:Q -1) / 2%:Q.
 Proof.
 elim:n. 
-   rewrite  expn0  big_ord_recr /= big_ord0 add0r add0n /Stern /fusc //=.
-   by rewrite muln1  divff // divff //.
+   rewrite  expn0  big_ord_recr /= big_ord0 add0r add0n /Stern /fusc /=.
+   by apply/val_inj.
 move => n Hrec.
 set p := (2^n)%N%:Q.
 pose f i := Stern (i + (2 ^ n).*2).
