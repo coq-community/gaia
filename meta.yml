@@ -55,7 +55,7 @@ supported_coq_versions:
 dependencies:
 - opam:
     name: coq-mathcomp-ssreflect
-    version: '{(>= "1.12.0" & < "1.13~") | (= "dev")}'
+    version: '{(>= "1.12.0" & < "1.14~") | (= "dev")}'
   description: |-
     [MathComp ssreflect 1.12 or later](https://math-comp.github.io)
 - opam:
