@@ -2,7 +2,7 @@
  (name gaia)
  (package coq-gaia)
  (synopsis "Implementation of books from Bourbaki's Elements of Mathematics in Coq")
- (flags
+ (flags :standard
    -w -notation-overridden
    -w -notation-incompatible-format
    -w -ambiguous-paths
