@@ -1014,8 +1014,8 @@ Lemma Sn_neg x  (T:= fun x => (- x)^-1):
 Proof.
 move => xp; rewrite /T; congr (_ ^-1).
 rewrite invrN (opprK (Sn x)^-1)  /Sn invrK opprB.
-set W := (floorq x)%:~R; set t := (1 + W * 2%:~R); set a := (1 + (W + W)).
-have ->: -t =  (- (1 + (floorq x) * 2%Z))%:Q.
+set W := (floorq x)%:~R; set t := (1 + W * 2%N%:~R); set a := (1 + (W + W)).
+have ->: -t =  (- (1 + (floorq x) * 2%N))%:Q.
   rewrite /t /W opprD opprD  intrD - intrM - mulrNz //=.
 rewrite floor_sum intrD intr_N intrD intrM /t !doubleq -/W  (addrACA W). 
 by rewrite -/a addrA addrA  addrCA subrr addr0 (addrC _ a) subrr add0r.
@@ -2741,7 +2741,7 @@ have lt0: (a < (2^n.+1).*2)%N.
    rewrite expn2S -/p  /a -(addnn p.*2) ltn_add2r - addnn ltn_addr //.
 have hl1: ((2^n.+1) <= a <= (2^n.+1).*2)%N.
   by rewrite (ltnW lt0) expn2S -/p /a leq_addl //. 
-have hl2: ((2^n.+1) <= a.+1 <= (2^n.+1).*2)%nat.
+have hl2: ((2^n.+1) <= a.+1 <= (2^n.+1).*2)%N.
   rewrite lt0 expn2S -/p /a ltnW //  ltnS leq_addl //. 
 rewrite /Stern ! fusc_even ! fusc_odd.
 rewrite - (fusc_palindrome hl1 he1) - (fusc_palindrome hl2 he2) addnC.
@@ -2761,9 +2761,9 @@ have Hu m: \sum_(i < m.*2) f i = \sum_(i < m) f i.*2 + \sum_(i < m) f i.*2.+1.
   by move => m Hr; rewrite doubleS !big_ord_recr /= Hr addrACA addrA.
 have Ha: \sum_(i < 2 ^ n) f i.*2  = p / 2%:Q.
   by rewrite - sum_Stern1; apply: eq_bigr => i _; rewrite doubleD.
-have Hb: p = p * 2%:Q /  2%:Q by rewrite mulfK.
+have Hb: p = p * 2%N%:Q /  2%N%:Q by rewrite mulfK.
 have Hc: p = \sum_(i < 2 ^ n) 1 by rewrite sumr_const card_ord.
-have Hd: \sum_(i<2^n) f i.*2.+1  = p + (3%:Q * p -1)/2%:Q.
+have Hd: \sum_(i<2^n) f i.*2.+1  = p + (3%N%:Q * p -1)/2%N%:Q.
   rewrite /f -ratN_M - Hrec Hc - big_split /=; apply eq_bigr => i _.
   rewrite addSn -doubleD /Stern -doubleS fusc_even fusc_odd ratN_D addf_div1 //.
   by rewrite fuscq_eq0.
@@ -2780,7 +2780,7 @@ rewrite expn2S -addnn.
 pose f k :=  \sum_(2 ^ n <= i < 2 ^ n + k) 1 / (fusc i * fusc i.+1)%N%:Q. 
 suff: forall i, (i <= 2^n)%N -> f i = (fusc i)%:Q / (fusc (2^n +i)%N) %:Q.
   by move => H; rewrite -/(f _) H // addnn - expn2S ! fusc_pow2.
-move => i;rewrite/f - {2} (add0n (2 ^ n)%nat) big_addn addKn big_mkord.
+move => i;rewrite/f - {2} (add0n (2 ^ n)%N) big_addn addKn big_mkord.
 elim:i; first by rewrite big_ord0 mul0r.
 move => i Hrec lim.
 have hu: (fusc (2 ^ n + i))%:Q != 0.
@@ -2789,7 +2789,7 @@ have hv:(fusc (2 ^ n + i.+1))%:Q != 0.
  by rewrite addnS fuscq_eq0.
 rewrite big_ord_recr /= (Hrec (ltnW lim)) -addSn (addnC i) (addnC i.+1).
 rewrite div1r ratN_M invrM ?unitfE // - mulrDl addf_inv // -ratN_M mulnC.
-rewrite -{2}[1]/(1%nat%:Q) - ratN_D addnC -(fusc_bezout2 lim).
+rewrite -{2}[1]/(1%N%:Q) - ratN_D addnC -(fusc_bezout2 lim).
 by rewrite mulrAC mulnC ratN_M mulfK.
 Qed.
 
@@ -4411,10 +4411,10 @@ Proof. by rewrite !sternD_sumE addnC. Qed.
 
 Lemma sternD_sum_quo a b a' b' n :  
   ((sternD_sum a b n) %:Q / (sternD_sum a' b' n) %:Q) %R =
-   ((a +b)%nat%:Q / ((a'+b')%nat%:Q))%R .
+   ((a +b)%N%:Q / ((a'+b')%N%:Q))%R .
 Proof.
 rewrite !sternD_sumE !ratN_M  - mulf_div divff ?mul1r // intr_eq0.
-by move:(expn_eq0 3 n);case: ((3 ^ n)%nat).
+by move:(expn_eq0 3 n);case: ((3 ^ n)%N).
 Qed.
 
 
