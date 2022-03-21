@@ -1,6 +1,3 @@
-# This file was generated from `meta.yml`, please do not edit manually.
-# Follow the instructions on https://github.com/coq-community/templates to regenerate.
-
 opam-version: "2.0"
 maintainer: "palmskog@gmail.com"
 version: "dev"
@@ -10,11 +7,10 @@ dev-repo: "git+https://github.com/coq-community/gaia.git"
 bug-reports: "https://github.com/coq-community/gaia/issues"
 license: "MIT"
 
-synopsis: "Implementation of books from Bourbaki's Elements of Mathematics in Coq"
+synopsis: "Implementation of sets from Bourbaki's Elements of Mathematics in Coq"
 description: """
-Implementation of books from N. Bourbaki's Elements of Mathematics
-in Coq using the Mathematical Components library, including set theory
-and number theory."""
+Implementation of sets from N. Bourbaki's Elements of Mathematics
+in Coq using the Mathematical Components library."""
 
 build: ["dune" "build" "-p" name "-j" jobs]
 depends: [
@@ -28,7 +24,7 @@ tags: [
   "category:Mathematics/Logic/Set theory"
   "keyword:Bourbaki"
   "keyword:set theory"
-  "logpath:gaia"
+  "logpath:gaia.sets"
 ]
 authors: [
   "José Grimm"
