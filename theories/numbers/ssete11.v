@@ -2,15 +2,13 @@
   Copyright INRIA (2012-2013 2108) Marelle Team (Jose Grimm). 
 *)
 
-From mathcomp
-Require Import ssreflect ssrbool eqtype ssrfun.
+From mathcomp Require Import ssreflect ssrbool eqtype ssrfun.
+From gaia Require Export sset14 ssete2 ssetq1.
 
 (* $Id: ssete11.v,v 1.8 2018/09/04 07:58:00 grimm Exp $ *)
 Set Implicit Arguments.
 Unset Strict Implicit.
 Import Prenex Implicits.
-
-Require Export sset14 ssete2 ssetq1.
 
 Module CardinalSquare.
   

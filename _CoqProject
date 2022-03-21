@@ -1,4 +1,4 @@
--R theories gaia
+-Q theories gaia
 
 -arg -w -arg -notation-overridden
 -arg -w -arg -notation-incompatible-format

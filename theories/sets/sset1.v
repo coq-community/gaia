@@ -4,8 +4,7 @@ Original file by Carlos Simpson (CNRS/UNSA)
 Copyright INRIA (2009-2013 2018) Apics-Marelle Team (Jose Grimm).
 *)
 
-From mathcomp
-Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
 
 Set Implicit Arguments.
 Unset Strict Implicit.

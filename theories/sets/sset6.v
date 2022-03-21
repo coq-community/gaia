@@ -3,9 +3,8 @@ Copyright INRIA (2009-2013 2018) Apics, Marelle Team (Jose Grimm).  *)
 
 (* $Id: sset6.v,v 1.6 2018/09/04 07:58:00 grimm Exp $ *)
 
-From mathcomp
-Require Import ssreflect ssrfun ssrbool eqtype ssrnat. 
-Require Export sset5.
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat. 
+From gaia Require Export sset5.
 
 Set Implicit Arguments.
 Unset Strict Implicit.

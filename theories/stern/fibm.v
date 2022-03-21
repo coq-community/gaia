@@ -2,11 +2,12 @@
   Copyright INRIA (2014) Marelle Team (Jose Grimm).
 *)
 
-
 (* $Id: fibm.v,v 1.3 2018/07/13 05:59:59 grimm Exp $ *)
 
-From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat seq path fintype.
-From mathcomp Require Import div bigop binomial prime finset ssralg ssrnum ssrint.
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
+From mathcomp Require Import seq path fintype div bigop binomial.
+From mathcomp Require Import prime finset ssralg ssrnum ssrint.
+
 Set Implicit Arguments.
 Unset Strict Implicit.
 

@@ -4,15 +4,12 @@
 $Id: ssete6.v,v 1.31 2018/10/01 14:40:54 grimm Exp $
 *)
 
-From mathcomp
-Require Import ssreflect ssrbool eqtype ssrfun.
+From mathcomp Require Import ssreflect ssrbool ssrfun eqtype.
+From gaia Require Export sset15 ssete2 ssete3 ssetq2.
 
 Set Implicit Arguments.
 Unset Strict Implicit.
 Import Prenex Implicits.
-
-Require Export sset15 ssete2 ssete3 ssetq2.
-
 
 Module Exercise6.
 

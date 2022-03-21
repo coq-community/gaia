@@ -3,11 +3,9 @@
 *)
 (* $Id: sset9.v,v 1.6 2018/09/04 07:58:00 grimm Exp $ *)
 
-From mathcomp
-Require Import ssreflect ssrfun ssrbool eqtype ssrnat binomial div.
-
-Require Export sset8.
-
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
+From mathcomp Require Import binomial div.
+From gaia Require Export sset8.
 
 Set Implicit Arguments.
 Unset Strict Implicit.

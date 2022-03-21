@@ -3,12 +3,10 @@
 $Id: ssete8.v,v 1.2 2018/07/13 12:58:25 grimm Exp $
 *)
 
-From mathcomp
-Require Import ssreflect ssrfun ssrbool eqtype ssrnat seq choice fintype.
-From mathcomp
-Require Import binomial bigop ssralg poly ssrint.
-
-Require Import ssete7.
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype.
+From mathcomp Require Import ssrnat seq choice fintype binomial.
+From mathcomp Require Import bigop ssralg poly ssrint.
+From gaia Require Import ssete7.
 
 Set Implicit Arguments.
 Unset Strict Implicit.

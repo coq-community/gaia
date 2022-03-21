@@ -2,9 +2,8 @@
   Copyright INRIA (2009-2013) (Apics) Marelle Team (Jose Grimm).
 *)
 
-From mathcomp
-Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
-Require Export sset2.
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
+From gaia Require Export sset2.
 
 Set Implicit Arguments.
 Unset Strict Implicit.

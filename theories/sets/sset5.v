@@ -4,9 +4,8 @@
 
 (* $Id: sset5.v,v 1.6 2018/09/04 07:58:00 grimm Exp $ *)
 
-From mathcomp
-Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
-Require Export sset4.
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
+From gaia Require Export sset4.
 
 Set Implicit Arguments.
 Unset Strict Implicit.

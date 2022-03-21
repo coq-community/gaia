@@ -4,10 +4,8 @@
 
 (* $Id: sset16a.v,v 1.2 2018/07/13 05:59:59 grimm Exp $ *)
 
-Require Import BinNat.
-
-From mathcomp
-Require Import ssreflect ssrfun ssrbool eqtype  ssrnat div.
+From Coq Require Import BinNat.
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat div.
 
 Set Implicit Arguments.
 Unset Strict Implicit.

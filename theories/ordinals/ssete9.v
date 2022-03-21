@@ -3,8 +3,7 @@
   After a work of Castéran
 *)
 
-From mathcomp
-Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
 From mathcomp Require Import fintype bigop.
 
 Set Implicit Arguments.
