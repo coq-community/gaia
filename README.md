@@ -50,9 +50,17 @@ and number theory.
   - [Fibonacci numbers and the Stern-Brocot tree in Coq](https://hal.inria.fr/hal-01093589) 
   - [Implementation of three types of ordinals in Coq](https://hal.inria.fr/hal-00911710) 
 
-## Building and installation
+## Building and installation instructions
 
-To build and install manually, do:
+The easiest way to install the latest released version of Gaia
+is via [OPAM](https://opam.ocaml.org/doc/Install.html):
+
+```shell
+opam repo add coq-released https://coq.inria.fr/opam/released
+opam install coq-gaia
+```
+
+To instead build and install manually, do:
 
 ``` shell
 git clone https://github.com/coq-community/gaia.git
@@ -60,6 +68,7 @@ cd gaia
 make   # or make -j <number-of-cores-on-your-machine> 
 make install
 ```
+
 
 ## Documentation
 

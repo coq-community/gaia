@@ -13,18 +13,6 @@ description: |-
   in Coq using the Mathematical Components library, including set theory
   and number theory.
 
-build: |-
-  ## Building and installation
-
-  To build and install manually, do:
-  
-  ``` shell
-  git clone https://github.com/coq-community/gaia.git
-  cd gaia
-  make   # or make -j <number-of-cores-on-your-machine> 
-  make install
-  ```
-
 publications:
 - pub_url: https://jfr.unibo.it/article/view/1899
   pub_title: "Implementation of Bourbaki's Elements of Mathematics in Coq: Part One, Theory of Sets"
@@ -107,7 +95,7 @@ tested_coq_opam_versions:
 - version: '1.12.0-coq-8.10'
   repo: 'mathcomp/mathcomp'
 
-namespace: gaia.sets
+namespace: gaia
 
 keywords:
 - name: Bourbaki
