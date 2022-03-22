@@ -47,6 +47,15 @@ jobs:
               opam install -y -v -j 2 coq-gaia-sets
               opam list
             endGroup
+            startGroup "Build gaia-ordinal-types dependencies"
+              opam pin add -n -y -k path coq-gaia-ordinal-types .
+              opam update -y
+              opam install -y -j 2 coq-gaia-ordinal-types --deps-only
+            endGroup
+            startGroup "Build gaia-ordinal-types"
+              opam install -y -v -j 2 coq-gaia-ordinal-types
+              opam list
+            endGroup
             startGroup "Build gaia-ordinals dependencies"
               opam pin add -n -y -k path coq-gaia-ordinals .
               opam update -y
@@ -78,6 +87,7 @@ jobs:
               opam remove -y coq-gaia-stern
               opam remove -y coq-gaia-numbers
               opam remove -y coq-gaia-ordinals
+              opam remove -y coq-gaia-ordinal-types
               opam remove -y coq-gaia-sets
             endGroup
 
