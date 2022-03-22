@@ -1,0 +1,11 @@
+(coq.theory
+ (name gaia.ordinal_types)
+ (package coq-gaia-ordinal-types)
+ (synopsis "Ordinal types in Coq using Mathematical Components")
+ (flags :standard
+   -w -notation-overridden
+   -w -notation-incompatible-format
+   -w -ambiguous-paths
+   -w -deprecated-hint-without-locality
+   -w -deprecated-ident-entry
+   -w -deprecated-hint-rewrite-without-locality))

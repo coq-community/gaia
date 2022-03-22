@@ -7,7 +7,7 @@ dev-repo: "git+https://github.com/coq-community/gaia.git"
 bug-reports: "https://github.com/coq-community/gaia/issues"
 license: "MIT"
 
-synopsis: "Implementation of types for ordinal numbers in Coq"
+synopsis: "Ordinal types in Coq using Mathematical Components"
 description: """
 Implementation of types for ordinal numbers in Coq using the
 Mathematical Components library."""
