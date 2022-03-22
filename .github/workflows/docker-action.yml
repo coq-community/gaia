@@ -38,22 +38,22 @@ jobs:
           custom_image: ${{ matrix.image }}
           custom_script: |
             {{before_install}}
-            startGroup "Build gaia-sets dependencies"
-              opam pin add -n -y -k path coq-gaia-sets .
+            startGroup "Build gaia-theory-of-sets dependencies"
+              opam pin add -n -y -k path coq-gaia-theory-of-sets .
               opam update -y
-              opam install -y -j 2 coq-gaia-sets --deps-only
+              opam install -y -j 2 coq-gaia-theory-of-sets --deps-only
             endGroup
-            startGroup "Build gaia-sets"
-              opam install -y -v -j 2 coq-gaia-sets
+            startGroup "Build gaia-theory-of-sets"
+              opam install -y -v -j 2 coq-gaia-theory-of-sets
               opam list
             endGroup
-            startGroup "Build gaia-ordinal-types dependencies"
-              opam pin add -n -y -k path coq-gaia-ordinal-types .
+            startGroup "Build gaia-schutte dependencies"
+              opam pin add -n -y -k path coq-gaia-schutte .
               opam update -y
-              opam install -y -j 2 coq-gaia-ordinal-types --deps-only
+              opam install -y -j 2 coq-gaia-schutte --deps-only
             endGroup
-            startGroup "Build gaia-ordinal-types"
-              opam install -y -v -j 2 coq-gaia-ordinal-types
+            startGroup "Build gaia-schutte"
+              opam install -y -v -j 2 coq-gaia-schutte
               opam list
             endGroup
             startGroup "Build gaia-ordinals dependencies"
@@ -87,8 +87,8 @@ jobs:
               opam remove -y coq-gaia-stern
               opam remove -y coq-gaia-numbers
               opam remove -y coq-gaia-ordinals
-              opam remove -y coq-gaia-ordinal-types
-              opam remove -y coq-gaia-sets
+              opam remove -y coq-gaia-schutte
+              opam remove -y coq-gaia-theory-of-sets
             endGroup
 
 # See also:
