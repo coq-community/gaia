@@ -1,49 +1,51 @@
--R theories gaia
+-Q theories gaia
+
 -arg -w -arg -notation-overridden
 -arg -w -arg -notation-incompatible-format
 -arg -w -arg -ambiguous-paths
 -arg -w -arg -deprecated-hint-without-locality
 -arg -w -arg -deprecated-ident-entry
 -arg -w -arg -deprecated-hint-rewrite-without-locality
-theories/fibm.v
-theories/sset1.v
-theories/sset10.v
-theories/sset11.v
-theories/sset12.v
-theories/sset13a.v
-theories/sset13b.v
-theories/sset13c.v
-theories/sset14.v
-theories/sset15.v
-theories/sset16a.v
-theories/sset16b.v
-theories/sset16c.v
-theories/sset17.v
-theories/sset18.v
-theories/sset19.v
-theories/sset2.v
-theories/sset2_aux.v
-theories/sset3.v
-theories/sset4.v
-theories/sset5.v
-theories/sset6.v
-theories/sset7.v
-theories/sset8.v
-theories/sset9.v
-theories/ssetc.v
-theories/ssete1.v
-theories/ssete10.v
-theories/ssete11.v
-theories/ssete2.v
-theories/ssete3.v
-theories/ssete4.v
-theories/ssete5.v
-theories/ssete6.v
-theories/ssete7.v
-theories/ssete8.v
-theories/ssete9.v
-theories/ssetq1.v
-theories/ssetq2.v
-theories/ssetr.v
-theories/ssetz.v
-theories/stern.v
+
+theories/sets/sset1.v
+theories/sets/sset2_aux.v
+theories/sets/sset2.v
+theories/sets/sset3.v
+theories/sets/sset4.v
+theories/sets/sset5.v
+theories/sets/sset6.v
+theories/sets/sset7.v
+theories/sets/sset8.v
+theories/sets/sset9.v
+theories/sets/sset10.v
+theories/sets/sset18.v
+theories/sets/sset19.v
+theories/sets/ssete1.v
+theories/schutte/ssete9.v
+theories/ordinals/sset11.v
+theories/ordinals/sset12.v
+theories/ordinals/sset13a.v
+theories/ordinals/sset13b.v
+theories/ordinals/sset13c.v
+theories/ordinals/sset14.v
+theories/ordinals/sset15.v
+theories/ordinals/sset16a.v
+theories/ordinals/sset16b.v
+theories/ordinals/sset16c.v
+theories/ordinals/sset17.v
+theories/ordinals/ssete10.v
+theories/ordinals/ssete2.v
+theories/ordinals/ssete3.v
+theories/ordinals/ssete4.v
+theories/ordinals/ssete5.v
+theories/numbers/ssetc.v
+theories/numbers/ssetr.v
+theories/numbers/ssetz.v
+theories/numbers/ssetq1.v
+theories/numbers/ssetq2.v
+theories/numbers/ssete6.v
+theories/numbers/ssete7.v
+theories/numbers/ssete8.v
+theories/numbers/ssete11.v
+theories/stern/fibm.v
+theories/stern/stern.v

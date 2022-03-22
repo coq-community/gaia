@@ -1,0 +1,11 @@
+(coq.theory
+ (name gaia.stern)
+ (package coq-gaia-stern)
+ (synopsis "Properties of Fibonacci numbers and the Stern diatomic sequence in Coq")
+ (flags :standard
+   -w -notation-overridden
+   -w -notation-incompatible-format
+   -w -ambiguous-paths
+   -w -deprecated-hint-without-locality
+   -w -deprecated-ident-entry
+   -w -deprecated-hint-rewrite-without-locality))

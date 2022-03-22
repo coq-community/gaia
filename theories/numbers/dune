@@ -1,0 +1,11 @@
+(coq.theory
+ (name gaia.numbers)
+ (package coq-gaia-numbers)
+ (synopsis "Implementation of the sets of numbers Z, Q, and R following Bourbaki's Elements of Mathematics in Coq")
+ (flags :standard
+   -w -notation-overridden
+   -w -notation-incompatible-format
+   -w -ambiguous-paths
+   -w -deprecated-hint-without-locality
+   -w -deprecated-ident-entry
+   -w -deprecated-hint-rewrite-without-locality))

@@ -3,7 +3,7 @@ fullname: Gaia
 shortname: gaia
 organization: coq-community
 community: true
-dune: true
+dune: false
 action: true
 
 synopsis: Implementation of books from Bourbaki's Elements of Mathematics in Coq
@@ -12,6 +12,18 @@ description: |-
   Implementation of books from N. Bourbaki's Elements of Mathematics
   in Coq using the Mathematical Components library, including set theory
   and number theory.
+
+build: |-
+  ## Building and installation
+
+  To build and install manually, do:
+  
+  ``` shell
+  git clone https://github.com/coq-community/gaia.git
+  cd gaia
+  make   # or make -j <number-of-cores-on-your-machine> 
+  make install
+  ```
 
 publications:
 - pub_url: https://jfr.unibo.it/article/view/1899
@@ -100,9 +112,12 @@ namespace: gaia
 keywords:
 - name: Bourbaki
 - name: set theory
+- name: ordinals
+- name: cardinals
 
 categories:
 - name: Mathematics/Logic/Set theory
+- name: Mathematics/Arithmetic and Number Theory/Number theory
 
 documentation: |-
   ## Documentation
