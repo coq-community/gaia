@@ -7,11 +7,10 @@ dev-repo: "git+https://github.com/coq-community/gaia.git"
 bug-reports: "https://github.com/coq-community/gaia/issues"
 license: "MIT"
 
-synopsis: "Stern-Brocot encoding of numbers and Fibonacci numbers in Coq"
+synopsis: "Properties of Fibonacci numbers and the Stern diatomic sequence in Coq"
 description: """
-Stern-Brocot encoding of numbers and Fibonacci numbers in Coq using the
-Mathematical Components library.
-"""
+Properties of Fibonacci numbers and the Stern diatomic sequence in Coq using the
+Mathematical Components library."""
 
 build: ["dune" "build" "-p" name "-j" jobs]
 depends: [
@@ -30,5 +29,4 @@ tags: [
 authors: [
   "José Grimm"
   "Alban Quadrat"
-  "Carlos Simpson"
 ]

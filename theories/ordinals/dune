@@ -1,7 +1,7 @@
 (coq.theory
  (name gaia.ordinals)
  (package coq-gaia-ordinals)
- (synopsis "Implementation of ordinals in Coq using Mathematical Components")
+ (synopsis "Implementation and properties of ordinals in Coq using Mathematical Components")
  (flags :standard
    -w -notation-overridden
    -w -notation-incompatible-format

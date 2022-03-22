@@ -3,7 +3,7 @@ fullname: Gaia
 shortname: gaia
 organization: coq-community
 community: true
-dune: true
+dune: false
 action: true
 
 synopsis: Implementation of books from Bourbaki's Elements of Mathematics in Coq
@@ -107,14 +107,17 @@ tested_coq_opam_versions:
 - version: '1.12.0-coq-8.10'
   repo: 'mathcomp/mathcomp'
 
-namespace: gaia.sets
+namespace: gaia
 
 keywords:
 - name: Bourbaki
 - name: set theory
+- name: ordinals
+- name: cardinals
 
 categories:
 - name: Mathematics/Logic/Set theory
+- name: Mathematics/Arithmetic and Number Theory/Number theory
 
 documentation: |-
   ## Documentation

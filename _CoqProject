@@ -21,7 +21,7 @@ theories/sets/sset10.v
 theories/sets/sset18.v
 theories/sets/sset19.v
 theories/sets/ssete1.v
-theories/ordinal_types/ssete9.v
+theories/schutte/ssete9.v
 theories/ordinals/sset11.v
 theories/ordinals/sset12.v
 theories/ordinals/sset13a.v

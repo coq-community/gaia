@@ -7,10 +7,10 @@ dev-repo: "git+https://github.com/coq-community/gaia.git"
 bug-reports: "https://github.com/coq-community/gaia/issues"
 license: "MIT"
 
-synopsis: "Implementation of sets from Bourbaki's Elements of Mathematics in Coq"
+synopsis: "Implementation of the Theory of Sets from Bourbaki's Elements of Mathematics in Coq"
 description: """
-Implementation of sets from N. Bourbaki's Elements of Mathematics
-in Coq using the Mathematical Components library."""
+Implementation of the Theory of Sets following N. Bourbaki's book series
+Elements of Mathematics in Coq using the Mathematical Components library."""
 
 build: ["dune" "build" "-p" name "-j" jobs]
 depends: [

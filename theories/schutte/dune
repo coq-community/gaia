@@ -1,7 +1,7 @@
 (coq.theory
- (name gaia.ordinal_types)
- (package coq-gaia-ordinal-types)
- (synopsis "Ordinal types in Coq using Mathematical Components")
+ (name gaia.schutte)
+ (package coq-gaia-schutte)
+ (synopsis "Implementation of ordinals in Coq following Schütte and Ackermann")
  (flags :standard
    -w -notation-overridden
    -w -notation-incompatible-format

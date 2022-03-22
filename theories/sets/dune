@@ -1,7 +1,7 @@
 (coq.theory
  (name gaia.sets)
- (package coq-gaia-sets)
- (synopsis "Implementation of sets from Bourbaki's Elements of Mathematics in Coq")
+ (package coq-gaia-theory-of-sets)
+ (synopsis "Implementation of the Theory of Sets from Bourbaki's Elements of Mathematics in Coq")
  (flags :standard
    -w -notation-overridden
    -w -notation-incompatible-format
