@@ -461,14 +461,14 @@ have le2: olimsup f b <=o l.
   by apply (ord_ub_sup ol) => t /funI_P [i /H [ia ib] ->]; apply: etc.
 case: (ole_eqVlt  (oleT le1 le2)) => h.
   by split => //; apply: oleA => //; rewrite h.
-move/lfl:h => [i lib etc].
+move/lfl:h => [i ltib etc].
 pose Fj j := (fun_image (ordinal_interval j b) f).
 have ha j: j <o b -> nonempty (Fj j). 
   move => ljb; apply: funI_setne; exists j; apply/H; split => //.
   exact: (oleR (proj31_1 ljb)).
 have hb j: j <o b -> ordinal_set (Fj j).
   by move => ljb t /funI_P [k /H/proj2/ofs ox ->].
-move :(ordinal_setI  (ha _ lib) (hb _ lib)) => /funI_P [j /H [ja jb] jc].
+move :(ordinal_setI  (ha _ ltib) (hb _ ltib)) => /funI_P [j /H [ja jb] jc].
 move: (etc j ja jb); rewrite - jc { etc j ja jb jc} => lt1.
 pose E :=  (fun_image b  (fun k => intersection (Fj k))).
 have osE: ordinal_set E.
