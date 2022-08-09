@@ -635,7 +635,7 @@ move => oa ob; split.
   - by right.
   - move => h; case:(limit_nonsucc' (osum_limit oa ov) h).
 case; first by move => [-> osa]; rewrite (osum0r oa).
-move => [c oc ->]; rewrite - (osum2_succ oa oc); exists (a+oc); fprops.
+move => [c oc ->]; rewrite - (osum2_succ oa oc); exists (a +o c); fprops.
 Qed.
 
   
@@ -4622,7 +4622,7 @@ Qed.
 Lemma all_der_p13 : f \0o <> \0o -> normal_ofs (g \0o).
 Proof.
 move => fz.
-have pa: forall i j, i <oj -> g \0o i <o g \0o j.
+have pa: forall i j, i <o j -> g \0o i <o g \0o j.
   move => i j ij;move:(ij)=> [[oi oj _] _].
   apply/(all_der_p10 OS0 OS0 oi oj); split => //.
   + move => _; apply: ord_ne0_pos; first by apply:(OS_all_der OS0 oj).

@@ -275,7 +275,7 @@ Qed.
 Lemma nds_k_of_prop f:
    f \0c = \1c -> f \1c = \1c -> 
    (forall n, natp n -> \1c <c n ->
-              f n = ndsC (nds_k_of n) *c f (n -cnds_k_of n)) ->
+              f n = ndsC (nds_k_of n) *c f (n -c nds_k_of n)) ->
    forall n, natp n ->  f n = nds_sol n.
 Proof.
 move => f0 f1 hb.

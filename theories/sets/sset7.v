@@ -712,7 +712,7 @@ Proof.
 split.
   move=> [or or' [otr otr' [f [t [sx iso]]]]];split => //.
   move: (isomorphism_worder_sub (ordinal_o_wor or') sx) =>[].
-  set g := iso_seg_fun _ _ => sw isg; exists (g \cof ), (target g); split => //.
+  set g := iso_seg_fun _ _ => sw isg; exists (g \co f), (target g); split => //.
   exact: (compose_order_is iso isg).
 move=> [or or' [f [t [[sx sxp] oi]]]]; split => //; split; fprops.
 by exists f, t. 

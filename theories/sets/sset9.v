@@ -2685,7 +2685,7 @@ move=> [q1N r1N [aeq r1p]].
 rewrite aeq csumA - cprodDr.
 set q2:= (a +c q).
 have q2N: natp q2 by apply: NS_sum.
-have dp: (cdivision_prop ((B *c q2) +cr) B q2 r) by split. 
+have dp: (cdivision_prop ((B *c q2) +c r) B q2 r) by split.
 by move: (cquorem_pr (NS_sum (NS_prod BN q2N) r1N) BN q2N r1N dp) => [_].
 Qed.
 
@@ -4124,7 +4124,7 @@ Proof.
 move=> h.
 move:(cleR (CS_sum2 a b)).  
 move:(NS_sum (proj31 h)(proj32 h)).
-move: {1 3}(a+cb) => n nN; move: n nN a b h; apply:Nat_induction.
+move: {1 3}(a +c b) => n nN; move: n nN a b h; apply:Nat_induction.
   move => a b [aN bN cab] /cle0 /csum_nz [az bz].
   set H := cdivides_zero NS0.
   by rewrite az bz in cab;move: (card1_nz(esym (cab \0c H H))).
@@ -7980,7 +7980,7 @@ suff eq: (sn +c sn = aux).
   by rewrite csum_nn -nsp [RHS] even_half.
 rewrite /aux cprodC /sn nsp.
 rewrite nsp in nN.
-have fim: (forall i,  i <c (csucc p) -> (fun i=> i +c (p -ci)) i = p).
+have fim: (forall i,  i <c (csucc p) -> (fun i=> i +c (p -c i)) i = p).
   by move=> i /(cltSleP pN) => ilp; apply: cdiff_pr. 
 rewrite - (fct_sum_const1 nN fim).
 rewrite - (sum_of_sums (fun i => i) (fun i=> (p -c i)) (csucc p)).
