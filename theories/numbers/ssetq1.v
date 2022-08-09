@@ -2190,7 +2190,7 @@ Qed.
 End  BQdiffProps4.
 
 Lemma BQdiv_div_simp a b c: ratp a -> ratp b -> ratp c -> b <> \0q ->
-    (a /q b) /q (c /q b) = a /qc.
+    (a /q b) /q (c /q b) = a /q c.
 Proof.
 move => aq bq cq bnz. 
 move:  (QS_inv bq)  (QS_inv cq) => biq ciq.

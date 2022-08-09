@@ -1256,7 +1256,7 @@ Qed.
 
 Definition oprod2_comm_P4 x y :=
   exists z gamma c1 c2,
-  [/\ cnfp_nz z, \0o <ooexp z \0c, ordinalp gamma & 
+  [/\ cnfp_nz z, \0o <o oexp z \0c, ordinalp gamma &
   [/\ natp c1, natp c2,
   x = cnf_val z,
   cnf_degree z = gamma *o c1 &

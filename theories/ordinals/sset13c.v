@@ -83,7 +83,7 @@ Lemma Vr_oor x e: ~inc e (cnf_exponents x) -> Vr x e = \0c.
 Proof. by move => h; rewrite /Vr (Vg_out_of_range h). Qed.
   
 Lemma cnf_nat_sum_p2 x y : cnfp x -> cnfp y ->  forall e,
-   Vr (x +#fy) e =  (Vr x e) +c  Vr y e.
+   Vr (x +#f y) e =  (Vr x e) +c  Vr y e.
 Proof.
 move => ox oy e.
 move:(cnf_sort_correct (cnf_nat_sum_range ox oy)).
@@ -107,7 +107,7 @@ Qed.
 
 
 Lemma cnf_nat_sum_p3 x y z : cnfp x -> cnfp y -> cnfp z ->
-  (forall e, Vr z e =  (Vr x e) +c  Vr y e) -> z = x +#fy.
+  (forall e, Vr z e =  (Vr x e) +c  Vr y e) -> z = x +#f y.
 Proof.
 move => ox oy oz hz.
 move:(cnfp_nat_sum ox oy) (cnf_nat_sum_p2 ox oy); set t := cnf_nat_sum x y.
