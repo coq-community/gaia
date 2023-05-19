@@ -506,7 +506,7 @@ Lemma stirling_partition  (T: finType) (E: {set T}) (p:nat):
 Proof.
 move: p; elim: {E} #|E| {1 3} E (refl_equal  #|E|).
   move => E /cards0_eq => ->; case.
-     apply: (eq_card1 (x := (@set0 (set_of_finType T)))) => p.
+     apply: (eq_card1 (x := (@set0 {set T}))) => p.
      rewrite !inE cards_eq0 /= partition_set0; case : (p == set0) => //.
   move => n;apply: eq_card0 => p; rewrite !inE partition_set0 -cards_eq0. 
   by apply /andP=> [[/eqP ->]].
@@ -2116,7 +2116,7 @@ Qed.
 Lemma cardinal_tuple_nm n m:
   #|[set s: m.-tuple bool | DP_Tcount s == n]| = 'C(m,n).
 Proof.
-move: (card_draws (ordinal_finType m) n); rewrite card_ord => <-.
+move: (card_draws 'I_m n); rewrite card_ord => <-.
 rewrite card_set_pred -(card_imset _  (@list_to_set_inj m));apply: eq_card => x.
 rewrite !inE; apply/imsetP/idP => [ [y yp yv] | cx].
   by rewrite set_to_list_cardinal yv (list_to_setK (size_tuple y))//.
@@ -2299,7 +2299,7 @@ Lemma cardinal_tuple_nSSn n:
   #|[set s: (n.*2.+2).-tuple bool | (DP_Tcount s == n.+1) && ~~Dyck_path s ]|
    = 'C(n.*2.+2,n).
 Proof.
-move: (card_draws (ordinal_finType (n.*2.+2)) n); rewrite card_ord => <-.
+move: (card_draws 'I_(n.*2.+2) n); rewrite card_ord => <-.
 rewrite cardinal_swap_but_last card_set_pred.
 rewrite -(card_imset _ (@list_to_set_inj (n.*2.+2)));apply: eq_card => x.
 rewrite !inE; apply/imsetP/idP => [ [y yp yv] | cx].
@@ -3509,7 +3509,7 @@ apply:eq_card => f; rewrite in_set in_set; apply /imsetP.
 case: ifP => lef; last first.
    by move=> [x]; rewrite inE  => meq fr; move:lef; rewrite fr restr_pr2.
 move: (leq_subr (\sum_(i < m) f i)  n); rewrite -ltnS => le2.
-pose g : {ffun ordinal_finType m.+1 -> ordinal_finType n.+1} :=
+pose g : {ffun 'I_m.+1 -> 'I_n.+1} :=
   [ffun i:'I_(m.+1) => if (unlift ord_max i)  is Some j then f j
     else (Ordinal le2)].
 have gi : forall i: 'I_m, g (widen_ord (leqnSn m) i) = f i.

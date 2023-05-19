@@ -2,7 +2,7 @@
   Copyright INRIA (2013-2013) Marelle Team (José Grimm).
   After a work of Castéran
 *)
-
+From HB Require Import structures.
 From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
 From mathcomp Require Import fintype bigop.
 
@@ -372,9 +372,7 @@ move=> n m; apply: (iffP idP) => [|<-].
 by elim: n => // t ct n a caa /=;rewrite ct caa eqxx.
 Qed.
 
-
-Canonical T1_eqMixin := EqMixin T1eqP.
-Canonical T1_eqType := Eval hnf in EqType T1 T1_eqMixin.
+#[hnf] HB.instance Definition _ := hasDecEq.Build T1 T1eqP.
 
 Arguments T1eqP {x y}.
 Prenex Implicits T1eqP.
@@ -2868,9 +2866,7 @@ move=> x y; apply: (iffP idP) => [|<-].
 by elim: x => // a Ha b Hb n d Hd; rewrite /= Ha Hb Hd eqxx.
 Qed.
 
-
-Canonical T2_eqMixin := EqMixin T2eqP.
-Canonical T2_eqType := Eval hnf in EqType T2 T2_eqMixin.
+#[hnf] HB.instance Definition _ := hasDecEq.Build T2 T2eqP.
 
 Arguments T2eqP {x y}.
 Prenex Implicits T2eqP.
@@ -4363,12 +4359,12 @@ case:(phi_cases a b); last first.
     set v1 := (T2_pr1 (T2pred b')); set v2 := (T2_pr2 (T2pred b')).
     simpl; rewrite T2lt_consE -T2lt_psi ltnn eqxx.
     case ta: ([u1,u2]==one).
-        case tb: ([v1,v2]==one); first by rewrite T2ltnn.
+      case tb: (cons v1 v2 O zero == one); first by rewrite T2ltnn.
         rewrite (eqP ta) T2gt1 tb //.
-    case tb: ([v1, v2] == one).
+    case tb: (cons v1 v2 O zero == one).
       move: ta;  rewrite T2lt_consE -T2lt_psi T2lt1 T2eqE !eqxx !andbT/=.
       by move => ->.
-    rewrite T2lt_consE -T2lt_psi ltnn eqxx; case: ([u1, u2] < [v1, v2]) => //.
+    rewrite T2lt_consE -T2lt_psi ltnn eqxx; case: ([u1, u2] < cons v1 v2 O zero) => //.
     case: ((u1 == v1) && (u2 == v2)) => //.
     case m => //;[ by  case n | by move => m'; case n].
   case => h; last first.
@@ -4601,9 +4597,7 @@ move=> x y; apply: (iffP idP) => [|<-].
 by elim: x => // a Ha b Hb c Hc n d Hd; rewrite /= Ha Hb Hc Hd eqxx.
 Qed.
 
-
-Canonical T3_eqMixin := EqMixin T3eqP.
-Canonical T3_eqType := Eval hnf in EqType T3 T3_eqMixin.
+#[hnf] HB.instance Definition _ := hasDecEq.Build T3 T3eqP.
 
 Arguments T3eqP {x y}.
 Prenex Implicits T3eqP.

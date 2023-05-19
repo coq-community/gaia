@@ -410,7 +410,7 @@ End RingPoly.
 Section PolyFormulas.
 
 
-Lemma intmul_inj: injective(fun z:nat => (@intmul int_Ring 1%Z z)).
+Lemma intmul_inj: injective(fun z:nat => (@intmul int 1%Z z)).
 Proof. by move=> a b /=; rewrite !intz =>  sf; injection sf. Qed.
 
 Lemma bin_vandermonde (k l i:nat): 

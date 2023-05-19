@@ -899,7 +899,7 @@ Qed.
 Lemma floorp2 x (y: int): y%:Q <= x < y%:Q +1 ->  y = floorq x.
 Proof.
 move: (floorp1 x) => /andP [sa sb] /andP [sc sd].
-apply/eqP;  rewrite Order.POrderTheory.eq_le - !ltz_addr1 -! (ltr_int rat_numDomainType).
+apply/eqP;  rewrite Order.POrderTheory.eq_le - !ltz_addr1 -! (ltr_int rat).
 by rewrite - !succq (Order.POrderTheory.le_lt_trans sc sb) (Order.POrderTheory.le_lt_trans sa sd).
 Qed.
 
@@ -1017,8 +1017,8 @@ rewrite invrN (opprK (Sn x)^-1)  /Sn invrK opprB.
 set W := (floorq x)%:~R; set t := (1 + W * 2%N%:~R); set a := (1 + (W + W)).
 have ->: -t =  (- (1 + (floorq x) * 2%N))%:Q.
   rewrite /t /W opprD opprD  intrD - intrM - mulrNz //=.
-rewrite floor_sum intrD intr_N intrD intrM /t !doubleq -/W  (addrACA W). 
-by rewrite -/a addrA addrA  addrCA subrr addr0 (addrC _ a) subrr add0r.
+rewrite floor_sum intrD intr_N intrD intrM /t !doubleq -/W  (addrACA W).
+by rewrite -/a addrA [1 + _]addrA [X in X + a - x]addrA subrK subrr add0r.
 Qed.
 
 
