@@ -61,15 +61,15 @@ license:
   identifier: MIT
 
 supported_coq_versions:
-  text: '8.10 or later'
-  opam: '{(>= "8.10" & < "8.17~") | (= "dev")}'
+  text: '8.16 or later'
+  opam: '{>= "8.16"}'
 
 dependencies:
 - opam:
     name: coq-mathcomp-ssreflect
-    version: '{(>= "1.12.0" & < "1.16~") | (= "dev")}'
+    version: '{>= "2.0"}'
   description: |-
-    [MathComp ssreflect 1.12 or later](https://math-comp.github.io)
+    [MathComp ssreflect 2.0 or later](https://math-comp.github.io)
 - opam:
     name: coq-mathcomp-algebra
   description: |-
@@ -78,41 +78,13 @@ dependencies:
 tested_coq_opam_versions:
 - version: 'coq-dev'
   repo: 'mathcomp/mathcomp-dev'
+- version: 'coq-8.17'
+  repo: 'mathcomp/mathcomp-dev'
 - version: 'coq-8.16'
   repo: 'mathcomp/mathcomp-dev'
-- version: 'coq-8.15'
-  repo: 'mathcomp/mathcomp-dev'
-- version: 'coq-8.14'
-  repo: 'mathcomp/mathcomp-dev'
-- version: 'coq-8.13'
-  repo: 'mathcomp/mathcomp-dev'
-- version: '1.15.0-coq-8.16'
+- version: '2.0.0-coq-8.17'
   repo: 'mathcomp/mathcomp'
-- version: '1.15.0-coq-8.15'
-  repo: 'mathcomp/mathcomp'
-- version: '1.15.0-coq-8.14'
-  repo: 'mathcomp/mathcomp'
-- version: '1.14.0-coq-8.15'
-  repo: 'mathcomp/mathcomp'
-- version: '1.14.0-coq-8.14'
-  repo: 'mathcomp/mathcomp'
-- version: '1.13.0-coq-8.14'
-  repo: 'mathcomp/mathcomp'
-- version: '1.13.0-coq-8.13'
-  repo: 'mathcomp/mathcomp'
-- version: '1.13.0-coq-8.12'
-  repo: 'mathcomp/mathcomp'
-- version: '1.13.0-coq-8.11'
-  repo: 'mathcomp/mathcomp'
-- version: '1.12.0-coq-8.14'
-  repo: 'mathcomp/mathcomp'
-- version: '1.12.0-coq-8.13'
-  repo: 'mathcomp/mathcomp'
-- version: '1.12.0-coq-8.12'
-  repo: 'mathcomp/mathcomp'
-- version: '1.12.0-coq-8.11'
-  repo: 'mathcomp/mathcomp'
-- version: '1.12.0-coq-8.10'
+- version: '2.0.0-coq-8.16'
   repo: 'mathcomp/mathcomp'
 
 namespace: gaia

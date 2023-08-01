@@ -2087,10 +2087,10 @@ have: x *+ 2  = z + (y+1) by rewrite /z subrK.
 have h u: (u.*2)%:Z = (u%:Z) *+ 2 by rewrite -muln2 PoszM - mulr_natr.
 case: eq3 => ->; rewrite hb eq1 ha - PoszD fib_doubleS mulnC.
   rewrite  - addnA (addnA (fib n.*2 ^ 2)%N) -(DE1_sol n).
-  by move/eqP;rewrite addnn h eqr_muln2r /= => /eqP; left.
+  by move/eqP;rewrite addnn h eqrMn2r /= => /eqP; left.
 move => hw; right; apply/eqP;move: (DE1_sol n) hw.
 rewrite -[X in _ *+2 = X] opprK opprD opprK - addnA addn1 => ->.
-by move/eqP; rewrite addnAC addnn PoszD addrK h -mulNrn eqr_muln2r.
+by move/eqP; rewrite addnAC addnn PoszD addrK h -mulNrn eqrMn2r.
 Qed.
 
 Lemma DE_eq6_neg x y: y <0 -> DE_eq6 x y -> 
@@ -2115,10 +2115,10 @@ have h u: (u.*2)%:Z = (u%:Z) *+ 2 by rewrite -muln2 PoszM - mulr_natr.
 have: x *+ 2  = z +1 + (-(-y)) by rewrite opprK addrAC -addrA /z subrK.
 case: eq4 => ->; rewrite hb -doubleS fib_doubleS eq1 ha.
   rewrite - (PoszD _ 1%N) addnAC (DE2_sol n) addnAC PoszD addrK addnn.
-  by move/eqP; rewrite h eqr_muln2r /= => /eqP; left.
+  by move/eqP; rewrite h eqrMn2r /= => /eqP; left.
 move => hw; right; apply/eqP; move /eqP: hw.
 rewrite addrAC -opprD - PoszD - addnA -(DE2_sol n) addnA addnn PoszD opprD.
-by rewrite addrK h -mulNrn eqr_muln2r.
+by rewrite addrK h -mulNrn eqrMn2r.
 Qed.
 
 
