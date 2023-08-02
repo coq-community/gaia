@@ -1681,7 +1681,7 @@ have sh: surjection h.
   by ex_tac; rewrite /hz; aw; rewrite Y_false. 
 have WWh: forall x, inc x Ea -> Vf f (hz x) = Vf (canon_proj r) (P x).
   move=> x xEa.
-  have xE: inc x E by rewrite /E; aw; intuition.
+  have xE: inc x E by rewrite /E; aw; intuition auto with fprops.
   have Ps: inc (P x) (substrate r) by rewrite - sr -gzP//; apply: gzp'.
   rewrite /hz canon_proj_V//.
   move /setX_P: xEa=> [px PF] /set1_P ->; Ytac0.

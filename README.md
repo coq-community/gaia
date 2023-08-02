@@ -36,9 +36,9 @@ and number theory.
 - Coq-community maintainer(s):
   - Laurent Théry ([**@thery**](https://github.com/thery))
 - License: [MIT License](LICENSE)
-- Compatible Coq versions: 8.10 or later
+- Compatible Coq versions: 8.16 or later
 - Additional dependencies:
-  - [MathComp ssreflect 1.12 or later](https://math-comp.github.io)
+  - [MathComp ssreflect 2.0 or later](https://math-comp.github.io)
   - [MathComp algebra](https://math-comp.github.io)
 - Coq namespace: `gaia`
 - Related publication(s):

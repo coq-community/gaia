@@ -745,7 +745,7 @@ case: (emptyset_dichot c) => hyp.
   have [pa pb pc]:= empty_function_function.
   rewrite ae in pb; rewrite hyp in pc.
   exists (bcreate pa pb pc) => v.
-  elimtype False; rewrite -ae in v; case: v.
+  exfalso; rewrite -ae in v; case: v.
 have [x [xc _]]:= hyp.
 move: (exists_left_inv_from_injC (inhabits xc) ig) => [r rv].
 exists (r \o f). 
