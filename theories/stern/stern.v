@@ -1294,7 +1294,7 @@ case: (posnP (b %/ a)) => qp.
   by move: dvde (ltnW lab);rewrite qp mul0n add0n leqNgt=> ->; rewrite R3.
 set q := (b %/ a)%:Z%:Q.
 have ap':a%:Z%:Q != 0 by rewrite  intq_eq0; move: ap; case (a).
-have ->: a%:~R / b%:~R = 1 / (q + (b %% a)%:~R / a%:~R).
+have ->: a%:~R / b%:~R = 1 / (q + (b %% a)%R%:~R / a%:~R).
   by rewrite - invf_div div1r {1}dvde ratN_D mulrDl ratN_M  mulfK.
 have rq: rat_in_P q.
   by rewrite /q -{1} (prednK qp) rat_in_P_nat /=.
