@@ -1309,7 +1309,7 @@ rewrite !muln1 mulnDl mulnC addnCA; congr (_ + _).
 Qed.
 
 
-Lemma F22 n: \sum_(i<n) i `! * i = n `! .-1.
+Lemma F22 n: \sum_(i<n) i `! * i = (n `! ).-1.
 Proof.
 elim: n; first by rewrite big_ord0.
 move => n Hrec;rewrite  big_ord_recr /=  Hrec {Hrec}.
