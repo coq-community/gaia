@@ -4731,7 +4731,7 @@ move: sc => [ix sx].
 have pf':~ (exists a : Set, cpow_less_ec_prop \2c x a).
   by move => [a [px py]]; case: pf; exists a.
 move: (cpow_less_ec_pr6 ix le22 pf') => eq1.
-have pa: (\2c ^c \cf (\2c ^<c x)) <c \2c ^<c x.
+have pa: (\2c ^c (\cf (\2c ^<c x))) <c \2c ^<c x.
   have pb:= (cofinality_small ix).
   move: (aux _ (conj pb sx)) => [b [p1 p2 p3]].
   by rewrite eq1; apply: (clt_leT p3); apply: cpow_less_pr2.

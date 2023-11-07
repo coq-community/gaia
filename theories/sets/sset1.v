@@ -111,7 +111,7 @@ Axiom IM_P :  forall (x : Set) (f : x -> Set) (y : Set),
 
 Axiom p_or_not_p: forall P:Prop,  P \/ ~ P.
 
-Lemma ixm (P: Prop): P + ~P.
+Lemma ixm (P: Prop): P + (~P).
 Proof.
 apply: (chooseT (fun _ => True)).
 by case: (p_or_not_p P) => H;constructor; [ left | right ].
@@ -1030,7 +1030,7 @@ Definition powerset (x : Set) :=
  IM (fun p : x -> C2 =>
     Zo x (fun y : Set => forall hyp : inc y x, Ro (p (Bo hyp)) = C0)).
 
-Notation "\Po E" :=   (powerset E) (at level 40).  
+Notation "\Po E" :=   (powerset E) (at level 30).
 
 Lemma setP_i y x : sub y x -> inc y (\Po x). 
 Proof. 
