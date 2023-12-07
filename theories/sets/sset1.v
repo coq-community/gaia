@@ -2065,7 +2065,7 @@ Definition allf (g: Set) (p: property) :=
    forall x, inc x (domain g) -> (p (Vg g x)).
 
 Notation "f1 =1g f2" := (same_Vg f1 f2)
-  (at level 70, no associativity) : fun_scope.
+  (at level 70, no associativity) : type_scope.
 
 (** The function [V] is well-defined for functional graphs. 
 Here are some properties  *)
