@@ -786,7 +786,7 @@ Definition cstgp (f E: Set) := singl_val_fp (inc ^~E) (Vg f).
 
 
 Notation "f1 =1f f2" := (same_Vf f1 f2)
-  (at level 70, no associativity) : fun_scope.
+  (at level 70, no associativity) : type_scope.
 
 Lemma function_exten3 f g:
   function f -> function g ->
