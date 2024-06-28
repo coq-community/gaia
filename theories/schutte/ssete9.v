@@ -1918,7 +1918,7 @@ Lemma mul_int n m : \F n * \F m = \F (n *m)%N.
 Proof.
 case: n; first by rewrite T1mul0n.
 move => n;case: m; first by rewrite T1muln0 muln0.
-by move => m /=; rewrite - mulnE mulnSr addnC.
+by move=> m /=; rewrite -?mulnE mulnSr addnC.  (* FIXME: remove -?mulnE when requiring Coq >= 8.21 *)
 Qed.
 
 Lemma mul_phi0 a b: phi0 (a + b) = phi0 a * phi0 b.
@@ -3780,7 +3780,7 @@ Lemma T2addn0: right_id zero T2add.    Proof. by case. Qed.
 
 Lemma add_int n m : \F n + \F m = \F (n +m)%N.
 Proof.
-by case: n m => // n [ | m]; rewrite /= - ? addnS  // - addnE addn0.
+by case: n m => // n [ | m]; rewrite /= - ? addnS  // -?addnE addn0.  (* FIXME: remove -?addnE when requiring Coq >= 8.21 *)
 Qed.
 
 Lemma add_fin_omega n: \F n + omega = omega.

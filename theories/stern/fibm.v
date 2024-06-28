@@ -3965,7 +3965,7 @@ apply:ZeckM_prop3; apply/andP; split.
    by elim:n (0) => // k H n /=; rewrite H eqxx.
 rewrite  /Zeck_val - fib_sum !big_ord_recl /=.
 elim:n => [|n Hr];first by rewrite big_nil big_ord0.
-by rewrite big_ord_recr - (eqP Hr) iota_Sr rev_rcons big_cons addnC.
+by rewrite big_ord_recr 1?addnA -(eqP Hr) iota_Sr rev_rcons big_cons addnC.  (* FIXME: change 1?addnA into addnA when requiring Coq >= 8.21 *)
 Qed.
 
 
