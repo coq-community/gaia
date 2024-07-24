@@ -386,7 +386,7 @@ Lemma BZopp_sg x: intp x -> x <> \0z ->
 Proof.
 move => pa pb; rewrite /int_np /int_pp.
 have pnz: (P x <> \0c) by move => h; case: pb; apply: BZ_0_if_val0.
-by rewrite /BZopp /BZ_of_nat /BZm_of_nat; Ytac0;Ytac sx; aw; rewrite ? sx. 
+by rewrite /BZopp /BZ_of_nat /BZm_of_nat; Ytac0;Ytac sx; aw; rewrite ? sx; split.
 Qed.
 
 Lemma BZopp_positive1 x: inc x BZps -> inc (BZopp x) BZms.
