@@ -956,7 +956,7 @@ move => x;rewrite /Stern_prev_fct /Sn invrN invrK opprB - intrM.
 rewrite -{2}(intrD _ 1%:Z) -intr_N floor_sum - intrM - intr_N.
 rewrite -[in  X in _ + X] mulNr  (opprB (floorq x)).
 rewrite {2} mulz2 (addrA 1) addrK  -(addrA x) -opprD (addrC _ 1) - !(intrD _ 1%:Z).
-by rewrite mulz2 mulz2 addrACA addrA addrNK. 
+by rewrite mulz2 mulz2 addrACA [X in X%:~R]addrA addrNK. 
 Qed.
 
 (* ORIG 
@@ -1018,7 +1018,7 @@ set W := (floorq x)%:~R; set t := (1 + W * 2%N%:~R); set a := (1 + (W + W)).
 have ->: -t =  (- (1 + (floorq x) * 2%N))%:Q.
   rewrite /t /W opprD opprD  intrD - intrM - mulrNz //=.
 rewrite floor_sum intrD intr_N intrD intrM /t !doubleq -/W  (addrACA W).
-by rewrite -/a addrA [1 + _]addrA [X in X + a - x]addrA subrK subrr add0r.
+by rewrite -/a [LHS]addrA [1 + _]addrA [(1 + _) + _]addrA subrK subrr add0r.
 Qed.
 
 
