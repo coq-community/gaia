@@ -17,6 +17,7 @@ depends: [
   "dune" {>= "3.5"}
   "coq" {>= "8.16"}
   "coq-mathcomp-ssreflect" {>= "2.0"}
+  "coq-hierarchy-builder" {>= "1.6.0"}
 ]
 
 tags: [

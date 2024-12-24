@@ -1,0 +1,25 @@
+-Q . gaia.ordinals
+
+-arg -w -arg -notation-overridden
+-arg -w -arg -notation-incompatible-format
+-arg -w -arg -ambiguous-paths
+-arg -w -arg -deprecated-hint-without-locality
+-arg -w -arg -deprecated-ident-entry
+-arg -w -arg -deprecated-hint-rewrite-without-locality
+
+sset11.v
+sset12.v
+sset13a.v
+sset13b.v
+sset13c.v
+sset14.v
+sset15.v
+sset16a.v
+sset16b.v
+sset16c.v
+sset17.v
+ssete10.v
+ssete2.v
+ssete3.v
+ssete4.v
+ssete5.v

@@ -1,0 +1,18 @@
+-Q . gaia.numbers
+
+-arg -w -arg -notation-overridden
+-arg -w -arg -notation-incompatible-format
+-arg -w -arg -ambiguous-paths
+-arg -w -arg -deprecated-hint-without-locality
+-arg -w -arg -deprecated-ident-entry
+-arg -w -arg -deprecated-hint-rewrite-without-locality
+
+ssetc.v
+ssetr.v
+ssetz.v
+ssetq1.v
+ssetq2.v
+ssete6.v
+ssete7.v
+ssete8.v
+ssete11.v

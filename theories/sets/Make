@@ -1,0 +1,23 @@
+-Q . gaia.sets
+
+-arg -w -arg -notation-overridden
+-arg -w -arg -notation-incompatible-format
+-arg -w -arg -ambiguous-paths
+-arg -w -arg -deprecated-hint-without-locality
+-arg -w -arg -deprecated-ident-entry
+-arg -w -arg -deprecated-hint-rewrite-without-locality
+
+sset10.v
+sset18.v
+sset19.v
+sset1.v 
+sset2_aux.v
+sset2.v
+sset3.v
+sset4.v
+sset5.v
+sset6.v
+sset7.v
+sset8.v
+sset9.v
+ssete1.v
