@@ -39,6 +39,7 @@ and number theory.
 - Compatible Coq versions: 8.16 or later
 - Additional dependencies:
   - [MathComp ssreflect 2.0 or later](https://math-comp.github.io)
+  - [Hierarchy Builder 1.6.0 or later](https://github.com/math-comp/hierarchy-builder)
   - [MathComp algebra](https://math-comp.github.io)
 - Coq namespace: `gaia`
 - Related publication(s):

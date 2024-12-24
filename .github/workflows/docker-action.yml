@@ -1,5 +1,3 @@
-# This file was generated from `meta.yml`, please do not edit manually.
-# Follow the instructions on https://github.com/coq-community/templates to regenerate.
 name: Docker CI
 
 on:
@@ -18,8 +16,10 @@ jobs:
       matrix:
         image:
           - 'mathcomp/mathcomp-dev:coq-dev'
+          - 'mathcomp/mathcomp-dev:coq-8.20'
           - 'mathcomp/mathcomp-dev:coq-8.19'
           - 'mathcomp/mathcomp-dev:coq-8.18'
+          - 'mathcomp/mathcomp:2.3.0-coq-8.20'
           - 'mathcomp/mathcomp:2.2.0-coq-8.19'
           - 'mathcomp/mathcomp:2.1.0-coq-8.18'
           - 'mathcomp/mathcomp:2.1.0-coq-8.17'
@@ -38,46 +38,46 @@ jobs:
             startGroup "Build gaia-theory-of-sets dependencies"
               opam pin add -n -y -k path coq-gaia-theory-of-sets .
               opam update -y
-              opam install -y -j 2 coq-gaia-theory-of-sets --deps-only
+              opam install -y -j $(nproc) coq-gaia-theory-of-sets --deps-only
             endGroup
             startGroup "Build gaia-theory-of-sets"
-              opam install -y -v -j 2 coq-gaia-theory-of-sets
+              opam install -y -v -j $(nproc) coq-gaia-theory-of-sets
               opam list
             endGroup
             startGroup "Build gaia-schutte dependencies"
               opam pin add -n -y -k path coq-gaia-schutte .
               opam update -y
-              opam install -y -j 2 coq-gaia-schutte --deps-only
+              opam install -y -j $(nproc) coq-gaia-schutte --deps-only
             endGroup
             startGroup "Build gaia-schutte"
-              opam install -y -v -j 2 coq-gaia-schutte
+              opam install -y -v -j $(nproc) coq-gaia-schutte
               opam list
             endGroup
             startGroup "Build gaia-ordinals dependencies"
               opam pin add -n -y -k path coq-gaia-ordinals .
               opam update -y
-              opam install -y -j 2 coq-gaia-ordinals --deps-only
+              opam install -y -j $(nproc) coq-gaia-ordinals --deps-only
             endGroup
             startGroup "Build gaia-ordinals"
-              opam install -y -v -j 2 coq-gaia-ordinals
+              opam install -y -v -j $(nproc) coq-gaia-ordinals
               opam list
             endGroup
             startGroup "Build gaia-numbers dependencies"
               opam pin add -n -y -k path coq-gaia-numbers .
               opam update -y
-              opam install -y -j 2 coq-gaia-numbers --deps-only
+              opam install -y -j $(nproc) coq-gaia-numbers --deps-only
             endGroup
             startGroup "Build gaia-numbers"
-              opam install -y -v -j 2 coq-gaia-numbers
+              opam install -y -v -j $(nproc) coq-gaia-numbers
               opam list
             endGroup
             startGroup "Build gaia-stern dependencies"
               opam pin add -n -y -k path coq-gaia-stern .
               opam update -y
-              opam install -y -j 2 coq-gaia-stern --deps-only
+              opam install -y -j $(nproc) coq-gaia-stern --deps-only
             endGroup
             startGroup "Build gaia-stern"
-              opam install -y -v -j 2 coq-gaia-stern
+              opam install -y -v -j $(nproc) coq-gaia-stern
               opam list
             endGroup
             startGroup "Uninstallation test"
