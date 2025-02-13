@@ -4,6 +4,7 @@
 
 (* $Id: stern.v,v 1.6 2018/07/17 15:49:43 grimm Exp $ *)
 
+From Coq Require BinPos.
 From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
 From mathcomp Require Import seq choice fintype order bigop ssralg.
 From mathcomp Require Import div ssrnum ssrint rat prime path binomial.

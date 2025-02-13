@@ -2,6 +2,7 @@
 Bourbaki aux fime
 *)
 
+From Coq Require Import Setoid.
 From mathcomp Require Import ssreflect ssrfun ssrbool eqtype.
 From mathcomp Require Import ssrnat seq path div.
 From mathcomp Require Import fintype tuple finfun bigop finset binomial.

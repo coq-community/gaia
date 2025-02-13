@@ -19,12 +19,17 @@ Unset Printing Implicit Defensive.
 Module Nds.
 
 (* Ancillary lemmas that sow equivalence of unary/ninary numbers *)
-  
+
+Lemma nat_of_add_bin b1 b2 : N.add b1 b2 = b1 + b2 :> nat.
+Proof. by case: b1 b2 => [|p] [|q]; rewrite ?addn0 //= nat_of_add_pos. Qed.
+
 Lemma NoB_add a b : N.add(bin_of_nat a) (bin_of_nat b) = bin_of_nat (a +b).
 Proof.
 by rewrite - (nat_of_binK (_ + _)%num) nat_of_add_bin !bin_of_natK. 
 Qed.
 
+Lemma nat_of_mul_bin b1 b2 : N.mul b1 b2 = b1 * b2 :> nat.
+Proof. by case: b1 b2 => [|p] [|q]; rewrite ?muln0 //= nat_of_mul_pos. Qed.
 
 Lemma NoB_mul a b : N.mul (bin_of_nat a) (bin_of_nat b) = bin_of_nat (a  * b).
 Proof.
