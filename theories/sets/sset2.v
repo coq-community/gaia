@@ -4,6 +4,7 @@
 
 (* $Id: sset2.v,v 1.8 2018/09/04 07:58:00 grimm Exp $ *)
 
+From Coq Require Import Setoid.
 From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat.
 From gaia Require Export sset1.
 
