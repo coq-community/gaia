@@ -3,8 +3,8 @@
 *)
 (* $Id: ssetc.v,v 1.3 2018/09/04 07:58:00 grimm Exp $ *)
 
-From mathcomp Require Import ssreflect ssrfun ssrbool eqtype order.
-From mathcomp Require Import ssrnat ssrint ssralg ssrnum div.
+From mathcomp Require Import ssreflect ssrfun ssrbool eqtype ssrnat order.
+From mathcomp Require Import ssralg ssrnum ssrint div.
 From gaia Require Export ssetz ssetq1 ssetq2 ssetr.
 
 Set Implicit Arguments.
